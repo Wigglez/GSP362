@@ -16,13 +16,13 @@ public class laserRifle extends Weapon{
     laserRifle()
     {
         dammage = 6;
-        fireRate = 0.5f;
+        fireRate = 1.5f;
         maxAmmo = 20;
         currentAmmo = 0;
     }
     laserRifle(SimpleApplication gameRef){
         dammage = 6;
-        fireRate = 0.5f;
+        fireRate = 1.5f;
         maxAmmo = 20;
         currentAmmo = 0;
         

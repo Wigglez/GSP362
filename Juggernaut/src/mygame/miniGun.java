@@ -17,14 +17,14 @@ public class miniGun extends Weapon{
     miniGun()
     {
      dammage = 0.5f;
-     fireRate = 4;
+     fireRate = .125f;
      maxAmmo = 100;
      currentAmmo = 0;
     }
     miniGun(SimpleApplication gameRef)
     {
      dammage = 0.5f;
-     fireRate = 4;
+     fireRate = .1f;
      maxAmmo = 100;
      currentAmmo = 0;
      

@@ -20,7 +20,7 @@ import com.jme3.scene.shape.Sphere;
 
 public class Bullet {
     float lifespan;
-    float velocity;
+    Vector3f velocity;
     Vector3f direction;
     float dammage;
     
@@ -31,11 +31,12 @@ public class Bullet {
         
     }
     
-    Bullet(Material bulletMat, float dammage, Vector3f pos, SimpleApplication game, BulletAppState bulletAppState){
+    Bullet(Material bulletMat, float dammage, Vector3f pos, Vector3f dir, SimpleApplication game, BulletAppState bulletAppState){
         sphere = new Sphere(32, 32, .4f, true, false);
         Geometry bulletGeo = new Geometry("Bullet", sphere);
         game.getRootNode().attachChild(bulletGeo);
-        bulletGeo.setLocalTranslation(pos.add(2, 0, 0));
+        Vector3f bulletOffset = new Vector3f(2*dir.x, 0, 0);
+        bulletGeo.setLocalTranslation(pos.add(bulletOffset));
         bulletGeo.setMaterial(bulletMat);
         bulletPhys = new RigidBodyControl(.01f);
         bulletGeo.addControl(bulletPhys);
@@ -44,8 +45,8 @@ public class Bullet {
         
         bulletPhys.setGravity(Vector3f.ZERO);
         
-        bulletPhys.setLinearVelocity(new Vector3f(25,0,0));
-        
+        bulletPhys.setLinearVelocity(new Vector3f(35,0,0).mult(dir));
+        velocity = bulletPhys.getLinearVelocity();
         this.dammage = dammage;
         
     }
@@ -58,9 +59,7 @@ public class Bullet {
         this.lifespan = lifespan;
     }
 
-    public void setVelocity(float velocity) {
-        this.velocity = velocity;
-    }
+    
 
     public Vector3f getDirection() {
         return direction;
@@ -70,7 +69,7 @@ public class Bullet {
         return lifespan;
     }
 
-    public float getVelocity() {
+    public Vector3f getVelocity() {
         return velocity;
     }
     

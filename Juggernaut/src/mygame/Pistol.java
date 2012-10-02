@@ -18,41 +18,19 @@ public class Pistol extends Weapon{
     Pistol()
     {
         dammage = 1;
-        fireRate = 1;
+        fireRate = .75f;
         maxAmmo = 0;
         currentAmmo = 0;  
     }
     Pistol(SimpleApplication gameRef){
         dammage = 1;
-        fireRate = 1;
+        fireRate = .25f;
         maxAmmo = 0;
         currentAmmo = 0;
        
         bulletMaterial = new Material(gameRef.getAssetManager(), "Common/MatDefs/Misc/Unshaded.j3md");
         bulletMaterial.setColor("Color", ColorRGBA.Green);
     }
-//    public class bullet {
-//        float dammage;
-//        float range;
-//
-//        public void setDammage(float dammage) {
-//            this.dammage = dammage;
-//        }
-//
-//        public void setRange(float range) {
-//            this.range = range;
-//        }
-//
-//        public float getDammage() {
-//            return dammage;
-//        }
-//
-//        public float getRange() {
-//            return range;
-//        }
-//        
-//        
-//        
-//    }
+
 }
     

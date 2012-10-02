@@ -18,22 +18,14 @@ public abstract class Weapon {
     protected float fireRate;
     protected int maxAmmo;
     protected int currentAmmo;
-    private float dammageIncrease;
-    private float fireRateIncrease;
-    private float increaseDammage = (float).5;
+    
     protected Material bulletMaterial;
     
     public void setCurrentAmmo(int currentAmmo) {
         this.currentAmmo = currentAmmo;
     }
 
-    public void setDammage(float dammage) {
-        this.dammage = dammage + dammageIncrease;
-    }
-
-    public void setFireRate(float fireRate) {
-        this.fireRate = fireRate + fireRateIncrease;
-    }
+  
 
     public void setMaxAmmo(int maxAmmo) {
         this.maxAmmo = maxAmmo;
@@ -44,7 +36,7 @@ public abstract class Weapon {
     }
 
     public float getDammage() {
-        return dammage + increaseDammage;
+        return dammage;
     }
 
     public float getFireRate() {
@@ -54,26 +46,10 @@ public abstract class Weapon {
     public int getMaxAmmo() {
         return maxAmmo;
     }
-
-    public void setDammageIncrease(float dammageIncrease) {
-        this.dammageIncrease = dammageIncrease;
-    }
-
-    public void setFireRateIncrease(float fireRateIncrease) {
-        this.fireRateIncrease = fireRateIncrease;
-    }
-
-    public float getDammageIncrease() {
-        return dammageIncrease;
-    }
-
-    public float getFireRateIncrease() {
-        return fireRateIncrease;
-    }
     
-    public void Fire(float damageModifier, Vector3f pos, SimpleApplication game, BulletAppState bulletAppState ) {
+    public void Fire(float damageModifier, Vector3f pos, Vector3f dir, SimpleApplication game, BulletAppState bulletAppState ) {
         
-        Bullet bullet = new Bullet(bulletMaterial, dammage * damageModifier, pos, game, bulletAppState);
+        Bullet bullet = new Bullet(bulletMaterial, dammage * damageModifier, pos, dir, game, bulletAppState);
         
     }
     

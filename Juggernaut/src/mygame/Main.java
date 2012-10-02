@@ -180,6 +180,7 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
         
         cam.setLocation(currentView.CamPosition());
         cam.lookAt(currentView.CamLookAt(), Vector3f.UNIT_Y);
+        
 
     }
 
@@ -577,14 +578,14 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
                     width("100%");
                     visibleToMouse(false);
                     
-                    control(new ButtonBuilder("TestHealthButton", "Test Health") {{
-                      alignCenter();
-                      valignBottom();
-                      height("25%");
-                      width("25%");
-                      visibleToMouse(true);
-                      interactOnClick("TestHealth()");
-                        }});
+//                    control(new ButtonBuilder("TestHealthButton", "Test Health") {{
+//                      alignCenter();
+//                      valignBottom();
+//                      height("25%");
+//                      width("25%");
+//                      visibleToMouse(true);
+//                      interactOnClick("TestHealth()");
+//                        }});
                     
 
 
@@ -598,23 +599,23 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
                     width("100%");
                     visibleToMouse(false);
                      
-                     control(new ButtonBuilder("TestArmorButton", "Test Armor") {{
-                      alignCenter();
-                      valignTop();
-                      height("25%");
-                      width("25%");
-                      visibleToMouse(true);
-                      interactOnClick("TestArmor()");
-                        }});
-                     
-                     control(new ButtonBuilder("TestEnergyButton", "Test Energy") {{
-                      alignCenter();
-                      valignBottom();
-                      height("25%");
-                      width("25%");
-                      visibleToMouse(true);
-                      interactOnClick("TestEnergy()");
-                        }});
+//                     control(new ButtonBuilder("TestArmorButton", "Test Armor") {{
+//                      alignCenter();
+//                      valignTop();
+//                      height("25%");
+//                      width("25%");
+//                      visibleToMouse(true);
+//                      interactOnClick("TestArmor()");
+//                        }});
+//                     
+//                     control(new ButtonBuilder("TestEnergyButton", "Test Energy") {{
+//                      alignCenter();
+//                      valignBottom();
+//                      height("25%");
+//                      width("25%");
+//                      visibleToMouse(true);
+//                      interactOnClick("TestEnergy()");
+//                        }});
                     
                     
 
@@ -1193,5 +1194,11 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
         //nifty.setDebugOptionPanelColors(true);
 
 
+    }
+    public StartScreen getHud(){
+        return start;
+    }
+    public Nifty getNifty(){
+        return nifty;
     }
 }

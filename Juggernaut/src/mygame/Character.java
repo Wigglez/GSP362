@@ -12,12 +12,12 @@ import com.jme3.scene.Spatial;
 
 
 public class Character  implements ActionListener{
-    SimpleApplication game;
+    Main game;
     BulletAppState bulletAppState;
     // HUD elements
     private static float currentHealth = 10;
     private static float currentArmor = 10;
-    private static float currentEnergy = 10;
+    private static float currentEnergy = 100;
 
     private static float maxHealth = 100;
     private static float maxArmor = 100;
@@ -32,11 +32,13 @@ public class Character  implements ActionListener{
 
     private static float incomingDamage = 0;
     
-    private static float hoverEnergyCost = 0;
+    private static float hoverEnergyCost = .3f;
     
-    private static float sprintEnergyCost = 0;
+    private boolean sprintActive;
+    private static float sprintEnergyCost = .1f;
     private static float sprintSpeed =0;
     
+    private boolean dashActive;
     private static float dashEnergyCost;
     private static float dashDistance;
     private static float dashDamage;
@@ -49,7 +51,6 @@ public class Character  implements ActionListener{
     // Booleans
     private static boolean pickUpAdded = false;
     private static boolean isShooting = false;
-    private static boolean sprintActive = false;
     private static boolean shieldActive = false;
     private static boolean superJumpActive = false;
     private static boolean hoverActive = false;
@@ -59,8 +60,10 @@ public class Character  implements ActionListener{
     private Weapon weaponSlot2;
     private Weapon weaponSlot3;
     private float damageModifier = 1.0f;
+    private float fireDelay =0;
     
-    private StartScreen start;
+    private float dt, prevTime =0;
+    
     Spatial ninja;
     private CharacterControl player;
 
@@ -70,12 +73,14 @@ public class Character  implements ActionListener{
     private static boolean left = false;
     private static boolean right = false;
     
+    private static boolean isFiring = false;
+    
     Character(){
         
     }
 
 
-    Character(SimpleApplication gameRef, BulletAppState bulletAppStateRef){
+    Character(Main gameRef, BulletAppState bulletAppStateRef){
         
         this.game = gameRef;
         this.bulletAppState = bulletAppStateRef;
@@ -107,6 +112,8 @@ public class Character  implements ActionListener{
         weaponSlot2 = new miniGun(game);
         weaponSlot3 = new laserRifle(game);
         currentWeapon = weaponSlot1;
+        
+        movementSpeed = 0.4f;
     }
     
     void Update(float tpf){
@@ -114,11 +121,11 @@ public class Character  implements ActionListener{
         // Movement
         walkDirection.set( 0, 0, 0);
         if(left) { 
-            walkDirection.addLocal(Vector3f.UNIT_X.negate().multLocal(0.4f));
+            walkDirection.addLocal(Vector3f.UNIT_X.negate().multLocal(movementSpeed));
             player.setViewDirection(walkDirection.negate());
         }
         if(right) { 
-            walkDirection.addLocal(Vector3f.UNIT_X.clone().multLocal(0.4f));
+            walkDirection.addLocal(Vector3f.UNIT_X.clone().multLocal(movementSpeed));
             player.setViewDirection(walkDirection.negate());
         }
         
@@ -129,6 +136,38 @@ public class Character  implements ActionListener{
 
         playerDebug.setLocalTranslation(player.getPhysicsLocation());
         
+        
+        dt = game.getTimer().getTimeInSeconds() - prevTime;
+        prevTime = game.getTimer().getTimeInSeconds();
+        
+        fireDelay += dt;
+        if(isFiring){
+            if(fireDelay > currentWeapon.getFireRate()){
+                fireWeapon();
+                fireDelay = 0;
+            }            
+        }
+        
+        
+        
+        if(hoverActive && currentEnergy > 0){
+            sprintActive = false;
+            hover();
+        } else {
+            player.setFallSpeed(50);
+        }
+        
+        if(sprintActive && currentEnergy > 0){
+            sprint();
+        } else {
+            movementSpeed = 0.4f;
+        }
+        
+        if(currentEnergy < maxEnergy){
+            if(!sprintActive && !hoverActive)
+                currentEnergy += .08f;
+        }
+        System.out.print(currentEnergy + "\n");
     }
 
     private void setUpKeys() {
@@ -136,13 +175,24 @@ public class Character  implements ActionListener{
         game.getInputManager().addMapping("Right", new KeyTrigger(KeyInput.KEY_RIGHT), new KeyTrigger(KeyInput.KEY_D));
         game.getInputManager().addMapping("Jump", new KeyTrigger(KeyInput.KEY_UP), new KeyTrigger(KeyInput.KEY_W));
         game.getInputManager().addMapping("Fire", new KeyTrigger(KeyInput.KEY_SPACE));
+        game.getInputManager().addMapping("Weapon1", new KeyTrigger(KeyInput.KEY_1), new KeyTrigger(KeyInput.KEY_NUMPAD1));
+        game.getInputManager().addMapping("Weapon2", new KeyTrigger(KeyInput.KEY_2), new KeyTrigger(KeyInput.KEY_NUMPAD2));
+        game.getInputManager().addMapping("Weapon3", new KeyTrigger(KeyInput.KEY_3), new KeyTrigger(KeyInput.KEY_NUMPAD3));
+        game.getInputManager().addMapping("Sprint", new KeyTrigger(KeyInput.KEY_RCONTROL));
+        game.getInputManager().addMapping("Hover", new KeyTrigger(KeyInput.KEY_RSHIFT));
         game.getInputManager().addListener(this, "Left");
         game.getInputManager().addListener(this, "Right");
         game.getInputManager().addListener(this, "Jump");
         game.getInputManager().addListener(this, "Fire");
+        game.getInputManager().addListener(this, "Weapon1");
+        game.getInputManager().addListener(this, "Weapon2");
+        game.getInputManager().addListener(this, "Weapon3");
+        game.getInputManager().addListener(this, "Sprint");
+        game.getInputManager().addListener(this, "Hover");
     }
     
     public void onAction(String binding, boolean value, float tpf){
+        game.getHud().bind(game.getNifty(), game.getHud().screen);
         if(binding.equals("Left")){
             left = value;
         } else if(binding.equals("Right")){
@@ -150,7 +200,20 @@ public class Character  implements ActionListener{
         } else if(binding.equals("Jump")){
             player.jump();
         } else if(binding.equals("Fire")){
-            fireWeapon();
+            isFiring = value; 
+        } else if(binding.equals("Weapon1")){
+            switchWeapon(1);
+            game.getHud().weapon1Clicked();
+        }else if(binding.equals("Weapon2")){
+            switchWeapon(2);
+            game.getHud().weapon2Clicked();
+        }else if(binding.equals("Weapon3")){
+            switchWeapon(3);
+            game.getHud().weapon3Clicked();
+        } else if(binding.equals("Sprint")){
+            sprintActive = value;
+        } else if(binding.equals("Hover")){
+            hoverActive = value;
         }
     }
     
@@ -206,7 +269,7 @@ public class Character  implements ActionListener{
     }
     
     public void fireWeapon(){
-        currentWeapon.Fire(damageModifier, player.getPhysicsLocation(), game, bulletAppState);
+        currentWeapon.Fire(damageModifier, player.getPhysicsLocation(), player.getViewDirection().normalize().negate(), game, bulletAppState);
     }
     
     public void upgradeDamageModifier(){
@@ -246,6 +309,26 @@ public class Character  implements ActionListener{
         currentArmor = maxArmor;
         currentEnergy = maxEnergy;
         
+    }
+    
+    private void switchWeapon(int weaponSlot){
+        if(weaponSlot == 1){
+            currentWeapon = weaponSlot1;
+        } else if(weaponSlot == 2){
+            currentWeapon = weaponSlot2;
+        } else if(weaponSlot == 3){
+            currentWeapon = weaponSlot3;
+        }
+    }
+    
+    private void sprint(){
+        movementSpeed = 0.8f;
+        currentEnergy -= sprintEnergyCost;
+    }
+    
+    private void hover(){
+        player.setFallSpeed(6);
+        currentEnergy -= hoverEnergyCost;
     }
     
 }
