@@ -115,32 +115,7 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
         landscape.removeCollideWithGroup(2);    //Prevent collision events between map and camera chunks(collision group 2)
         
         bulletAppState.getPhysicsSpace().add(landscape);
-        
-        //Elevator 1
-        //Create Horizontal moving elevator
-        elevator1 = new Geometry("Elevator1", new Box(4, 1, 5));
-        elevator1.setLocalTranslation(304, 20, 0);
-        elevator1.setMaterial(mark_mat);
-        elvtr1 = new RigidBodyControl(10);
-        elevator1.addControl(elvtr1);
-        elvtr1.setFriction(1000.0f);
-        elvtr1.setKinematic(true);
-        bulletAppState.getPhysicsSpace().add(elvtr1);
-        rootNode.attachChild(elevator1);
-        
-        //Elevator 2
-        //Create Vertical moving elevator
-        elevator2 = new Geometry("Elevator2", new Box(4, 1, 5));
-        elevator2.setLocalTranslation(192, 208, 0);
-        elevator2.setMaterial(mark_mat);
-        elvtr2 = new RigidBodyControl(1000000000);  
-        elevator2.addControl(elvtr2);
-        elvtr2.setAngularDamping(100000.0f);
-        elvtr2.setFriction(1000.0f);
-//        elvtr2.setKinematic(true);
-        bulletAppState.getPhysicsSpace().add(elvtr2);
-        rootNode.attachChild(elevator2);
-                
+              
         
         //Add lights to see the models
         DirectionalLight sun = new DirectionalLight();
@@ -160,15 +135,7 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
         
         //Update player
         Juggernaut.Update(tpf);
-
-        //Move the horizontal elevator back and forth
-        elevator1.setLocalTranslation( 304 + 20*FastMath.cos(timer.getTimeInSeconds()), 20, 0);
-        elvtr1.setPhysicsLocation(elevator1.getLocalTranslation()); 
-
-        //Move Vertical elevator up and down
-        elvtr2.setLinearVelocity(new Vector3f(0, 15*FastMath.cos(timer.getTimeInSeconds()), 0));
-        elvtr2.setPhysicsRotation(Matrix3f.IDENTITY);
-        
+       
         //Step through all views and test if player is in that space
         //If true, set current view to this view
         for(int i = 0; i < views.length; i++){            

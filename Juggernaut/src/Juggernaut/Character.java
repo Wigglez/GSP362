@@ -1,6 +1,5 @@
 package Juggernaut;
 
-import com.jme3.app.SimpleApplication;
 import com.jme3.bullet.BulletAppState;
 import com.jme3.bullet.collision.shapes.CapsuleCollisionShape;
 import com.jme3.bullet.control.CharacterControl;
@@ -97,15 +96,13 @@ public class Character  implements ActionListener{
         player.setPhysicsLocation(new Vector3f(1f,8f,1f));
         player.setViewDirection(new Vector3f(-1.0f, 0, 0));
         player.setCollideWithGroups(2);
-         
-        
         
         playerDebug = player.createDebugShape(game.getAssetManager());
         ninja.addControl(player);
         game.getRootNode().attachChild(playerDebug);
 
         bulletAppState.getPhysicsSpace().add(player);
-        
+      
         setUpKeys();
         
         weaponSlot1 = new Pistol(game);
@@ -117,7 +114,6 @@ public class Character  implements ActionListener{
     }
     
     void Update(float tpf){
-        
         // Movement
         walkDirection.set( 0, 0, 0);
         if(left) { 
@@ -167,7 +163,9 @@ public class Character  implements ActionListener{
             if(!sprintActive && !hoverActive)
                 currentEnergy += .08f;
         }
-        System.out.print(currentEnergy + "\n");
+        
+        game.getHud().bind(game.getNifty(), game.getHud().screen);
+        game.getHud().updateHUD(currentHealth, currentArmor, currentEnergy);
     }
 
     private void setUpKeys() {

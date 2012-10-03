@@ -295,13 +295,30 @@ public class StartScreen extends AbstractAppState implements ScreenController {
        
 //      
     }
-   
+    
+    
+  } 
 
       
       
      
       
 
-  }
+  public void updateHUD(float health,float armor,float energy){
+         
+        Element niftyElement = nifty.getCurrentScreen().findElementByName("PlayerHealth");
+        if(niftyElement != null){
+            // swap old with new image
+            niftyElement.setWidth((int)health * 2);
+
+             niftyElement = nifty.getCurrentScreen().findElementByName("PlayerArmor");
+            // swap old with new image
+            niftyElement.setWidth((int)armor * 2);
+
+            niftyElement = nifty.getCurrentScreen().findElementByName("PlayerEnergy");
+            // swap old with new image
+            niftyElement.setWidth((int)energy * 2);
+        }
+    }
  
 }

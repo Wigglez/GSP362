@@ -37,7 +37,7 @@ Ks 0.500000 0.500000 0.500000
 Ni 1.000000
 d 1.000000
 illum 2
-map_Kd MidTerm Project\trunk\GSP361\Map_Blender\FieryLava.jpg
+map_Kd C:\Users\Vince\Documents\GitHub\GSP362\Closing Kit\Game\Models\FieryLava.jpg
 
 
 newmtl Material.004
@@ -208,7 +208,7 @@ Ks 0.500000 0.500000 0.500000
 Ni 1.000000
 d 1.000000
 illum 2
-map_Kd MidTerm Project\trunk\GSP361\Map_Blender\Metal-Floor.jpg
+map_Kd C:\Users\Vince\Documents\GitHub\GSP362\Closing Kit\Game\Models\Metal-Floor.jpg
 
 
 newmtl Material.021
@@ -239,7 +239,7 @@ Ks 0.500000 0.500000 0.500000
 Ni 1.000000
 d 1.000000
 illum 2
-map_Kd MidTerm Project\trunk\GSP361\Map_Blender\Metal-Floor.jpg
+map_Kd C:\Users\Vince\Documents\GitHub\GSP362\Closing Kit\Game\Models\Metal-Floor.jpg
 
 
 newmtl Material.024_Metal-Floor.jpg
@@ -250,7 +250,7 @@ Ks 0.500000 0.500000 0.500000
 Ni 1.000000
 d 1.000000
 illum 2
-map_Kd MidTerm Project\trunk\GSP361\Map_Blender\Metal-Floor.jpg
+map_Kd C:\Users\Vince\Documents\GitHub\GSP362\Closing Kit\Game\Models\Metal-Floor.jpg
 
 
 newmtl Material.025
