@@ -31,10 +31,10 @@ public class Character  implements ActionListener{
 
     private static float incomingDamage = 0;
     
-    private static float hoverEnergyCost = .3f;
+    private static float hoverEnergyCost = 60f;
     
     private boolean sprintActive;
-    private static float sprintEnergyCost = .1f;
+    private static float sprintEnergyCost = 20f;
     private static float sprintSpeed =0;
     
     private boolean dashActive;
@@ -137,6 +137,7 @@ public class Character  implements ActionListener{
         prevTime = game.getTimer().getTimeInSeconds();
         
         fireDelay += dt;
+        
         if(isFiring){
             if(fireDelay > currentWeapon.getFireRate()){
                 fireWeapon();
@@ -148,20 +149,20 @@ public class Character  implements ActionListener{
         
         if(hoverActive && currentEnergy > 0){
             sprintActive = false;
-            hover();
+            hover(dt);
         } else {
             player.setFallSpeed(50);
         }
         
         if(sprintActive && currentEnergy > 0){
-            sprint();
+            sprint(dt);
         } else {
             movementSpeed = 0.4f;
         }
         
         if(currentEnergy < maxEnergy){
             if(!sprintActive && !hoverActive)
-                currentEnergy += .08f;
+                currentEnergy += 10f * dt;
         }
         
         game.getHud().bind(game.getNifty(), game.getHud().screen);
@@ -319,14 +320,14 @@ public class Character  implements ActionListener{
         }
     }
     
-    private void sprint(){
+    private void sprint(float dt){
         movementSpeed = 0.8f;
-        currentEnergy -= sprintEnergyCost;
+        currentEnergy -= sprintEnergyCost * dt;
     }
     
-    private void hover(){
+    private void hover(float dt){
         player.setFallSpeed(6);
-        currentEnergy -= hoverEnergyCost;
+        currentEnergy -= hoverEnergyCost * dt;
     }
     
 }

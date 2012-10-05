@@ -119,7 +119,7 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
         
         //Add lights to see the models
         DirectionalLight sun = new DirectionalLight();
-        sun.setDirection(new Vector3f(-0.1f, -0.7f, -1.0f));
+        sun.setDirection(new Vector3f(-.5f,  -.5f,-1));
         rootNode.addLight(sun);
         
         AmbientLight al = new AmbientLight();

@@ -25,7 +25,7 @@ public class StartScreen extends AbstractAppState implements ScreenController {
   
   
   public Nifty nifty;
-  private Main main;
+//  private Main main;
   
   private Character Juggernaut;
  
@@ -48,7 +48,7 @@ public class StartScreen extends AbstractAppState implements ScreenController {
  
   public StartScreen() 
   { 
-      main = new Main();
+//      main = new Main();
       Juggernaut = new Character();
       
       minigun = new miniGun();
