@@ -55,6 +55,10 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
     private RigidBodyControl landscape;     //Phyics mesh for map
     
     Character Juggernaut;                   //Game Character
+    Enemy Enemy1;
+    
+    Vector3f spawnLocation;
+    Vector3f spawnDirection;
 
     Geometry elevator1;                     //Elevator 1 - Horizontal motion over lava pit
     RigidBodyControl elvtr1;
@@ -94,6 +98,8 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
         
         //Create the player character
         Juggernaut = new Character(this, bulletAppState);
+        
+        Enemy1 = new Enemy(this, bulletAppState, new Vector3f(60f, 0f, 0f), new Vector3f(-1, 0, 0));
         
         //Creates viewing boxes or Camera Chunks in the world
         setUpCameraBoxes();   
