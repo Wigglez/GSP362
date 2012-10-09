@@ -8,6 +8,10 @@ import com.jme3.input.controls.ActionListener;
 import com.jme3.input.controls.KeyTrigger;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Spatial;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
+import java.util.Vector;
 
 
 public class Character  implements ActionListener{
@@ -60,6 +64,7 @@ public class Character  implements ActionListener{
     private Weapon weaponSlot3;
     private float damageModifier = 1.0f;
     private float fireDelay =0;
+    private Vector<Bullet> bullets= new Vector<Bullet>();
     
     private float dt, prevTime =0;
     
@@ -93,7 +98,6 @@ public class Character  implements ActionListener{
         player.setJumpSpeed(50);
         player.setFallSpeed(50);
         player.setGravity(120);        
-        player.setPhysicsLocation(new Vector3f(1f,8f,1f));
         player.setViewDirection(new Vector3f(-1.0f, 0, 0));
         player.setCollideWithGroups(2);
         
@@ -111,6 +115,7 @@ public class Character  implements ActionListener{
         currentWeapon = weaponSlot1;
         
         movementSpeed = 0.4f;
+        
     }
     
     void Update(float tpf){
@@ -146,6 +151,15 @@ public class Character  implements ActionListener{
         }
         
         
+        for(int bulletItr = 0; bulletItr < bullets.size(); bulletItr++){
+            Bullet testBullet = bullets.get(bulletItr);
+            if(testBullet.LifeTime(dt) ){
+                testBullet.delete(game, bulletAppState);
+                bullets.remove(bulletItr);
+            }
+
+        }
+         
         
         if(hoverActive && currentEnergy > 0){
             sprintActive = false;
@@ -268,7 +282,7 @@ public class Character  implements ActionListener{
     }
     
     public void fireWeapon(){
-        currentWeapon.Fire(damageModifier, player.getPhysicsLocation(), player.getViewDirection().normalize().negate(), game, bulletAppState);
+        bullets.add(currentWeapon.Fire(damageModifier, player.getPhysicsLocation(), player.getViewDirection().normalize().negate(), game, bulletAppState));
     }
     
     public void upgradeDamageModifier(){

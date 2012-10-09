@@ -11,6 +11,7 @@ import com.jme3.material.Material;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.shape.Sphere;
+import java.util.Vector;
 
 /**
  *
@@ -20,11 +21,13 @@ import com.jme3.scene.shape.Sphere;
 
 public class Bullet {
     float lifespan;
+    float lifeTime;
     Vector3f velocity;
     Vector3f direction;
     float dammage;
     
     static Sphere sphere;
+    Geometry bulletGeo;
     RigidBodyControl bulletPhys;
     
     Bullet(){
@@ -33,7 +36,7 @@ public class Bullet {
     
     Bullet(Material bulletMat, float dammage, Vector3f pos, Vector3f dir, SimpleApplication game, BulletAppState bulletAppState){
         sphere = new Sphere(32, 32, .4f, true, false);
-        Geometry bulletGeo = new Geometry("Bullet", sphere);
+        bulletGeo = new Geometry("Bullet", sphere);
         game.getRootNode().attachChild(bulletGeo);
         Vector3f bulletOffset = new Vector3f(2*dir.x, 0, 0);
         bulletGeo.setLocalTranslation(pos.add(bulletOffset));
@@ -49,6 +52,26 @@ public class Bullet {
         velocity = bulletPhys.getLinearVelocity();
         this.dammage = dammage;
         
+        lifeTime = 0;
+        lifespan = 2.0f;
+        
+        
+    }
+    
+    public boolean LifeTime(float dt){
+        lifeTime += dt;
+        
+        if(lifeTime > lifespan){
+            return true;
+        } else{        
+            return false;
+        }
+    }
+    
+    public void delete(SimpleApplication game, BulletAppState bulletAppState){
+        game.getRootNode().detachChild(bulletGeo);
+        
+        bulletAppState.getPhysicsSpace().remove(bulletPhys);
     }
     
     public void setDirection(Vector3f direction) {

@@ -8,6 +8,7 @@ import com.jme3.app.SimpleApplication;
 import com.jme3.bullet.BulletAppState;
 import com.jme3.material.Material;
 import com.jme3.math.Vector3f;
+import java.util.Vector;
 
 /**
  *
@@ -47,10 +48,11 @@ public abstract class Weapon {
         return maxAmmo;
     }
     
-    public void Fire(float damageModifier, Vector3f pos, Vector3f dir, SimpleApplication game, BulletAppState bulletAppState ) {
+    public Bullet Fire(float damageModifier, Vector3f pos, Vector3f dir, SimpleApplication game, BulletAppState bulletAppState) {
         
         Bullet bullet = new Bullet(bulletMaterial, dammage * damageModifier, pos, dir, game, bulletAppState);
         
+       return bullet;
     }
     
 }
