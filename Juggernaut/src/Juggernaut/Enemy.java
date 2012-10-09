@@ -18,9 +18,10 @@ import com.jme3.scene.Spatial;
 public class Enemy {
     Main game;
     BulletAppState bulletAppState;
+    Character Juggernaut;
     
     private static float currentHealth = 1;
-    private static float maxHealth = 100;
+    private static float maxHealth = 1;
     
     private static float experienceOnDeath = 0;
     private static float scoreOnDeath = 0;
@@ -35,11 +36,16 @@ public class Enemy {
     Spatial enemyNinja;
     private CharacterControl enemy;
     
+    Vector3f target;
+    
     Spatial enemyDebug;
     
     private Vector3f walkDirection = new Vector3f();
     private static boolean left = false;
     private static boolean right = false;
+    
+    private static boolean isChasing = false;
+    private static boolean isMoving = false;
     
     Enemy() {
         
@@ -65,11 +71,73 @@ public class Enemy {
         enemy.setCollisionGroup(3);
         
         enemyDebug = enemy.createDebugShape(game.getAssetManager());
+        
         enemyNinja.addControl(enemy);
         game.getRootNode().attachChild(enemyDebug);
 
         bulletAppState.getPhysicsSpace().add(enemy);
         
         movementSpeed = 0.1f;
+        
+        
+    }
+    
+    void Update(float tpf) {
+        // Movement
+        walkDirection.set( 0, 0, 0);
+        if(left) { 
+            walkDirection.addLocal(Vector3f.UNIT_X.negate().multLocal(movementSpeed));
+            enemy.setViewDirection(walkDirection.negate());
+        }
+        if(right) { 
+            walkDirection.addLocal(Vector3f.UNIT_X.clone().multLocal(movementSpeed));
+            enemy.setViewDirection(walkDirection.negate());
+        }
+        
+        enemy.setWalkDirection(walkDirection);
+
+        enemyDebug.setLocalTranslation(enemy.getPhysicsLocation());
+        
+        
+        dt = game.getTimer().getTimeInSeconds() - prevTime;
+        prevTime = game.getTimer().getTimeInSeconds();
+        
+        if(Math.abs(Juggernaut.ninja.getLocalTranslation().x - enemyNinja.getLocalTranslation().x) < 15) {
+           isChasing = true;
+       } else {
+            isChasing = false;
+        }
+        
+        if(isChasing) {
+            chasePlayer();
+        }
+    }
+    
+     public void moveTo(Vector3f target, float movementSpeed) {
+        this.movementSpeed = movementSpeed;
+        isMoving = true;
+        lookAt(target);
+    }
+     
+     public void lookAt(Vector3f target) {
+        this.target = target;
+    }
+    
+    public void chasePlayer() {
+       enemyNinja.moveTo(Juggernaut.ninja.getLocalTranslation(), movementSpeed);
+       
+    }
+    
+    public void onAction(String binding, boolean value, float tpf){
+       
+        if(binding.equals("Left")){
+            left = value;
+        } else if(binding.equals("Right")){
+            right = value;
+        } 
+    }
+    
+    CharacterControl getControl(){
+        return enemy;
     }
 }

@@ -56,6 +56,15 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
     
     Character Juggernaut;                   //Game Character
     Enemy Enemy1;
+    Enemy Enemy2;
+    Enemy Enemy3;
+    Enemy Enemy4;
+    Enemy Enemy5;
+    Enemy Enemy6;
+    Enemy Enemy7;
+    Enemy Enemy8;
+    Enemy Enemy9;
+    Enemy Enemy10;
     
     Vector3f spawnLocation;
     Vector3f spawnDirection;
@@ -99,7 +108,16 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
         //Create the player character
         Juggernaut = new Character(this, bulletAppState);
         
-        Enemy1 = new Enemy(this, bulletAppState, new Vector3f(60f, 0f, 0f), new Vector3f(-1, 0, 0));
+        Enemy1 = new Enemy(this, bulletAppState, new Vector3f(10f, 0f, 0f), new Vector3f(1, 0, 0));
+        Enemy2 = new Enemy(this, bulletAppState, new Vector3f(70f, 0f, 0f), new Vector3f(1, 0, 0));
+        Enemy3 = new Enemy(this, bulletAppState, new Vector3f(80f, 0f, 0f), new Vector3f(1, 0, 0));
+        Enemy4 = new Enemy(this, bulletAppState, new Vector3f(90f, 0f, 0f), new Vector3f(1, 0, 0));
+        Enemy5 = new Enemy(this, bulletAppState, new Vector3f(100f, 0f, 0f), new Vector3f(1, 0, 0));
+        Enemy6 = new Enemy(this, bulletAppState, new Vector3f(110f, 0f, 0f), new Vector3f(1, 0, 0));
+        Enemy7 = new Enemy(this, bulletAppState, new Vector3f(120f, 0f, 0f), new Vector3f(1, 0, 0));
+        Enemy8 = new Enemy(this, bulletAppState, new Vector3f(130f, 0f, 0f), new Vector3f(1, 0, 0));
+        Enemy9 = new Enemy(this, bulletAppState, new Vector3f(140f, 0f, 0f), new Vector3f(1, 0, 0));
+        Enemy10 = new Enemy(this, bulletAppState, new Vector3f(150f, 0f, 0f), new Vector3f(1, 0, 0));
         
         //Creates viewing boxes or Camera Chunks in the world
         setUpCameraBoxes();   
@@ -141,6 +159,17 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
         
         //Update player
         Juggernaut.Update(tpf);
+        Enemy1.Update(tpf);
+        Enemy2.Update(tpf);
+        Enemy3.Update(tpf);
+        Enemy4.Update(tpf);
+        Enemy5.Update(tpf);
+        Enemy6.Update(tpf);
+        Enemy7.Update(tpf);
+        Enemy8.Update(tpf);
+        Enemy9.Update(tpf);
+        Enemy10.Update(tpf);
+        
        
         //Step through all views and test if player is in that space
         //If true, set current view to this view
