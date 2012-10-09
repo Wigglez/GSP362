@@ -20,15 +20,15 @@ public class Enemy {
     BulletAppState bulletAppState;
     Character Juggernaut;
     
-    private static float currentHealth = 1;
-    private static float maxHealth = 1;
+    private  float currentHealth = 1;
+    private float maxHealth = 1;
     
-    private static float experienceOnDeath = 0;
-    private static float scoreOnDeath = 0;
+    private float experienceOnDeath = 0;
+    private float scoreOnDeath = 0;
     
-    private static float incomingDamage = 0;
+    private float incomingDamage = 0;
     
-    private static float movementSpeed = 0;
+    private float movementSpeed = 0;
     
     private float dt = 0;
     private float prevTime = 0;
@@ -41,11 +41,11 @@ public class Enemy {
     Spatial enemyDebug;
     
     private Vector3f walkDirection = new Vector3f();
-    private static boolean left = false;
-    private static boolean right = false;
+    private boolean left = false;
+    private boolean right = false;
     
-    private static boolean isChasing = false;
-    private static boolean isMoving = false;
+    private boolean isChasing = false;
+    private boolean isMoving = false;
     
     Enemy() {
         
@@ -55,8 +55,8 @@ public class Enemy {
          this.game = gameRef;
         this.bulletAppState = bulletAppStateRef;
         //Load Ninja as filler for character model
-        enemyNinja = game.getAssetManager().loadModel("Models/Ninja/Ninja.mesh.xml");
-        enemyNinja.scale(0.02f, 0.02f, 0.02f);
+        enemyNinja = game.getAssetManager().loadModel("Models/Elephant/Elephant.mesh.xml");
+        enemyNinja.scale(0.04f, 0.04f, 0.04f);
        enemyNinja.setLocalTranslation(spawnLocation);
 
 //        ninja.setLocalTranslation(new Vector3f(341, 300, 0));
@@ -82,7 +82,7 @@ public class Enemy {
         
     }
     
-    void Update(float tpf) {
+    void Update(float tpf, Vector3f playerPos) {
         // Movement
         walkDirection.set( 0, 0, 0);
         if(left) { 
@@ -102,10 +102,17 @@ public class Enemy {
         dt = game.getTimer().getTimeInSeconds() - prevTime;
         prevTime = game.getTimer().getTimeInSeconds();
         
-        if(Math.abs(Juggernaut.ninja.getLocalTranslation().x - enemyNinja.getLocalTranslation().x) < 15) {
-           isChasing = true;
-       } else {
-            isChasing = false;
+         float distFromPlayer = playerPos.x - enemy.getPhysicsLocation().x;
+        if( distFromPlayer > -15 && distFromPlayer < 0) {
+           left = true;
+        } else{
+            left = false;
+        }
+        
+        if(distFromPlayer > 0 && distFromPlayer < 15) {
+           right = true;
+        } else{
+            right = false;
         }
         
         if(isChasing) {
@@ -124,7 +131,7 @@ public class Enemy {
     }
     
     public void chasePlayer() {
-       enemyNinja.moveTo(Juggernaut.ninja.getLocalTranslation(), movementSpeed);
+//       enemyNinja.moveTo(Juggernaut.ninja.getLocalTranslation(), movementSpeed);
        
     }
     

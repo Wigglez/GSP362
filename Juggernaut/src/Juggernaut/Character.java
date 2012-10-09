@@ -344,4 +344,8 @@ public class Character  implements ActionListener{
         currentEnergy -= hoverEnergyCost * dt;
     }
     
+    public Vector3f getPosition(){
+        return player.getPhysicsLocation();
+    }
+    
 }
