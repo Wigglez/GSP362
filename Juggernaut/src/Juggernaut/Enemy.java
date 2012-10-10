@@ -5,6 +5,8 @@
 package Juggernaut;
 
 import com.jme3.bullet.BulletAppState;
+import com.jme3.bullet.collision.PhysicsCollisionEvent;
+import com.jme3.bullet.collision.PhysicsCollisionListener;
 import com.jme3.bullet.collision.shapes.CapsuleCollisionShape;
 import com.jme3.bullet.collision.shapes.CylinderCollisionShape;
 import com.jme3.bullet.control.CharacterControl;
@@ -18,7 +20,7 @@ import com.jme3.scene.Spatial;
  *
  * @author Wigglez
  */
-public class Enemy {
+public class Enemy implements PhysicsCollisionListener{
     private Main game;
     private BulletAppState bulletAppState;
     Character Juggernaut;
@@ -29,7 +31,7 @@ public class Enemy {
     private float experienceOnDeath = 0;
     private float scoreOnDeath = 0;
     
-    private float incomingDamage = 0;
+    private float Damage = 5;
     
     private float movementSpeed = 0;
     private Quaternion rotation;
@@ -55,9 +57,11 @@ public class Enemy {
         
     }
     
-    Enemy(Main gameRef, BulletAppState bulletAppStateRef, Vector3f spawnLocation, Vector3f spawnDirection) {
-         this.game = gameRef;
+    Enemy(Character player, Main gameRef, BulletAppState bulletAppStateRef, Vector3f spawnLocation, Vector3f spawnDirection) {
+        this.Juggernaut = player; 
+        this.game = gameRef;
         this.bulletAppState = bulletAppStateRef;
+        bulletAppState.getPhysicsSpace().addCollisionListener(this);
         //Load Ninja as filler for character model
         enemyElephant = game.getAssetManager().loadModel("Models/Elephant/Elephant.mesh.xml");
         enemyElephant.setName("Enemy");
@@ -151,7 +155,34 @@ public class Enemy {
         } 
     }
     
+    public Spatial getSpatial(){
+        return enemyElephant;
+    }
+    
     RigidBodyControl getControl(){
         return enemy;
+    }
+    
+    public float getDamage(){
+        return Damage;
+    }
+    
+    public void takeDamage(float damage){
+        currentHealth -= damage;
+    }
+    
+    public void Die(){
+        game.getRootNode().detachChild(enemyDebug);
+        game.getRootNode().detachChild(enemyElephant);
+        bulletAppState.getPhysicsSpace().remove(enemy);
+    }
+    
+    public void collision(PhysicsCollisionEvent event) {
+        if(event.getNodeA().getName().equals("Player") && event.getNodeB().equals(this.enemyElephant)){
+            this.Die();
+            Juggernaut.takeDamage(Damage);
+            
+        }
+        
     }
 }

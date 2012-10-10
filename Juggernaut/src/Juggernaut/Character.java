@@ -181,6 +181,7 @@ public class Character  implements ActionListener{
                 currentEnergy += 10f * dt;
         }
         
+        System.out.print(currentHealth +"\n");
         game.getHud().bind(game.getNifty(), game.getHud().screen);
         game.getHud().updateHUD(currentHealth, currentArmor, currentEnergy);
     }
@@ -230,6 +231,8 @@ public class Character  implements ActionListener{
         } else if(binding.equals("Hover")){
             hoverActive = value;
         }
+        
+         
     }
     
     CharacterControl getControl(){
@@ -348,6 +351,10 @@ public class Character  implements ActionListener{
     
     public Vector3f getPosition(){
         return player.getPhysicsLocation();
+    }
+    
+    public void takeDamage(float damage){
+        currentHealth -= damage;
     }
     
 }
