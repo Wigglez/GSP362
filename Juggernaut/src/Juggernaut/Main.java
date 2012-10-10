@@ -99,156 +99,8 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
         //Create the player character
         Juggernaut = new Character(this, bulletAppState);
         
-        // Enemy creations
-		// First floor (enemies face left)
-		Enemy[0] = new Enemy(this, bulletAppState,
-				new Vector3f(30f, -8.99f, 0f), new Vector3f(1, 0, 0));
-		Enemy[1] = new Enemy(this, bulletAppState,
-				new Vector3f(70f, -8.99f, 0f), new Vector3f(1, 0, 0));
-		Enemy[2] = new Enemy(this, bulletAppState,
-				new Vector3f(89f, -8.99f, 0f), new Vector3f(1, 0, 0));
-		Enemy[3] = new Enemy(this, bulletAppState, new Vector3f(135f, -8.99f,
-				0f), new Vector3f(1, 0, 0));
-		Enemy[4] = new Enemy(this, bulletAppState, new Vector3f(152f, -8.99f,
-				0f), new Vector3f(1, 0, 0));
-		Enemy[5] = new Enemy(this, bulletAppState, new Vector3f(183f, -0.99f,
-				0f), new Vector3f(1, 0, 0));
-
-		// Second floor (enemies face left)
-		Enemy[6] = new Enemy(this, bulletAppState, new Vector3f(213f, 15f, 0f),
-				new Vector3f(1, 0, 0));
-		Enemy[7] = new Enemy(this, bulletAppState, new Vector3f(250f, 23f, 0f),
-				new Vector3f(1, 0, 0));
-		Enemy[8] = new Enemy(this, bulletAppState, new Vector3f(265f, 23f, 0f),
-				new Vector3f(1, 0, 0));
-		Enemy[9] = new Enemy(this, bulletAppState, new Vector3f(285f, 23f, 0f),
-				new Vector3f(1, 0, 0));
-		Enemy[10] = new Enemy(this, bulletAppState,
-				new Vector3f(327f, 23f, 0f), new Vector3f(1, 0, 0));
-		Enemy[11] = new Enemy(this, bulletAppState,
-				new Vector3f(361f, 23f, 0f), new Vector3f(1, 0, 0));
-		Enemy[12] = new Enemy(this, bulletAppState,
-				new Vector3f(392f, 15f, 0f), new Vector3f(1, 0, 0));
-		Enemy[13] = new Enemy(this, bulletAppState, new Vector3f(448f, 31.5f,
-				0f), new Vector3f(1, 0, 0));
-		Enemy[14] = new Enemy(this, bulletAppState, new Vector3f(464f, 37.45f,
-				0f), new Vector3f(1, 0, 0));
-		Enemy[15] = new Enemy(this, bulletAppState,
-				new Vector3f(494f, 38f, 0f), new Vector3f(1, 0, 0));
-		Enemy[16] = new Enemy(this, bulletAppState,
-				new Vector3f(510f, 48f, 0f), new Vector3f(1, 0, 0));
-		Enemy[17] = new Enemy(this, bulletAppState,
-				new Vector3f(527f, 48f, 0f), new Vector3f(1, 0, 0));
-		Enemy[18] = new Enemy(this, bulletAppState,
-				new Vector3f(527f, 56f, 0f), new Vector3f(1, 0, 0));
-
-		// Third floor (enemies face right)
-		Enemy[19] = new Enemy(this, bulletAppState,
-				new Vector3f(490f, 64f, 0f), new Vector3f(-1, 0, 0));
-		Enemy[20] = new Enemy(this, bulletAppState,
-				new Vector3f(451f, 69f, 0f), new Vector3f(-1, 0, 0));
-		Enemy[21] = new Enemy(this, bulletAppState,
-				new Vector3f(439f, 74f, 0f), new Vector3f(-1, 0, 0));
-		Enemy[22] = new Enemy(this, bulletAppState,
-				new Vector3f(402f, 87f, 0f), new Vector3f(-1, 0, 0));
-		Enemy[23] = new Enemy(this, bulletAppState,
-				new Vector3f(385f, 87f, 0f), new Vector3f(-1, 0, 0));
-		Enemy[24] = new Enemy(this, bulletAppState,
-				new Vector3f(373f, 87f, 0f), new Vector3f(-1, 0, 0));
-		Enemy[25] = new Enemy(this, bulletAppState,
-				new Vector3f(356f, 97f, 0f), new Vector3f(-1, 0, 0));
-		Enemy[26] = new Enemy(this, bulletAppState,
-				new Vector3f(346f, 107f, 0f), new Vector3f(-1, 0, 0));
-		Enemy[27] = new Enemy(this, bulletAppState,
-				new Vector3f(335f, 117f, 0f), new Vector3f(-1, 0, 0));
-		Enemy[28] = new Enemy(this, bulletAppState,
-				new Vector3f(315f, 127f, 0f), new Vector3f(-1, 0, 0));
-		Enemy[29] = new Enemy(this, bulletAppState,
-				new Vector3f(278f, 127f, 0f), new Vector3f(-1, 0, 0));
-		Enemy[30] = new Enemy(this, bulletAppState,
-				new Vector3f(221f, 87f, 0f), new Vector3f(-1, 0, 0));
-		Enemy[31] = new Enemy(this, bulletAppState,
-				new Vector3f(201f, 87f, 0f), new Vector3f(-1, 0, 0));
-		Enemy[32] = new Enemy(this, bulletAppState,
-				new Vector3f(192f, 96f, 0f), new Vector3f(-1, 0, 0));
-
-		// Fourth floor (enemies face right)
-		Enemy[33] = new Enemy(this, bulletAppState,
-				new Vector3f(167f, 177f, 0f), new Vector3f(-1, 0, 0));
-		Enemy[34] = new Enemy(this, bulletAppState,
-				new Vector3f(-11f, 115f, 0f), new Vector3f(-1, 0, 0));
-		Enemy[35] = new Enemy(this, bulletAppState,
-				new Vector3f(-19f, 115f, 0f), new Vector3f(-1, 0, 0));
-		Enemy[36] = new Enemy(this, bulletAppState,
-				new Vector3f(-32f, 115f, 0f), new Vector3f(-1, 0, 0));
-		Enemy[37] = new Enemy(this, bulletAppState,
-				new Vector3f(-82f, 115f, 0f), new Vector3f(-1, 0, 0));
-		Enemy[38] = new Enemy(this, bulletAppState, new Vector3f(-105f, 115f,
-				0f), new Vector3f(-1, 0, 0));
-		Enemy[39] = new Enemy(this, bulletAppState, new Vector3f(-129f, 115f,
-				0f), new Vector3f(-1, 0, 0));
-		Enemy[40] = new Enemy(this, bulletAppState, new Vector3f(-148f, 115f,
-				0f), new Vector3f(-1, 0, 0));
-		Enemy[41] = new Enemy(this, bulletAppState, new Vector3f(-218f, 115f,
-				0f), new Vector3f(-1, 0, 0));
-		Enemy[42] = new Enemy(this, bulletAppState, new Vector3f(-253f, 115f,
-				0f), new Vector3f(-1, 0, 0));
-		Enemy[43] = new Enemy(this, bulletAppState, new Vector3f(-260f, 115f,
-				0f), new Vector3f(-1, 0, 0));
-		Enemy[44] = new Enemy(this, bulletAppState, new Vector3f(-267f, 115f,
-				0f), new Vector3f(-1, 0, 0));
-		Enemy[45] = new Enemy(this, bulletAppState, new Vector3f(-275f, 115f,
-				0f), new Vector3f(-1, 0, 0));
-		Enemy[46] = new Enemy(this, bulletAppState, new Vector3f(-286f, 115f,
-				0f), new Vector3f(-1, 0, 0));
-
-		// Fourth floor up (enemies face right)
-		Enemy[47] = new Enemy(this, bulletAppState, new Vector3f(-106f, 189f,
-				0f), new Vector3f(-1, 0, 0));
-		Enemy[48] = new Enemy(this, bulletAppState, new Vector3f(-134f, 189f,
-				0f), new Vector3f(-1, 0, 0));
-		Enemy[49] = new Enemy(this, bulletAppState, new Vector3f(-153f, 189f,
-				0f), new Vector3f(-1, 0, 0));
-
-		// Fourth floor down (enemies face left)
-		Enemy[50] = new Enemy(this, bulletAppState,
-				new Vector3f(-189f, 67f, 0f), new Vector3f(-1, 0, 0));
-		Enemy[51] = new Enemy(this, bulletAppState,
-				new Vector3f(-170f, 67f, 0f), new Vector3f(1, 0, 0));
-		Enemy[52] = new Enemy(this, bulletAppState,
-				new Vector3f(-126f, 67f, 0f), new Vector3f(1, 0, 0));
-		Enemy[53] = new Enemy(this, bulletAppState,
-				new Vector3f(-113f, 67f, 0f), new Vector3f(1, 0, 0));
-
-		// Fifth floor (enemies face left)
-		Enemy[54] = new Enemy(this, bulletAppState,
-				new Vector3f(225f, 235f, 0f), new Vector3f(1, 0, 0));
-		Enemy[55] = new Enemy(this, bulletAppState,
-				new Vector3f(254f, 235f, 0f), new Vector3f(1, 0, 0));
-		Enemy[56] = new Enemy(this, bulletAppState,
-				new Vector3f(287f, 245f, 0f), new Vector3f(1, 0, 0));
-		Enemy[57] = new Enemy(this, bulletAppState,
-				new Vector3f(311f, 235f, 0f), new Vector3f(1, 0, 0));
-		Enemy[58] = new Enemy(this, bulletAppState,
-				new Vector3f(345f, 235f, 0f), new Vector3f(1, 0, 0));
-		Enemy[59] = new Enemy(this, bulletAppState,
-				new Vector3f(366f, 235f, 0f), new Vector3f(1, 0, 0));
-
-		// Sixth floor (enemies face left)
-		Enemy[60] = new Enemy(this, bulletAppState,
-				new Vector3f(304f, 295f, 0f), new Vector3f(1, 0, 0));
-		Enemy[61] = new Enemy(this, bulletAppState,
-				new Vector3f(327f, 295f, 0f), new Vector3f(1, 0, 0));
-		Enemy[62] = new Enemy(this, bulletAppState,
-				new Vector3f(373f, 295f, 0f), new Vector3f(1, 0, 0));
-
-		// Seventh floor (enemies face right)
-		Enemy[63] = new Enemy(this, bulletAppState,
-				new Vector3f(254f, 315f, 0f), new Vector3f(-1, 0, 0));
-		Enemy[64] = new Enemy(this, bulletAppState,
-				new Vector3f(225f, 315f, 0f), new Vector3f(-1, 0, 0));
-		Enemy[65] = new Enemy(this, bulletAppState,
-				new Vector3f(210f, 315f, 0f), new Vector3f(-1, 0, 0));
+        // Creates enemies in the world
+        setUpEnemies();
                 
         //Creates viewing boxes or Camera Chunks in the world
         setUpCameraBoxes();   
@@ -300,9 +152,9 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
         Juggernaut.Update(tpf);
         
        // Update enemies
-		for (int itr = 0; itr < Enemy.length; itr++) {
-			Enemy[itr].Update(tpf, Juggernaut.getPosition());
-		}
+	for (int itr = 0; itr < Enemy.length; itr++) {
+            Enemy[itr].Update(tpf, Juggernaut.getPosition());
+	}
         
        
         //Step through all views and test if player is in that space
@@ -332,6 +184,159 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
         //Maybe used for elevators/Moving platforms
     }
 
+    private void setUpEnemies() {
+        // Enemy creations
+        // First floor (enemies face left)
+        Enemy[0] = new Enemy(this, bulletAppState,
+                        new Vector3f(30f, -7f, 0f), new Vector3f(1, 0, 0));
+        Enemy[1] = new Enemy(this, bulletAppState,
+                        new Vector3f(70f, -7f, 0f), new Vector3f(1, 0, 0));
+        Enemy[2] = new Enemy(this, bulletAppState,
+                        new Vector3f(89f, -7f, 0f), new Vector3f(1, 0, 0));
+        Enemy[3] = new Enemy(this, bulletAppState, new Vector3f(135f, -7f,
+                        0f), new Vector3f(1, 0, 0));
+        Enemy[4] = new Enemy(this, bulletAppState, new Vector3f(152f, -7f,
+                        0f), new Vector3f(1, 0, 0));
+        Enemy[5] = new Enemy(this, bulletAppState, new Vector3f(183f, 0f,
+                        0f), new Vector3f(1, 0, 0));
+
+        // Second floor (enemies face left)
+        Enemy[6] = new Enemy(this, bulletAppState, new Vector3f(213f, 16f, 0f),
+                        new Vector3f(1, 0, 0));
+        Enemy[7] = new Enemy(this, bulletAppState, new Vector3f(250f, 24f, 0f),
+                        new Vector3f(1, 0, 0));
+        Enemy[8] = new Enemy(this, bulletAppState, new Vector3f(265f, 24f, 0f),
+                        new Vector3f(1, 0, 0));
+        Enemy[9] = new Enemy(this, bulletAppState, new Vector3f(285f, 24f, 0f),
+                        new Vector3f(1, 0, 0));
+        Enemy[10] = new Enemy(this, bulletAppState,
+                        new Vector3f(327f, 24f, 0f), new Vector3f(1, 0, 0));
+        Enemy[11] = new Enemy(this, bulletAppState,
+                        new Vector3f(361f, 24f, 0f), new Vector3f(1, 0, 0));
+        Enemy[12] = new Enemy(this, bulletAppState,
+                        new Vector3f(392f, 16f, 0f), new Vector3f(1, 0, 0));
+        Enemy[13] = new Enemy(this, bulletAppState, new Vector3f(448f, 31.5f,
+                        0f), new Vector3f(1, 0, 0));
+        Enemy[14] = new Enemy(this, bulletAppState, new Vector3f(464f, 38f,
+                        0f), new Vector3f(1, 0, 0));
+        Enemy[15] = new Enemy(this, bulletAppState,
+                        new Vector3f(494f, 39f, 0f), new Vector3f(1, 0, 0));
+        Enemy[16] = new Enemy(this, bulletAppState,
+                        new Vector3f(510f, 49f, 0f), new Vector3f(1, 0, 0));
+        Enemy[17] = new Enemy(this, bulletAppState,
+                        new Vector3f(527f, 49f, 0f), new Vector3f(1, 0, 0));
+        Enemy[18] = new Enemy(this, bulletAppState,
+                        new Vector3f(527f, 57f, 0f), new Vector3f(1, 0, 0));
+
+        // Third floor (enemies face right)
+        Enemy[19] = new Enemy(this, bulletAppState,
+                        new Vector3f(490f, 65f, 0f), new Vector3f(-1, 0, 0));
+        Enemy[20] = new Enemy(this, bulletAppState,
+                        new Vector3f(451f, 70f, 0f), new Vector3f(-1, 0, 0));
+        Enemy[21] = new Enemy(this, bulletAppState,
+                        new Vector3f(439f, 75f, 0f), new Vector3f(-1, 0, 0));
+        Enemy[22] = new Enemy(this, bulletAppState,
+                        new Vector3f(402f, 88f, 0f), new Vector3f(-1, 0, 0));
+        Enemy[23] = new Enemy(this, bulletAppState,
+                        new Vector3f(385f, 88f, 0f), new Vector3f(-1, 0, 0));
+        Enemy[24] = new Enemy(this, bulletAppState,
+                        new Vector3f(373f, 88f, 0f), new Vector3f(-1, 0, 0));
+        Enemy[25] = new Enemy(this, bulletAppState,
+                        new Vector3f(356f, 98f, 0f), new Vector3f(-1, 0, 0));
+        Enemy[26] = new Enemy(this, bulletAppState,
+                        new Vector3f(346f, 108f, 0f), new Vector3f(-1, 0, 0));
+        Enemy[27] = new Enemy(this, bulletAppState,
+                        new Vector3f(335f, 118f, 0f), new Vector3f(-1, 0, 0));
+        Enemy[28] = new Enemy(this, bulletAppState,
+                        new Vector3f(315f, 128f, 0f), new Vector3f(-1, 0, 0));
+        Enemy[29] = new Enemy(this, bulletAppState,
+                        new Vector3f(278f, 128f, 0f), new Vector3f(-1, 0, 0));
+        Enemy[30] = new Enemy(this, bulletAppState,
+                        new Vector3f(221f, 88f, 0f), new Vector3f(-1, 0, 0));
+        Enemy[31] = new Enemy(this, bulletAppState,
+                        new Vector3f(201f, 88f, 0f), new Vector3f(-1, 0, 0));
+        Enemy[32] = new Enemy(this, bulletAppState,
+                        new Vector3f(192f, 97f, 0f), new Vector3f(-1, 0, 0));
+
+        // Fourth floor (enemies face right)
+        Enemy[33] = new Enemy(this, bulletAppState,
+                        new Vector3f(167f, 178f, 0f), new Vector3f(-1, 0, 0));
+        Enemy[34] = new Enemy(this, bulletAppState,
+                        new Vector3f(-11f, 116f, 0f), new Vector3f(-1, 0, 0));
+        Enemy[35] = new Enemy(this, bulletAppState,
+                        new Vector3f(-19f, 116f, 0f), new Vector3f(-1, 0, 0));
+        Enemy[36] = new Enemy(this, bulletAppState,
+                        new Vector3f(-32f, 116f, 0f), new Vector3f(-1, 0, 0));
+        Enemy[37] = new Enemy(this, bulletAppState,
+                        new Vector3f(-82f, 116f, 0f), new Vector3f(-1, 0, 0));
+        Enemy[38] = new Enemy(this, bulletAppState, new Vector3f(-105f, 116f,
+                        0f), new Vector3f(-1, 0, 0));
+        Enemy[39] = new Enemy(this, bulletAppState, new Vector3f(-129f, 116f,
+                        0f), new Vector3f(-1, 0, 0));
+        Enemy[40] = new Enemy(this, bulletAppState, new Vector3f(-148f, 116f,
+                        0f), new Vector3f(-1, 0, 0));
+        Enemy[41] = new Enemy(this, bulletAppState, new Vector3f(-218f, 116f,
+                        0f), new Vector3f(-1, 0, 0));
+        Enemy[42] = new Enemy(this, bulletAppState, new Vector3f(-253f, 116f,
+                        0f), new Vector3f(-1, 0, 0));
+        Enemy[43] = new Enemy(this, bulletAppState, new Vector3f(-260f, 116f,
+                        0f), new Vector3f(-1, 0, 0));
+        Enemy[44] = new Enemy(this, bulletAppState, new Vector3f(-267f, 116f,
+                        0f), new Vector3f(-1, 0, 0));
+        Enemy[45] = new Enemy(this, bulletAppState, new Vector3f(-275f, 116f,
+                        0f), new Vector3f(-1, 0, 0));
+        Enemy[46] = new Enemy(this, bulletAppState, new Vector3f(-286f, 116f,
+                        0f), new Vector3f(-1, 0, 0));
+
+        // Fourth floor up (enemies face right)
+        Enemy[47] = new Enemy(this, bulletAppState, new Vector3f(-106f, 190f,
+                        0f), new Vector3f(-1, 0, 0));
+        Enemy[48] = new Enemy(this, bulletAppState, new Vector3f(-134f, 190f,
+                        0f), new Vector3f(-1, 0, 0));
+        Enemy[49] = new Enemy(this, bulletAppState, new Vector3f(-153f, 190f,
+                        0f), new Vector3f(-1, 0, 0));
+
+        // Fourth floor down (enemies face left)
+        Enemy[50] = new Enemy(this, bulletAppState,
+                        new Vector3f(-189f, 68f, 0f), new Vector3f(-1, 0, 0));
+        Enemy[51] = new Enemy(this, bulletAppState,
+                        new Vector3f(-170f, 68f, 0f), new Vector3f(1, 0, 0));
+        Enemy[52] = new Enemy(this, bulletAppState,
+                        new Vector3f(-126f, 68f, 0f), new Vector3f(1, 0, 0));
+        Enemy[53] = new Enemy(this, bulletAppState,
+                        new Vector3f(-113f, 68f, 0f), new Vector3f(1, 0, 0));
+
+        // Fifth floor (enemies face left)
+        Enemy[54] = new Enemy(this, bulletAppState,
+                        new Vector3f(225f, 236f, 0f), new Vector3f(1, 0, 0));
+        Enemy[55] = new Enemy(this, bulletAppState,
+                        new Vector3f(254f, 236f, 0f), new Vector3f(1, 0, 0));
+        Enemy[56] = new Enemy(this, bulletAppState,
+                        new Vector3f(287f, 246f, 0f), new Vector3f(1, 0, 0));
+        Enemy[57] = new Enemy(this, bulletAppState,
+                        new Vector3f(311f, 236f, 0f), new Vector3f(1, 0, 0));
+        Enemy[58] = new Enemy(this, bulletAppState,
+                        new Vector3f(345f, 236f, 0f), new Vector3f(1, 0, 0));
+        Enemy[59] = new Enemy(this, bulletAppState,
+                        new Vector3f(366f, 236f, 0f), new Vector3f(1, 0, 0));
+
+        // Sixth floor (enemies face left)
+        Enemy[60] = new Enemy(this, bulletAppState,
+                        new Vector3f(304f, 296f, 0f), new Vector3f(1, 0, 0));
+        Enemy[61] = new Enemy(this, bulletAppState,
+                        new Vector3f(327f, 296f, 0f), new Vector3f(1, 0, 0));
+        Enemy[62] = new Enemy(this, bulletAppState,
+                        new Vector3f(373f, 296f, 0f), new Vector3f(1, 0, 0));
+
+        // Seventh floor (enemies face right)
+        Enemy[63] = new Enemy(this, bulletAppState,
+                        new Vector3f(254f, 316f, 0f), new Vector3f(-1, 0, 0));
+        Enemy[64] = new Enemy(this, bulletAppState,
+                        new Vector3f(225f, 316f, 0f), new Vector3f(-1, 0, 0));
+        Enemy[65] = new Enemy(this, bulletAppState,
+                        new Vector3f(210f, 316f, 0f), new Vector3f(-1, 0, 0));
+    }
+    
     private void setUpCameraBoxes() {
         
 
