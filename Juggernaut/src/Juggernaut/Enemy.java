@@ -37,16 +37,14 @@ public class Enemy {
     private float dt = 0;
     private float prevTime = 0;
     
-    Spatial enemyNinja;
+    Spatial enemyElephant;
     private RigidBodyControl enemy;
-    
-    Vector3f target;
     
     Spatial enemyDebug;
     
     private Vector3f walkDirection = new Vector3f();
-    private boolean left = false;
-    private boolean right = false;
+    private boolean walkLeft = false;
+    private boolean walkRight = false;
     
     private boolean isChasing = false;
     private boolean isMoving = false;
@@ -61,14 +59,14 @@ public class Enemy {
          this.game = gameRef;
         this.bulletAppState = bulletAppStateRef;
         //Load Ninja as filler for character model
-        enemyNinja = game.getAssetManager().loadModel("Models/Elephant/Elephant.mesh.xml");
-        enemyNinja.scale(0.04f, 0.04f, 0.04f);
-       enemyNinja.setLocalTranslation(spawnLocation);
-       enemyNinja.setLocalRotation(YAW090);
+        enemyElephant = game.getAssetManager().loadModel("Models/Elephant/Elephant.mesh.xml");
+        enemyElephant.scale(0.04f, 0.04f, 0.04f);
+       enemyElephant.setLocalTranslation(spawnLocation);
+       enemyElephant.setLocalRotation(YAW090);
 //        ninja.setLocalTranslation(new Vector3f(341, 300, 0));
-        game.getRootNode().attachChild(enemyNinja);
-        CylinderCollisionShape capsuleShape = new CylinderCollisionShape(new Vector3f(2,2,2), 1);
-        enemy = new RigidBodyControl(capsuleShape, .05f);
+        game.getRootNode().attachChild(enemyElephant);
+        CylinderCollisionShape cylinderShape = new CylinderCollisionShape(new Vector3f(2,2,2), 1);
+        enemy = new RigidBodyControl(cylinderShape, .05f);
         
 //        enemy.setFallSpeed(50);
 //        enemy.setGravity(120);        
@@ -78,7 +76,7 @@ public class Enemy {
         
         enemyDebug = enemy.createDebugShape(game.getAssetManager());
         
-        enemyNinja.addControl(enemy);
+        enemyElephant.addControl(enemy);
         game.getRootNode().attachChild(enemyDebug);
 
         bulletAppState.getPhysicsSpace().add(enemy);
@@ -92,13 +90,13 @@ public class Enemy {
     void Update(float tpf, Vector3f playerPos) {
         // Movement
         walkDirection.set( 0, 0, 0);
-        if(left) { 
+        if(walkLeft) { 
             enemy.setLinearVelocity(Vector3f.UNIT_X.negate().multLocal(movementSpeed));
             enemy.setPhysicsRotation(YAW090);
             rotation = YAW090;
 //            walkDirection.addLocal(Vector3f.UNIT_X.negate().multLocal(movementSpeed));
 //            enemy.setViewDirection(walkDirection.negate());
-        } else if(right) { 
+        } else if(walkRight) { 
             enemy.setLinearVelocity(Vector3f.UNIT_X.clone().multLocal(movementSpeed));
             enemy.setPhysicsRotation(YAW270);
             rotation = YAW270;
@@ -115,45 +113,33 @@ public class Enemy {
         dt = game.getTimer().getTimeInSeconds() - prevTime;
         prevTime = game.getTimer().getTimeInSeconds();
         
-         float distFromPlayer = playerPos.x - enemy.getPhysicsLocation().x;
-        if( distFromPlayer > -15 && distFromPlayer < 0) {
-           left = true;
-        } else{
-            left = false;
-        }
         
-        if(distFromPlayer > 0 && distFromPlayer < 15) {
-           right = true;
-        } else{
-            right = false;
-        }
+       // Aggro
+		float distFromPlayerX = playerPos.x - enemy.getPhysicsLocation().x;
+		float distFromPlayerY = playerPos.y - enemy.getPhysicsLocation().y;
+
+		if (distFromPlayerY > -7 && distFromPlayerY < 7) {
+			if (distFromPlayerX > -15 && distFromPlayerX < 0) {
+				walkLeft = true;
+			} else {
+				walkLeft = false;
+			}
+
+			if (distFromPlayerX > 0 && distFromPlayerX < 15) {
+				walkRight = true;
+			} else {
+				walkRight = false;
+			}
+		}
         
-        if(isChasing) {
-            chasePlayer();
-        }
-    }
-    
-     public void moveTo(Vector3f target, float movementSpeed) {
-        this.movementSpeed = movementSpeed;
-        isMoving = true;
-        lookAt(target);
-    }
-     
-     public void lookAt(Vector3f target) {
-        this.target = target;
-    }
-    
-    public void chasePlayer() {
-//       enemyNinja.moveTo(Juggernaut.ninja.getLocalTranslation(), movementSpeed);
-       
     }
     
     public void onAction(String binding, boolean value, float tpf){
        
         if(binding.equals("Left")){
-            left = value;
+            walkLeft = value;
         } else if(binding.equals("Right")){
-            right = value;
+            walkRight = value;
         } 
     }
     
