@@ -90,6 +90,7 @@ public class Character  implements ActionListener{
         this.bulletAppState = bulletAppStateRef;
         //Load Ninja as filler for character model
         ninja = game.getAssetManager().loadModel("Models/Ninja/Ninja.mesh.xml");
+        ninja.setName("Player");
         ninja.scale(0.02f, 0.02f, 0.02f);
 //        ninja.setLocalTranslation(new Vector3f(341, 300, 0));
         game.getRootNode().attachChild(ninja);

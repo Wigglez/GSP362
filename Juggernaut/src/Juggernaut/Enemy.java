@@ -19,8 +19,8 @@ import com.jme3.scene.Spatial;
  * @author Wigglez
  */
 public class Enemy {
-    Main game;
-    BulletAppState bulletAppState;
+    private Main game;
+    private BulletAppState bulletAppState;
     Character Juggernaut;
     
     private  float currentHealth = 1;
@@ -60,9 +60,15 @@ public class Enemy {
         this.bulletAppState = bulletAppStateRef;
         //Load Ninja as filler for character model
         enemyElephant = game.getAssetManager().loadModel("Models/Elephant/Elephant.mesh.xml");
+        enemyElephant.setName("Enemy");
         enemyElephant.scale(0.04f, 0.04f, 0.04f);
        enemyElephant.setLocalTranslation(spawnLocation);
-       enemyElephant.setLocalRotation(YAW090);
+       if(spawnDirection.x == 1.0f){
+           enemyElephant.setLocalRotation(YAW090);
+       }else{
+           enemyElephant.setLocalRotation(YAW270);
+       }
+       
 //        ninja.setLocalTranslation(new Vector3f(341, 300, 0));
         game.getRootNode().attachChild(enemyElephant);
         CylinderCollisionShape cylinderShape = new CylinderCollisionShape(new Vector3f(2,2,2), 1);
@@ -91,13 +97,14 @@ public class Enemy {
         // Movement
         walkDirection.set( 0, 0, 0);
         if(walkLeft) { 
-            enemy.setLinearVelocity(Vector3f.UNIT_X.negate().multLocal(movementSpeed));
+//            enemy.setLinearVelocity(new Vector3f(-1, -9.8f,0).mult(movementSpeed));
+            enemy.setLinearVelocity(Vector3f.UNIT_X.negate().multLocal(movementSpeed).add(new Vector3f(0, -15f, 0)));
             enemy.setPhysicsRotation(YAW090);
             rotation = YAW090;
 //            walkDirection.addLocal(Vector3f.UNIT_X.negate().multLocal(movementSpeed));
 //            enemy.setViewDirection(walkDirection.negate());
         } else if(walkRight) { 
-            enemy.setLinearVelocity(Vector3f.UNIT_X.clone().multLocal(movementSpeed));
+            enemy.setLinearVelocity(Vector3f.UNIT_X.clone().multLocal(movementSpeed).add(new Vector3f(0, -15f, 0)));
             enemy.setPhysicsRotation(YAW270);
             rotation = YAW270;
 //            walkDirection.addLocal(Vector3f.UNIT_X.clone().multLocal(movementSpeed));
@@ -119,18 +126,19 @@ public class Enemy {
 		float distFromPlayerY = playerPos.y - enemy.getPhysicsLocation().y;
 
 		if (distFromPlayerY > -7 && distFromPlayerY < 7) {
-			if (distFromPlayerX > -15 && distFromPlayerX < 0) {
+			if (distFromPlayerX > -50 && distFromPlayerX < 0) {
 				walkLeft = true;
-			} else {
-				walkLeft = false;
-			}
+                                walkRight = false;
+			} 
 
-			if (distFromPlayerX > 0 && distFromPlayerX < 15) {
+			if (distFromPlayerX > 0 && distFromPlayerX < 50) {
 				walkRight = true;
-			} else {
-				walkRight = false;
+                                walkLeft = false;
+			} 
+		}else {
+				walkLeft = false;
+                                walkRight = false;
 			}
-		}
         
     }
     

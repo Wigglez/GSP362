@@ -94,6 +94,7 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
         //Creates the Physics state of the game
         bulletAppState = new BulletAppState();
         stateManager.attach(bulletAppState);
+        bulletAppState.getPhysicsSpace().addCollisionListener(this);
 //        bulletAppState.getPhysicsSpace().enableDebug(assetManager);  //Shows wireframes of models
         
         //Create the player character
@@ -180,6 +181,9 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
 
     
     public void collision(PhysicsCollisionEvent event) {
+        if(event.getNodeA().getName().equals("Player") && event.getNodeB().getName().equals("Enemy")){
+            System.out.print("player\n");
+        }
         //For actual physics collisions
         //Maybe used for elevators/Moving platforms
     }
