@@ -18,8 +18,8 @@ public class Character  implements ActionListener{
     Main game;
     BulletAppState bulletAppState;
     // HUD elements
-    private static float currentHealth = 100;
-    private static float currentArmor = 100;
+    private static float currentHealth = 10;
+    private static float currentArmor = 10;
     private static float currentEnergy = 100;
 
     private static float maxHealth = 100;
@@ -38,7 +38,7 @@ public class Character  implements ActionListener{
     private static float hoverEnergyCost = 60f;
     
     private boolean sprintActive;
-    private static float sprintEnergyCost = 35f;
+    private static float sprintEnergyCost = 20f;
     private static float sprintSpeed =0;
     
     private boolean dashActive;
@@ -131,7 +131,6 @@ public class Character  implements ActionListener{
         }
         
         player.setWalkDirection(walkDirection);
-        player.setPhysicsLocation(new Vector3f(player.getPhysicsLocation().x, player.getPhysicsLocation().y, 0));
         
         // HUD updates
         //updateHealth();
@@ -336,7 +335,7 @@ public class Character  implements ActionListener{
     }
     
     private void sprint(float dt){
-        movementSpeed = 0.7f;
+        movementSpeed = 0.8f;
         currentEnergy -= sprintEnergyCost * dt;
     }
     

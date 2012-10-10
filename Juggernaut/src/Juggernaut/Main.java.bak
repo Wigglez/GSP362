@@ -103,7 +103,7 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
         //Creates the Physics state of the game
         bulletAppState = new BulletAppState();
         stateManager.attach(bulletAppState);
-//        bulletAppState.getPhysicsSpace().enableDebug(assetManager);  //Shows wireframes of models
+        bulletAppState.getPhysicsSpace().enableDebug(assetManager);  //Shows wireframes of models
         
         //Create the player character
         Juggernaut = new Character(this, bulletAppState);
@@ -142,21 +142,13 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
               
         
         //Add lights to see the models
-        DirectionalLight light1 = new DirectionalLight();
-        light1.setDirection(new Vector3f(-10f,  -.5f,-1f));
-        rootNode.addLight(light1);
+        DirectionalLight sun = new DirectionalLight();
+        sun.setDirection(new Vector3f(-.5f,  -.5f,-1));
+        rootNode.addLight(sun);
         
-        DirectionalLight light2 = new DirectionalLight();
-        light2.setDirection(new Vector3f(10f,  -.5f,-1f));
-        rootNode.addLight(light2);
-        
-        DirectionalLight light3 = new DirectionalLight();
-        light3.setDirection(new Vector3f(0,  1f, -1));
-        rootNode.addLight(light3);
-        
-        DirectionalLight light4 = new DirectionalLight();
-        light4.setDirection(new Vector3f(0,  -1f, 1));
-        rootNode.addLight(light4);
+        AmbientLight al = new AmbientLight();
+        al.setColor(ColorRGBA.White);
+        rootNode.addLight(al);
         
         this.CreateHUD();
 

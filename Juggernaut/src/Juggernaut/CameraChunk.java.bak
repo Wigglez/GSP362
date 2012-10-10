@@ -42,7 +42,7 @@ public class CameraChunk {
         Node view = new Node("view");                //Create Node for physics manager
         view.setLocalTranslation(this.position);    //Place node in correct world position
         view.addControl(ghost);                     //Attach ghost control to node
-//        rootNode.attachChild(view);                 //attach veiw node to game world
+        rootNode.attachChild(view);                 //attach veiw node to game world
         bulletAppState.getPhysicsSpace().add(ghost);//Lets the physics manager see ghost box
         ghost.setCollisionGroup(2);                 //Add this box to collision group 2
         ghost.removeCollideWithGroup(1);            //Prevent colliding with world geometry
