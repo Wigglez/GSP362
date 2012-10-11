@@ -74,6 +74,8 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
     
     private float dt, prevTime =0;
     
+    Lava[] lava = new Lava[2];
+    
     CameraChunk []views = new CameraChunk[54];//holds all the different camera views
     CameraChunk currentView;                  //Stores the current view to update camPos and lookAt
 
@@ -112,6 +114,8 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
         HealthPickup3 = new HealthPickup(Juggernaut,this, bulletAppState, new Vector3f(350f, 316f, 0f));
         HealthPickup4 = new HealthPickup(Juggernaut,this, bulletAppState, new Vector3f(196f, 316f, 0f));
                 
+        setUpLava();
+        
         // Creates enemies in the world
         setUpEnemies();
                 
@@ -173,6 +177,12 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
         HealthPickup2.Update(dt, Juggernaut.getPosition());
         HealthPickup3.Update(dt, Juggernaut.getPosition());
         HealthPickup4.Update(dt, Juggernaut.getPosition());
+        
+        for(int i = 0; i < lava.length; i++){            
+            if(lava[i].testForPlayer(Juggernaut.getControl())){
+                Juggernaut.takeDamage(15f * dt);
+            }
+        }   
         
        // Update enemies
 	for (int itr = 0; itr < Enemy.length; itr++) {
@@ -362,6 +372,11 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
                         new Vector3f(225f, 316f, 0f), new Vector3f(-1, 0, 0));
         Enemy[65] = new Enemy( Juggernaut, this, bulletAppState,
                         new Vector3f(210f, 316f, 0f), new Vector3f(-1, 0, 0));
+    }
+    
+    private void setUpLava() {
+        lava[0] = new Lava(new Vector3f(304, 13, 0), new Vector3f(60, 1, 15), rootNode, bulletAppState);
+        lava[1] = new Lava(new Vector3f(339, 293, 0), new Vector3f(10, 1, 5), rootNode, bulletAppState);
     }
     
     private void setUpCameraBoxes() {
