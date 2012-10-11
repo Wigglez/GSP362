@@ -37,6 +37,8 @@ public class Character  implements ActionListener, PhysicsCollisionListener{
 
     private boolean damageTaken = false;
     private static float incomingDamage = 0;
+    private static float armorDelay = 3.0f;
+    private static float rechargeDelay = 3.0f;
     public int enemiesDead = 0;
     
     private static float hoverEnergyCost = 60f;
@@ -180,6 +182,15 @@ public class Character  implements ActionListener, PhysicsCollisionListener{
         }
         
         if(damageTaken){
+//            currentArmor -= incomingDamage;
+//            
+//            incomingDamage = currentArmor;
+//            
+//            currentHealth += incomingDamage;
+//            
+//            if(currentArmor < 0 ){
+//                currentArmor = 0;
+//            }
             if(currentArmor > 0){
                 currentArmor -= incomingDamage;
             }else{
@@ -187,7 +198,23 @@ public class Character  implements ActionListener, PhysicsCollisionListener{
             }
             
             damageTaken = false;
+            rechargeDelay = 0;
+            
+        } else {
+            rechargeDelay += dt;
         }
+        
+        if(rechargeDelay > armorDelay){
+            currentArmor += 5 * dt;
+            if(currentArmor >= maxArmor){
+                currentArmor = maxArmor;
+                rechargeDelay =0;
+            }
+            
+        }
+        
+        
+        
         
 //        enemiesDead = (int)currentExperience;
         if(enemiesDead == 66){

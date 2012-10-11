@@ -732,7 +732,7 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
                                     id("score");
                                     childLayoutHorizontal();
                                     alignRight();
-                                    text(start.getScore() + "");
+                                    text((int)start.getScore() + "");
                                     font("Interface/Fonts/Default.fnt");
                                     //wrap(true);
                                     height("100%");
@@ -960,7 +960,7 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
                                     id("WeaponDamageText");
                                     childLayoutHorizontal();
                                     alignLeft();
-                                    text("Damage: " + pistol.dammage);
+                                    text("Damage: " + (int)pistol.dammage);
                                     font("Interface/Fonts/Default.fnt");
                                     //wrap(true);
                                     height("100%");
@@ -1003,7 +1003,7 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
                                     id("Ammo");
                                     childLayoutHorizontal();
                                     alignRight();
-                                    text("Ammo: " + pistol.currentAmmo);
+                                    text("Ammo: " + (int)pistol.currentAmmo);
                                     font("Interface/Fonts/Default.fnt");
                                     //wrap(true);
                                     height("100%");

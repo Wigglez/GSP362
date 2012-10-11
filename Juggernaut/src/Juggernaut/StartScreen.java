@@ -454,7 +454,7 @@ public class StartScreen extends AbstractAppState implements ScreenController {
               
               Element niftyCurrentHealthElement = nifty.getCurrentScreen().findElementByName("MiniGun_Current_Ammo");
 
-              niftyCurrentHealthElement.getRenderer(TextRenderer.class).setText(Juggernaut.WeaponSlot2().currentAmmo + "");
+              niftyCurrentHealthElement.getRenderer(TextRenderer.class).setText((int)Juggernaut.WeaponSlot2().currentAmmo + "");
           }
       }
       
@@ -480,7 +480,7 @@ public class StartScreen extends AbstractAppState implements ScreenController {
               
               Element niftyCurrentHealthElement = nifty.getCurrentScreen().findElementByName("LaserGun_Current_Ammo");
 
-              niftyCurrentHealthElement.getRenderer(TextRenderer.class).setText(Juggernaut.WeaponSlot3().currentAmmo + "");
+              niftyCurrentHealthElement.getRenderer(TextRenderer.class).setText((int)Juggernaut.WeaponSlot3().currentAmmo + "");
           }
       }
   }
@@ -549,11 +549,11 @@ public class StartScreen extends AbstractAppState implements ScreenController {
             
             Element niftyAmmoElement = nifty.getCurrentScreen().findElementByName("Ammo");
       
-            niftyAmmoElement.getRenderer(TextRenderer.class).setText("Ammo: " + Ammo);
+            niftyAmmoElement.getRenderer(TextRenderer.class).setText("Ammo: " + (int)Ammo);
             
             niftyElement = nifty.getCurrentScreen().findElementByName("score");
       
-            niftyElement.getRenderer(TextRenderer.class).setText("" + score);
+            niftyElement.getRenderer(TextRenderer.class).setText("" + (int)score);
         }
     }
  
