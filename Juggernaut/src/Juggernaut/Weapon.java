@@ -48,7 +48,7 @@ public abstract class Weapon {
         return maxAmmo;
     }
     
-    public Bullet Fire(float damageModifier, Vector3f pos, Vector3f dir, SimpleApplication game, BulletAppState bulletAppState) {
+    public Bullet Fire(float damageModifier, Vector3f pos, Vector3f dir, Main game, BulletAppState bulletAppState) {
         
         Bullet bullet = new Bullet(bulletMaterial, dammage * damageModifier, pos, dir, game, bulletAppState);
         

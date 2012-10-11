@@ -1,6 +1,8 @@
 package Juggernaut;
 
 import com.jme3.bullet.BulletAppState;
+import com.jme3.bullet.collision.PhysicsCollisionEvent;
+import com.jme3.bullet.collision.PhysicsCollisionListener;
 import com.jme3.bullet.collision.shapes.CapsuleCollisionShape;
 import com.jme3.bullet.control.CharacterControl;
 import com.jme3.input.KeyInput;
@@ -14,16 +16,16 @@ import java.util.Set;
 import java.util.Vector;
 
 
-public class Character  implements ActionListener{
+public class Character  implements ActionListener, PhysicsCollisionListener{
     Main game;
     BulletAppState bulletAppState;
     // HUD elements
     private static float currentHealth = 100;
-    private static float currentArmor = 100;
+    private static float currentArmor = 25;
     private static float currentEnergy = 100;
 
     private static float maxHealth = 100;
-    private static float maxArmor = 100;
+    private static float maxArmor = 25;
     private static float maxEnergy = 100;
 
     private static float currentLevel = 1;
@@ -33,6 +35,7 @@ public class Character  implements ActionListener{
     private static float abiltyPoints =0;
     private static float attributePoints =0; 
 
+    private boolean damageTaken = false;
     private static float incomingDamage = 0;
     
     private static float hoverEnergyCost = 60f;
@@ -88,6 +91,7 @@ public class Character  implements ActionListener{
         
         this.game = gameRef;
         this.bulletAppState = bulletAppStateRef;
+        bulletAppState.getPhysicsSpace().addCollisionListener(this);
         //Load Ninja as filler for character model
         ninja = game.getAssetManager().loadModel("Models/Ninja/Ninja.mesh.xml");
         ninja.setName("Player");
@@ -133,9 +137,7 @@ public class Character  implements ActionListener{
         
         player.setWalkDirection(walkDirection);
         player.setPhysicsLocation(new Vector3f(player.getPhysicsLocation().x, player.getPhysicsLocation().y, 0));
-        
-        // HUD updates
-        //updateHealth();
+
 
         playerDebug.setLocalTranslation(player.getPhysicsLocation());
         
@@ -156,7 +158,7 @@ public class Character  implements ActionListener{
         for(int bulletItr = 0; bulletItr < bullets.size(); bulletItr++){
             Bullet testBullet = bullets.get(bulletItr);
             if(testBullet.LifeTime(dt) ){
-                testBullet.delete(game, bulletAppState);
+                testBullet.delete();
                 bullets.remove(bulletItr);
             }
 
@@ -181,9 +183,19 @@ public class Character  implements ActionListener{
                 currentEnergy += 10f * dt;
         }
         
-        System.out.print(currentHealth +"\n");
+        if(damageTaken){
+            if(currentArmor > 0){
+                currentArmor -= incomingDamage;
+            }else{
+                currentHealth -= incomingDamage;
+            }
+            
+            damageTaken = false;
+        }
+        
+//        System.out.print(currentHealth +"\n");
         game.getHud().bind(game.getNifty(), game.getHud().screen);
-        game.getHud().updateHUD(currentHealth, currentArmor, currentEnergy);
+        game.getHud().updateHUD(healthPercentage(), armorPercentage(), energyPercentage());
     }
 
     private void setUpKeys() {
@@ -263,26 +275,20 @@ public class Character  implements ActionListener{
 
     public float healthPercentage() {
         
-        currentHealth = (currentHealth / maxHealth) * 100 ;
-
-        return currentHealth;
+        return (currentHealth / maxHealth) * 100 ;
         
 
     }
 
     public float armorPercentage() {
         
-        currentArmor = (currentArmor / maxArmor) * 100;
-
-        return currentArmor;
+        return (currentArmor / maxArmor) * 100;
 
     }
 
     public float energyPercentage() {
-        
-        currentEnergy = (currentEnergy / maxEnergy) * 100;
-
-        return currentEnergy;
+  
+        return (currentEnergy / maxEnergy) * 100;
 
     }
     
@@ -295,12 +301,12 @@ public class Character  implements ActionListener{
     }
     
     public void upgradeHealth(){
-        maxHealth += 2;
+        maxHealth += 25;
         currentHealth = maxHealth;
     }
     
     public void upgradeArmor(){
-        maxArmor += 1;
+        maxArmor += 25;
         currentArmor = maxArmor;
     }
     
@@ -311,11 +317,6 @@ public class Character  implements ActionListener{
             maxExperience = currentLevel * 10;
         }
     }
-    
-    // Timers in update for armor recharge
-    // Ability (dash damage, sprint energy cost, sprint speed)
-    // Hover (charactercontrol 6 fallspeed)
-    // Sprint (charactercontrol 
 
     private void LevelUp() {
         currentLevel += 1;
@@ -353,8 +354,19 @@ public class Character  implements ActionListener{
         return player.getPhysicsLocation();
     }
     
-    public void takeDamage(float damage){
-        currentHealth -= damage;
+    public Weapon EquippedWeapon(){
+        return currentWeapon;
     }
     
+    public float DamageOutput(){
+        return currentWeapon.getDammage() * damageModifier;
+    }
+    
+    public void collision(PhysicsCollisionEvent event) {
+        if(event.getNodeA().getName().equals("Player") && event.getNodeB().getName().equals("Enemy")){
+            incomingDamage = 25;
+            damageTaken = true;
+            
+        }
+    }
 }

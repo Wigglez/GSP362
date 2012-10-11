@@ -6,6 +6,8 @@ package Juggernaut;
 
 import com.jme3.app.SimpleApplication;
 import com.jme3.bullet.BulletAppState;
+import com.jme3.bullet.collision.PhysicsCollisionEvent;
+import com.jme3.bullet.collision.PhysicsCollisionListener;
 import com.jme3.bullet.control.RigidBodyControl;
 import com.jme3.material.Material;
 import com.jme3.math.Vector3f;
@@ -19,7 +21,9 @@ import java.util.Vector;
  */
 
 
-public class Bullet {
+public class Bullet implements PhysicsCollisionListener {
+    Main game;
+    BulletAppState bulletAppState;
     float lifespan;
     float lifeTime;
     Vector3f velocity;
@@ -34,7 +38,9 @@ public class Bullet {
         
     }
     
-    Bullet(Material bulletMat, float dammage, Vector3f pos, Vector3f dir, SimpleApplication game, BulletAppState bulletAppState){
+    Bullet(Material bulletMat, float dammage, Vector3f pos, Vector3f dir, Main gameRef, BulletAppState bulletAppStateRef){
+        game = gameRef;
+        bulletAppState = bulletAppStateRef;
         sphere = new Sphere(32, 32, .4f, true, false);
         bulletGeo = new Geometry("Bullet", sphere);
         game.getRootNode().attachChild(bulletGeo);
@@ -45,7 +51,8 @@ public class Bullet {
         bulletGeo.addControl(bulletPhys);
         
         bulletAppState.getPhysicsSpace().add(bulletPhys);
-        
+        bulletAppState.getPhysicsSpace().addCollisionListener(this);
+
         bulletPhys.setGravity(Vector3f.ZERO);
         
         bulletPhys.setLinearVelocity(new Vector3f(35,0,0).mult(dir));
@@ -68,7 +75,7 @@ public class Bullet {
         }
     }
     
-    public void delete(SimpleApplication game, BulletAppState bulletAppState){
+    public void delete(){
         game.getRootNode().detachChild(bulletGeo);
         
         bulletAppState.getPhysicsSpace().remove(bulletPhys);
@@ -96,5 +103,13 @@ public class Bullet {
         return velocity;
     }
     
+     public void collision(PhysicsCollisionEvent event) {
+         if(event.getNodeB().equals(this.bulletGeo) && event.getNodeA().getName().equals("Enemy")
+          || event.getNodeA().equals(this.bulletGeo) && event.getNodeB().getName().equals("LevleGeo")){
+            delete();
+        }
+        
+        
+    }
     
 }

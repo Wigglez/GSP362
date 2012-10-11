@@ -25,13 +25,13 @@ public class Enemy implements PhysicsCollisionListener{
     private BulletAppState bulletAppState;
     Character Juggernaut;
     
-    private  float currentHealth = 1;
-    private float maxHealth = 1;
+    private  float currentHealth = 6;
+    private float maxHealth = 3;
     
     private float experienceOnDeath = 0;
     private float scoreOnDeath = 0;
     
-    private float Damage = 5;
+    private float Damage = 3;
     
     private float movementSpeed = 0;
     private Quaternion rotation;
@@ -43,6 +43,9 @@ public class Enemy implements PhysicsCollisionListener{
     private RigidBodyControl enemy;
     
     Spatial enemyDebug;
+    
+    private boolean damageTaken = false;
+    private static float incomingDamage = 0;
     
     private Vector3f walkDirection = new Vector3f();
     private boolean walkLeft = false;
@@ -126,23 +129,32 @@ public class Enemy implements PhysicsCollisionListener{
         
         
        // Aggro
-		float distFromPlayerX = playerPos.x - enemy.getPhysicsLocation().x;
-		float distFromPlayerY = playerPos.y - enemy.getPhysicsLocation().y;
+        float distFromPlayerX = playerPos.x - enemy.getPhysicsLocation().x;
+        float distFromPlayerY = playerPos.y - enemy.getPhysicsLocation().y;
 
-		if (distFromPlayerY > -7 && distFromPlayerY < 7) {
-			if (distFromPlayerX > -50 && distFromPlayerX < 0) {
-				walkLeft = true;
-                                walkRight = false;
-			} 
+        if (distFromPlayerY > -7 && distFromPlayerY < 7) {
+            if (distFromPlayerX > -50 && distFromPlayerX < 0) {
+                    walkLeft = true;
+                    walkRight = false;
+            } 
 
-			if (distFromPlayerX > 0 && distFromPlayerX < 50) {
-				walkRight = true;
-                                walkLeft = false;
-			} 
-		}else {
-				walkLeft = false;
-                                walkRight = false;
-			}
+            if (distFromPlayerX > 0 && distFromPlayerX < 50) {
+                    walkRight = true;
+                    walkLeft = false;
+            } 
+        }else {
+            walkLeft = false;
+            walkRight = false;
+        }
+        
+        if(damageTaken){
+            currentHealth -= incomingDamage;
+            damageTaken = false;
+        }
+        
+        if(currentHealth <= 0){
+            Die();
+        }
         
     }
     
@@ -179,10 +191,13 @@ public class Enemy implements PhysicsCollisionListener{
     
     public void collision(PhysicsCollisionEvent event) {
         if(event.getNodeA().getName().equals("Player") && event.getNodeB().equals(this.enemyElephant)){
-            this.Die();
-            Juggernaut.takeDamage(Damage);
-            
+            Die();            
+        } else if(event.getNodeB().getName().equals("Bullet") && event.getNodeA().equals(this.enemyElephant)){
+            damageTaken = true;
+            incomingDamage = Juggernaut.DamageOutput();
+            System.out.print(incomingDamage + "\n");
         }
+        
         
     }
 }

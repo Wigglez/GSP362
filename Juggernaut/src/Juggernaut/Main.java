@@ -108,6 +108,7 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
         
         //Load in the level
         Spatial map = assetManager.loadModel("Models/levelLayout - Update_cameraPos.obj");
+        map.setName("LevleGeo");
         rootNode.attachChild(map);
         
         Material mark_mat = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
