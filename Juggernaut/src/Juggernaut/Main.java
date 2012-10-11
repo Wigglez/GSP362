@@ -72,6 +72,7 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
     Geometry elevator3;                     //Elevator 3 - Vertical motion to reach new area
     RigidBodyControl elvtr3;
     
+    private float dt, prevTime =0;
     
     CameraChunk []views = new CameraChunk[54];//holds all the different camera views
     CameraChunk currentView;                  //Stores the current view to update camPos and lookAt
@@ -161,18 +162,21 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
     @Override
     public void simpleUpdate(float tpf) {
         
+        dt = getTimer().getTimeInSeconds() - prevTime;
+        prevTime = getTimer().getTimeInSeconds();
+        
         //Update player
-        Juggernaut.Update(tpf);
+        Juggernaut.Update(dt);
         
         //Health Pickups
-        HealthPickup1.Update(tpf, Juggernaut.getPosition());
-        HealthPickup2.Update(tpf, Juggernaut.getPosition());
-        HealthPickup3.Update(tpf, Juggernaut.getPosition());
-        HealthPickup4.Update(tpf, Juggernaut.getPosition());
+        HealthPickup1.Update(dt, Juggernaut.getPosition());
+        HealthPickup2.Update(dt, Juggernaut.getPosition());
+        HealthPickup3.Update(dt, Juggernaut.getPosition());
+        HealthPickup4.Update(dt, Juggernaut.getPosition());
         
        // Update enemies
 	for (int itr = 0; itr < Enemy.length; itr++) {
-            Enemy[itr].Update(tpf, Juggernaut.getPosition());
+            Enemy[itr].Update(dt, Juggernaut.getPosition());
 	}
         
        

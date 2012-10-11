@@ -122,7 +122,7 @@ public class HealthPickup implements PhysicsCollisionListener{
     
     }
      
-     void Update(float tpf, Vector3f playerPos) {
+     void Update(float dt, Vector3f playerPos) {
         
          healthDebug.setLocalTranslation(HealthPickup.getPhysicsLocation());
         

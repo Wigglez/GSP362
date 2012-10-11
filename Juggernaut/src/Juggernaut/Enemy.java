@@ -100,7 +100,7 @@ public class Enemy implements PhysicsCollisionListener{
         
     }
     
-    void Update(float tpf, Vector3f playerPos) {
+    void Update(float dt, Vector3f playerPos) {
         // Movement
         walkDirection.set( 0, 0, 0);
         if(walkLeft) { 

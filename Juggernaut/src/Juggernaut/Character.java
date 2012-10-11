@@ -69,8 +69,6 @@ public class Character  implements ActionListener, PhysicsCollisionListener{
     private float fireDelay =0;
     private Vector<Bullet> bullets= new Vector<Bullet>();
     
-    private float dt, prevTime =0;
-    
     Spatial ninja;
     private CharacterControl player;
 
@@ -123,7 +121,7 @@ public class Character  implements ActionListener, PhysicsCollisionListener{
         
     }
     
-    void Update(float tpf){
+    void Update(float dt){
         // Movement
         walkDirection.set( 0, 0, 0);
         if(left) { 
@@ -141,9 +139,6 @@ public class Character  implements ActionListener, PhysicsCollisionListener{
 
         playerDebug.setLocalTranslation(player.getPhysicsLocation());
         
-        
-        dt = game.getTimer().getTimeInSeconds() - prevTime;
-        prevTime = game.getTimer().getTimeInSeconds();
         
         fireDelay += dt;
         
