@@ -60,7 +60,7 @@ public class Bullet implements PhysicsCollisionListener {
         this.dammage = dammage;
         
         lifeTime = 0;
-        lifespan = 2.0f;
+        lifespan = 1.5f;
         
         
     }
@@ -105,7 +105,8 @@ public class Bullet implements PhysicsCollisionListener {
     
      public void collision(PhysicsCollisionEvent event) {
          if(event.getNodeB().equals(this.bulletGeo) && event.getNodeA().getName().equals("Enemy")
-          || event.getNodeA().equals(this.bulletGeo) && event.getNodeB().getName().equals("LevleGeo")){
+          || event.getNodeA().equals(this.bulletGeo) && event.getNodeB().getName().equals("LevleGeo")
+          || event.getNodeB().equals(this.bulletGeo) && event.getNodeA().getName().equals("Health")){
             delete();
         }
         
