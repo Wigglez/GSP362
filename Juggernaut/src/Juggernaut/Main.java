@@ -28,6 +28,7 @@ import de.lessvoid.nifty.builder.ImageBuilder;
 import de.lessvoid.nifty.builder.ScreenBuilder;
 import de.lessvoid.nifty.builder.LayerBuilder;
 import de.lessvoid.nifty.builder.PanelBuilder;
+import de.lessvoid.nifty.builder.PopupBuilder;
 import de.lessvoid.nifty.builder.TextBuilder;
 import de.lessvoid.nifty.controls.button.builder.ButtonBuilder;
 import de.lessvoid.nifty.controls.label.builder.LabelBuilder;
@@ -39,25 +40,29 @@ import de.lessvoid.nifty.render.image.ImageMode;
 import de.lessvoid.nifty.render.image.ImageModeHelper;
 import de.lessvoid.nifty.render.image.CompoundImageMode;
 import de.lessvoid.nifty.screen.Screen;
+import de.lessvoid.nifty.tools.Color;
 import java.util.logging.Level;
 
 public class Main extends SimpleApplication implements PhysicsCollisionListener {
     
-    private StartScreen start;
+    private static StartScreen start;
     private Nifty nifty;
     
-    private miniGun minigun;
-    private Pistol pistol;
-    private laserRifle laserRifle;
     
+    
+    private static miniGun minigun;
+    private Pistol pistol;
+    private static laserRifle laserRifle;
+    //private static Character JuggernautWeapons;
     
     private BulletAppState bulletAppState;  //Phyics manager
     private RigidBodyControl landscape;     //Phyics mesh for map
     
-    Character Juggernaut;                   //Game Character
+    private static Character Juggernaut;
+    //Game Character
     Enemy[] Enemy = new Enemy[66];
     
-    HealthPickup HealthPickup1; //test Health Pickup
+    //HealthPickup HealthPickup1; //test Health Pickup
     HealthPickup HealthPickup2; // Boss area Health Pickup
     HealthPickup HealthPickup3; // Boss area Health Pickup
     HealthPickup HealthPickup4; // Boss area Health Pickup
@@ -94,8 +99,8 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
     @Override
     public void simpleInitApp() {
         
-        setDisplayFps(true);
-        setDisplayStatView(true);
+        setDisplayFps(false);
+        setDisplayStatView(false);
         //Disable fly cam so it sits in fixed location
         flyCam.setEnabled(false);       
         
@@ -109,7 +114,7 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
         Juggernaut = new Character(this, bulletAppState);
          
         //create Health pickups
-        HealthPickup1 = new HealthPickup(Juggernaut,this, bulletAppState, new Vector3f(170f, 0f, 0f));
+        //HealthPickup1 = new HealthPickup(Juggernaut,this, bulletAppState, new Vector3f(170f, 0f, 0f));
         HealthPickup2 = new HealthPickup(Juggernaut,this, bulletAppState, new Vector3f(360f, 316f, 0f));
         HealthPickup3 = new HealthPickup(Juggernaut,this, bulletAppState, new Vector3f(350f, 316f, 0f));
         HealthPickup4 = new HealthPickup(Juggernaut,this, bulletAppState, new Vector3f(196f, 316f, 0f));
@@ -159,6 +164,7 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
         light4.setDirection(new Vector3f(0,  -1f, 1));
         rootNode.addLight(light4);
         
+        
         this.CreateHUD();
 
     }
@@ -173,7 +179,7 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
         Juggernaut.Update(dt);
         
         //Health Pickups
-        HealthPickup1.Update(dt, Juggernaut.getPosition());
+        //HealthPickup1.Update(dt, Juggernaut.getPosition());
         HealthPickup2.Update(dt, Juggernaut.getPosition());
         HealthPickup3.Update(dt, Juggernaut.getPosition());
         HealthPickup4.Update(dt, Juggernaut.getPosition());
@@ -227,7 +233,7 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
         // Enemy creations
         // First floor (enemies face left)
         Enemy[0] = new Enemy( Juggernaut, this, bulletAppState,
-                        new Vector3f(30f, -7f, 0f), new Vector3f(1, 0, 0));
+                        new Vector3f(60f, -7f, 0f), new Vector3f(1, 0, 0));
         Enemy[1] = new Enemy( Juggernaut, this, bulletAppState,
                         new Vector3f(70f, -7f, 0f), new Vector3f(1, 0, 0));
         Enemy[2] = new Enemy( Juggernaut, this, bulletAppState,
@@ -726,7 +732,7 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
                                     id("score");
                                     childLayoutHorizontal();
                                     alignRight();
-                                    text("Score");
+                                    text(start.getScore() + "");
                                     font("Interface/Fonts/Default.fnt");
                                     //wrap(true);
                                     height("100%");
@@ -734,7 +740,7 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
                                 }});
                             }});
                             
-                            panel(new PanelBuilder("Key_panel") {{
+                            panel(new PanelBuilder("Skills_Button_Panel") {{
                                 childLayoutHorizontal();
                                 alignRight();
                                 valignTop();
@@ -743,14 +749,52 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
                                 width("50");
                                 visibleToMouse(false);
                                 
-                                image(new ImageBuilder() 
+                                control(new ButtonBuilder("SkillsButton", "Skills") 
                                 {{
-                                        filename("Interface/Key.png");
-                                        valignCenter();
-                                        alignCenter();
-                                        height("100%");
-                                        width("100%");
+                                      alignCenter();
+                                      focusable(false);
+                                      valignBottom();
+                                      height("50%");
+                                      width("100%");
+                                      visibleToMouse(true);
+                                      interactOnClick("ShowSkillsPopup()");
                                 }});
+//                                image(new ImageBuilder() 
+//                                {{
+//                                        filename("Interface/Key.png");
+//                                        valignCenter();
+//                                        alignCenter();
+//                                        height("100%");
+//                                        width("100%");
+//                                }});
+                            }});
+                            panel(new PanelBuilder("Store_Button_Panel") {{
+                                childLayoutHorizontal();
+                                alignRight();
+                                valignTop();
+                                //backgroundColor("#00f8");
+                                height("50");
+                                width("50");
+                                visibleToMouse(false);
+                                
+                                control(new ButtonBuilder("StoreButton", "Store") 
+                                {{
+                                      alignCenter();
+                                      focusable(false);
+                                      valignBottom();
+                                      height("50%");
+                                      width("100%");
+                                      visibleToMouse(true);
+                                      interactOnClick("ShowStorePopup()");
+                                }});
+//                                image(new ImageBuilder() 
+//                                {{
+//                                        filename("Interface/Key.png");
+//                                        valignCenter();
+//                                        alignCenter();
+//                                        height("100%");
+//                                        width("100%");
+//                                }});
                             }});
                         }});
                 }});
@@ -784,23 +828,9 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
                     width("100%");
                     visibleToMouse(false);
                      
-//                     control(new ButtonBuilder("TestArmorButton", "Test Armor") {{
-//                      alignCenter();
-//                      valignTop();
-//                      height("25%");
-//                      width("25%");
-//                      visibleToMouse(true);
-//                      interactOnClick("TestArmor()");
-//                        }});
-//                     
-//                     control(new ButtonBuilder("TestEnergyButton", "Test Energy") {{
-//                      alignCenter();
-//                      valignBottom();
-//                      height("25%");
-//                      width("25%");
-//                      visibleToMouse(true);
-//                      interactOnClick("TestEnergy()");
-//                        }});
+
+                     
+                     
                     
                     
 
@@ -814,6 +844,16 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
                     height("2.5%");
                     width("100%");
                     visibleToMouse(false);
+                    
+                    image(new ImageBuilder() 
+                    {{
+                        id("PlayerExperience");
+                        filename("Interface/experience.png");
+                        valignCenter();
+                        alignLeft();
+                        height("100%");
+                        width(start.getExperiencePercentage() + "%");
+                    }});
 
                     }}); // panel added
                 panel(new PanelBuilder("top_spacer_Panel") {{
@@ -1104,15 +1144,189 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
                         }});
 
                     }}); // panel added
-                    panel(new PanelBuilder("bottom_spacer_Panel") {{
-                    childLayoutCenter();
-                    alignCenter();
-                    //backgroundColor("#0f06");
-                    height("2.8%");
-                    width("100%");
-                    visibleToMouse(false);
+                    panel(new PanelBuilder("bottom_spacer_Panel") 
+                    {{
+                        childLayoutHorizontal();
+                        alignCenter();
+                        valignCenter();
+                        //backgroundColor("#0f06");
+                        height("2.8%");
+                        width("100%");
+                        visibleToMouse(false);
 
-                    }}); // panel added
+                         panel(new PanelBuilder("Bottom_Panel_One") {
+                        {
+                            childLayoutCenter();
+                            width("26.75%");
+                            height("100%");
+                            //backgroundColor("#f008");
+                            alignCenter();
+                            valignCenter();
+
+                        }
+                        });
+                        panel(new PanelBuilder("Bottom_Pistol_Panel") {
+                        {
+                            childLayoutCenter();
+                            width("11.75%");
+                            height("100%");
+                            //backgroundColor("#f007");
+                            alignCenter();
+                            valignCenter();
+
+                            text(new TextBuilder() 
+                            {{
+                                id("Weapon_1");
+                                childLayoutHorizontal();
+                                alignRight();
+                                
+                                text("1");
+                                font("Interface/Fonts/Default.fnt");
+                                //wrap(true);
+                                height("100%");
+                                width("100%");
+                            }});
+
+                        }
+                        });
+                        panel(new PanelBuilder("Bottom_Panel_Three") {
+                        {
+                            childLayoutCenter();
+                            width("3.25%");
+                            height("100%");
+                            //backgroundColor("#f006");
+                            alignCenter();
+                            valignCenter();
+
+                        }
+                        });
+                        panel(new PanelBuilder("Bottom_MiniGun_Panel") {
+                        {
+                            childLayoutCenter();
+                            width("11.75%");
+                            height("100%");
+                            //backgroundColor("#f005");
+                            alignCenter();
+                            valignCenter();
+                            text(new TextBuilder() 
+                            {{
+                                id("Weapon_2");
+                                childLayoutHorizontal();
+                                alignRight();
+                                text("2");
+                                font("Interface/Fonts/Default.fnt");
+                                //wrap(true);
+                                height("100%");
+                                width("100%");
+                            }});
+
+                        }
+                        });
+                        panel(new PanelBuilder("Bottom_Panel_Five") {
+                        {
+                            childLayoutCenter();
+                            width("3.25%");
+                            height("100%");
+                            //backgroundColor("#f004");
+                            alignCenter();
+                            valignCenter();
+
+                        }
+                        });
+                        panel(new PanelBuilder("Bottom_LaserRifle_Panel") {
+                        {
+                            childLayoutCenter();
+                            width("11.75%");
+                            height("100%");
+                            //backgroundColor("#f003");
+                            alignCenter();
+                            valignCenter();
+
+                            text(new TextBuilder() 
+                            {{
+                                id("Weapon_3");
+                                childLayoutHorizontal();
+                                alignRight();
+                                text("3");
+                                font("Interface/Fonts/Default.fnt");
+                                //wrap(true);
+                                height("100%");
+                                width("100%");
+                            }});
+
+                        }
+                        });
+                        panel(new PanelBuilder("Bottom_Panel_Seven") {
+                        {
+                            childLayoutCenter();
+                            width("3.25%");
+                            height("100%");
+                            //backgroundColor("#f002");
+                            alignCenter();
+                            valignCenter();
+
+                        }
+                        });
+                        panel(new PanelBuilder("Bottom_Ctrl_Ability_Panel") {
+                        {
+                            childLayoutCenter();
+                            width("11.75%");
+                            height("100%");
+                            //backgroundColor("#f001");
+                            alignCenter();
+                            valignCenter();
+
+                            text(new TextBuilder() 
+                            {{
+                                id("Ctrl_Ability");
+                                childLayoutHorizontal();
+                                alignRight();
+                                text("Ctrl Ability");
+                                font("Interface/Fonts/Default.fnt");
+                                //wrap(true);
+                                height("100%");
+                                width("100%");
+                            }});
+
+                        }
+                        });
+                        panel(new PanelBuilder("Bottom_Panel_Nine") {
+                        {
+                            childLayoutCenter();
+                            width("3.6%");
+                            height("100%");
+                           //backgroundColor("#00f8");
+                            alignCenter();
+                            valignCenter();
+
+                        }
+                        });
+                        panel(new PanelBuilder("Bottom_Panel_Ten") {
+                        {
+                            childLayoutCenter();
+                            width("11.75%");
+                            height("100%");
+                            //backgroundColor("#00f5");
+                            alignCenter();
+                            valignCenter();
+
+                            text(new TextBuilder() 
+                            {{
+                                id("Shift_Ability");
+                                childLayoutHorizontal();
+                                alignRight();
+                                text("Shift Ability");
+                                font("Interface/Fonts/Default.fnt");
+                                //wrap(true);
+                                height("100%");
+                                width("100%");
+                            }});
+
+                        }
+                        });
+
+
+                        }}); // panel added
                 }});
 
         }}.build(nifty));
@@ -1342,6 +1556,7 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
                                 + "Your goal is to exterminate the aliens by using various weapons, skills, "
                                 + "and upgrades found along the way. During the campaign, you will "
                                 + "encounter different enemies that will drop ammo and health pickups to assist you with your survivability. ");
+                        
                         font("Interface/Fonts/Default.fnt");
                         wrap(true);
                         height("100%");
@@ -1373,12 +1588,1768 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
                 }}); // panel added
             }});
         }}.build(nifty));
+            
+        ////////////////////////////////////////////////////////
+        //Death</screen>
+        ////////////////////////////////////////////////////////
+
+        nifty.addScreen("DeathScreen", new ScreenBuilder("DeathScreen") {{
+        controller(new Juggernaut.StartScreen());
+
+        layer(new LayerBuilder("background") {{
+            childLayoutCenter();
+            backgroundColor("#000f");
+            // <!-- ... -->
+            image(new ImageBuilder() {{
+                filename("Interface/youlose.png");
+            }});
+        }});
+
+        layer(new LayerBuilder("foreground") {{
+            childLayoutVertical();
+            backgroundColor("#0000");
+
+             panel(new PanelBuilder("panel_One") {{
+                childLayoutCenter();
+                alignCenter();
+                //backgroundColor("#f008");
+                height("25%");
+                width("100%");
+
+//                text(new TextBuilder() {{
+//                    text("Guide");
+//                    font("Interface/Fonts/Default.fnt");
+//                    wrap(true);
+//                    height("100%");
+//                    width("100%");
+//                 }});
+            }});
+
+            panel(new PanelBuilder("panel_Two") {{
+                childLayoutCenter();
+                alignCenter();
+                //backgroundColor("#0f08");
+                height("50%");
+                width("100%");
+
+//                    text(new TextBuilder() {{
+//                        text("You are a super soldier from the year 2015 and are unfrozen to save the world "
+//                                + "from the overwhelming mass of aliens in the year 3027. "
+//                                + "Your goal is to exterminate the aliens by using various weapons, skills, "
+//                                + "and upgrades found along the way. During the campaign, you will "
+//                                + "encounter different enemies that will drop ammo and health pickups to assist you with your survivability. ");
+//                        
+//                        font("Interface/Fonts/Default.fnt");
+//                        wrap(true);
+//                        height("100%");
+//                        width("100%");
+//                    }});
+
+
+            }});
+
+
+            panel(new PanelBuilder("panel_Three") {{
+                childLayoutCenter();
+                alignCenter();
+                //backgroundColor("#00f8");
+                height("25%");
+                width("100%");
+
+
+//                    control(new ButtonBuilder("BackButton", "Back") {{
+//                      alignCenter();
+//                      valignTop();
+//                      height("25%");
+//                      width("25%");
+//                      visibleToMouse(true);
+//
+//                      interactOnClick("goToScreen(OptionsScreen)");
+//                        }});
+
+            }}); // panel added
+        }});
+        }}.build(nifty));
+        ////////////////////////////////////////////////////////
+        //Guide</screen>
+        ////////////////////////////////////////////////////////
+
+        nifty.addScreen("WinScreen", new ScreenBuilder("WinScreen") {{
+        controller(new Juggernaut.StartScreen());
+
+        layer(new LayerBuilder("background") {{
+            childLayoutCenter();
+            backgroundColor("#000f");
+            // <!-- ... -->
+            image(new ImageBuilder() {{
+                filename("Interface/youwin.png");
+            }});
+        }});
+
+        layer(new LayerBuilder("foreground") {{
+            childLayoutVertical();
+            backgroundColor("#0000");
+
+             panel(new PanelBuilder("panel_One") {{
+                childLayoutCenter();
+                alignCenter();
+                //backgroundColor("#f008");
+                height("25%");
+                width("100%");
+
+//                text(new TextBuilder() {{
+//                    text("Guide");
+//                    font("Interface/Fonts/Default.fnt");
+//                    wrap(true);
+//                    height("100%");
+//                    width("100%");
+//                 }});
+            }});
+
+            panel(new PanelBuilder("panel_Two") {{
+                childLayoutCenter();
+                alignCenter();
+                //backgroundColor("#0f08");
+                height("50%");
+                width("100%");
+
+//                    text(new TextBuilder() {{
+//                        text("You are a super soldier from the year 2015 and are unfrozen to save the world "
+//                                + "from the overwhelming mass of aliens in the year 3027. "
+//                                + "Your goal is to exterminate the aliens by using various weapons, skills, "
+//                                + "and upgrades found along the way. During the campaign, you will "
+//                                + "encounter different enemies that will drop ammo and health pickups to assist you with your survivability. ");
+//                        
+//                        font("Interface/Fonts/Default.fnt");
+//                        wrap(true);
+//                        height("100%");
+//                        width("100%");
+//                    }});
+
+
+            }});
+
+
+            panel(new PanelBuilder("panel_Three") {{
+                childLayoutCenter();
+                alignCenter();
+                //backgroundColor("#00f8");
+                height("25%");
+                width("100%");
+
+
+//                    control(new ButtonBuilder("BackButton", "Back") {{
+//                      alignCenter();
+//                      valignTop();
+//                      height("25%");
+//                      width("25%");
+//                      visibleToMouse(true);
+//
+//                      interactOnClick("goToScreen(OptionsScreen)");
+//                        }});
+
+            }}); // panel added
+        }});
+        }}.build(nifty));
+            
 
         flyCam.setEnabled(false);
         nifty.gotoScreen("start"); // start the screen
         //nifty.setDebugOptionPanelColors(true);
 
 
+    }
+    ////////////////////////////////////////////////////////////////////////////
+    //Registers Main Store popup
+    ////////////////////////////////////////////////////////////////////////////
+    public void registerStorePopup(Nifty nifty) 
+    {
+        new PopupBuilder("storePopup") {
+        {
+
+
+            childLayoutCenter();
+            backgroundColor("#000a");
+
+            panel(new PanelBuilder("Store") {
+            {
+                childLayoutVertical();
+                width("75%");
+                height("75%");
+                //backgroundColor("#eeee");
+                alignCenter();
+                valignCenter();
+                //style("nifty-panel-red");
+                backgroundImage("Interface/store.png");
+                //image("Interface/options.png");
+    //            image(new ImageBuilder() 
+    //            {{
+    //                filename("Interface/options.png");
+    //                width("100%");
+    //                height("100%");
+    //                
+    //            }});
+
+                panel(new PanelBuilder("Store_Panel_One") {
+                {
+                    childLayoutCenter();
+                    width("100%");
+                    height("25%");
+                    //backgroundColor("#0f08");
+                    alignCenter();
+                    valignTop();
+
+                }
+                });
+                panel(new PanelBuilder("Store_Panel_Two") {
+                {
+                    childLayoutCenter();
+                    width("100%");
+                    height("50%");
+                    //backgroundColor("#0f05");
+                    alignCenter();
+                    valignTop();
+
+                    control(new ButtonBuilder("StoreTabButton", "Store") 
+                    {{
+                        alignCenter();
+                        valignCenter();
+                        height("12.5%");
+                        width("25%");
+                        visibleToMouse(true);
+
+                        interactOnClick("ShowStoreTabPopup()");
+                    }});
+
+                }
+                });
+                panel(new PanelBuilder("Store_Panel_Three") {
+                {
+                    childLayoutCenter();
+                    width("100%");
+                    height("25%");
+                    //backgroundColor("#f005");
+                    alignCenter();
+                    valignCenter();
+                    
+                    control(new ButtonBuilder("Store_ExitButton", "Exit") 
+                    {{
+                        alignCenter();
+                        valignCenter();
+                        height("25%");
+                        width("25%");
+                        visibleToMouse(true);
+
+                        interactOnClick("CloseStorePopup()");
+                    }});
+
+
+
+                }
+                });
+            }
+            });
+          }
+        }.registerPopup(nifty);
+    }
+    ////////////////////////////////////////////////////////////////////////////
+    //Register Store Tab
+    ////////////////////////////////////////////////////////////////////////////
+    public void registerStoreTab(Nifty nifty) 
+    {
+        
+        new PopupBuilder("storeTabPopup") {
+        {
+
+
+            childLayoutCenter();
+            backgroundColor("#000a");
+
+            panel(new PanelBuilder("StoreTab") {
+            {
+                childLayoutVertical();
+                width("75%");
+                height("75%");
+                //backgroundColor("#eeee");
+                alignCenter();
+                valignCenter();
+                backgroundImage("Interface/store.png");
+
+    //            image(new ImageBuilder() 
+    //            {{
+    //                filename("Interface/options.png");
+    //                width("100%");
+    //                height("100%");
+    //                
+    //            }});
+
+                panel(new PanelBuilder("Store_Tab_Panel_One") {
+                {
+                    childLayoutCenter();
+                    width("100%");
+                    height("15%");
+                    //backgroundColor("#0f08");
+                    alignCenter();
+                    valignTop();
+
+                }
+                });
+                panel(new PanelBuilder("Store_Tab_Panel_Two") {
+                {
+                    childLayoutHorizontal();
+                    width("100%");
+                    height("25%");
+                    //backgroundColor("#0f05");
+                    alignCenter();
+                    valignCenter();
+                    
+                    panel(new PanelBuilder("Health_Panel") {
+                    {
+                        childLayoutCenter();
+                        width("33.3%");
+                        height("100%");
+                        //backgroundColor("#00f8");
+                        alignCenter();
+                        valignCenter();
+
+                        image(new ImageBuilder() 
+                        {{
+                            filename("Interface/Health.png");
+                            valignCenter();
+                            alignCenter();
+                            height("50%");
+                            width("30%");
+                        }});
+
+
+
+                    }
+                    });
+                    panel(new PanelBuilder("Buy_Health_Panel") {
+                    {
+                        childLayoutCenter();
+                        width("33.3%");
+                        height("100%");
+                        //backgroundColor("#0f05");
+                        alignCenter();
+                        valignCenter();
+
+                        control(new ButtonBuilder("Buy_Health_Button", "Buy Health") 
+                        {{
+                            id("buyHealthButton");
+                            alignCenter();
+                            valignCenter();
+                            height("50%");
+                            width("50%");
+                            visibleToMouse(true);
+
+                            interactOnClick("BuyHealth()");
+                        }});
+                   
+
+
+
+                    }
+                    });
+                    panel(new PanelBuilder("Current_Health_Panel") {
+                    {
+                        childLayoutHorizontal();
+                        width("33.3%");
+                        height("100%");
+                        //backgroundColor("#f005");
+                        alignCenter();
+                        valignCenter();
+
+                        text(new TextBuilder() 
+                        {{
+                            //System.out.print(currentHealth + "\n");
+//                            String Current_Health;
+//                            Current_Health = String.valueOf(currentHealth);
+                           
+                            //backgroundColor("#f008");
+                            alignLeft();
+                            valignCenter();
+                            id("Current_Health");
+                            
+                            text((int)Character.currentHealth + "");
+                            font("Interface/Fonts/Default.fnt");
+                            //wrap(true);
+                            height("50%");
+                            width("47.5%");
+                        }});
+                        text(new TextBuilder() 
+                        {{ 
+                            alignCenter();
+                            valignCenter();
+                            text("/");
+                            font("Interface/Fonts/Default.fnt");
+                            wrap(true);
+                            height("50%");
+                            width("5%");
+                        }});
+                        text(new TextBuilder() 
+                        {{
+//                            String Max_Health;
+//                            Max_Health = String.valueOf(maxHealth);
+                            alignRight();
+                            valignCenter();
+                            id("Max_Health");
+                            text((int)Character.maxHealth +"");
+                            font("Interface/Fonts/Default.fnt");
+                            wrap(true);
+                            height("50%");
+                            width("47.5%");
+                        }});
+                        
+
+
+
+
+                    }
+                    });
+
+
+
+                }
+                });
+                panel(new PanelBuilder("Store_Tab_Panel_Three") {
+                {
+                    childLayoutHorizontal();
+                    width("100%");
+                    height("25%");
+                    //backgroundColor("#f008");
+                    alignCenter();
+                    valignTop();
+                    
+                    panel(new PanelBuilder("MiniGun_Ammo_Panel") {
+                    {
+                        childLayoutCenter();
+                        width("33.3%");
+                        height("100%");
+                        //backgroundColor("#00f8");
+                        alignCenter();
+                        valignCenter();
+
+                        image(new ImageBuilder() 
+                        {{
+                            
+                            filename("Interface/miniGun.png");
+                            valignCenter();
+                            alignCenter();
+                            height("75%");
+                            width("50%");
+                        }});
+
+
+
+                    }
+                    });
+                    panel(new PanelBuilder("Buy_MiniGun_Ammo_Panel") {
+                    {
+                        childLayoutCenter();
+                        width("33.3%");
+                        height("100%");
+                        //backgroundColor("#0f05");
+                        alignCenter();
+                        valignCenter();
+
+                        control(new ButtonBuilder("Buy_MiniGun_Ammo_Button", "Buy MiniGun Ammo") 
+                        {{
+                            alignCenter();
+                            valignCenter();
+                            height("50%");
+                            width("50%");
+                            visibleToMouse(true);
+
+                            interactOnClick("BuyMiniGunAmmo()");
+                        }});
+                   
+
+
+
+                    }
+                    });
+                    panel(new PanelBuilder("Current_MiniGun__Ammo_Panel") {
+                    {
+                        childLayoutHorizontal();
+                        width("33.3%");
+                        height("100%");
+                        //backgroundColor("#f005");
+                        alignCenter();
+                        valignCenter();
+
+                        text(new TextBuilder() 
+                        {{
+                            //backgroundColor("#f008");
+                            alignLeft();
+                            valignCenter();
+                            id("MiniGun_Current_Ammo");
+                            text(Juggernaut.WeaponSlot2().currentAmmo + "");
+                            font("Interface/Fonts/Default.fnt");
+                            //wrap(true);
+                            height("50%");
+                            width("47.5%");
+                        }});
+                        text(new TextBuilder() 
+                        {{ 
+                            alignCenter();
+                            valignCenter();
+                            text("/");
+                            font("Interface/Fonts/Default.fnt");
+                            //wrap(true);
+                            height("50%");
+                            width("5%");
+                        }});
+                        text(new TextBuilder() 
+                        {{
+                            alignRight();
+                            valignCenter();
+                            id("MiniGun_Max_Ammo");
+                            text(Juggernaut.WeaponSlot2().maxAmmo + "");
+                            font("Interface/Fonts/Default.fnt");
+                            //wrap(true);
+                            height("50%");
+                            width("47.5%");
+                        }});
+                        
+
+
+
+
+                    }
+                    });
+
+
+
+                }
+                });
+                panel(new PanelBuilder("Store_Tab_Panel_Four") {
+                {
+                    childLayoutHorizontal();
+                    width("100%");
+                    height("25%");
+                    //backgroundColor("#f008");
+                    alignCenter();
+                    valignTop();
+                    
+                    panel(new PanelBuilder("LaserGun_Ammo_Panel") {
+                    {
+                        childLayoutCenter();
+                        width("33.3%");
+                        height("100%");
+                        //backgroundColor("#00f8");
+                        alignCenter();
+                        valignCenter();
+
+                        image(new ImageBuilder() 
+                        {{
+                            filename("Interface/Cannon.png");
+                            valignCenter();
+                            alignCenter();
+                            height("75%");
+                            width("50%");
+                        }});
+
+
+
+                    }
+                    });
+                    panel(new PanelBuilder("Buy_LaserGun_Ammo_Panel") {
+                    {
+                        childLayoutCenter();
+                        width("33.3%");
+                        height("100%");
+                        //backgroundColor("#0f05");
+                        alignCenter();
+                        valignCenter();
+
+                        control(new ButtonBuilder("Buy_LaserGun_Ammo_Button", "Buy Laser Rifle Ammo") 
+                        {{
+                            alignCenter();
+                            valignCenter();
+                            height("50%");
+                            width("50%");
+                            visibleToMouse(true);
+
+                            interactOnClick("BuyLaserRifleAmmo()");
+                        }});
+                   
+
+
+
+                    }
+                    });
+                    panel(new PanelBuilder("Current_LaserGun_Ammo_Panel") {
+                    {
+                        childLayoutHorizontal();
+                        width("33.3%");
+                        height("100%");
+                        //backgroundColor("#f005");
+                        alignCenter();
+                        valignCenter();
+
+                        text(new TextBuilder() 
+                        {{
+                            //backgroundColor("#f008");
+                            alignLeft();
+                            valignCenter();
+                            id("LaserGun_Current_Ammo");
+                            text(Juggernaut.WeaponSlot3().currentAmmo + "" );
+                            font("Interface/Fonts/Default.fnt");
+                            //wrap(true);
+                            height("50%");
+                            width("47.5%");
+                        }});
+                        text(new TextBuilder() 
+                        {{ 
+                            alignCenter();
+                            valignCenter();
+                            text("/");
+                            font("Interface/Fonts/Default.fnt");
+                            //wrap(true);
+                            height("50%");
+                            width("5%");
+                        }});
+                        text(new TextBuilder() 
+                        {{
+                            alignRight();
+                            valignCenter();
+                            id("LaserGun_Max_Ammo");
+                            text(Juggernaut.WeaponSlot3().maxAmmo +"");
+                            font("Interface/Fonts/Default.fnt");
+                            //wrap(true);
+                            height("50%");
+                            width("47.5%");
+                        }});
+                        
+
+
+
+
+                    }
+                    });
+
+
+
+                }
+                });
+                panel(new PanelBuilder("Store_Tab_Panel_Five") {
+                {
+                    childLayoutCenter();
+                    width("100%");
+                    height("10%");
+                    //backgroundColor("#f005");
+                    alignCenter();
+                    valignTop();
+
+                    control(new ButtonBuilder("Store_Tab_ExitButton", "Exit") 
+                    {{
+                        alignCenter();
+                        valignCenter();
+                        height("50%");
+                        width("25%");
+                        visibleToMouse(true);
+
+                        interactOnClick("CloseStoreTabPopup()");
+                    }});
+
+
+                }
+                });
+            }
+            });
+          }
+        }.registerPopup(nifty);
+    }
+    ////////////////////////////////////////////////////////////////////////////
+    //Register Skills popup
+    ////////////////////////////////////////////////////////////////////////////
+    public void registerSkillsTab(Nifty nifty) 
+    {
+        new PopupBuilder("SkillsPopup") {
+        {
+
+
+            childLayoutCenter();
+            backgroundColor("#000a");
+
+            panel(new PanelBuilder("SkillTab") {
+            {
+                childLayoutVertical();
+                width("75%");
+                height("75%");
+                //backgroundColor("#eeee");
+                alignCenter();
+                valignCenter();
+                backgroundImage("Interface/skills.png");
+
+
+                panel(new PanelBuilder("Skills_Panel_One") {
+                {
+                    childLayoutCenter();
+                    width("100%");
+                    height("25%");
+                    //backgroundColor("#0f08");
+                    alignCenter();
+                    valignTop();
+
+
+                }
+                });
+                panel(new PanelBuilder("Skills_Panel_Two") {
+                {
+                    childLayoutCenter();
+                    width("100%");
+                    height("25%");
+                    //backgroundColor("#0f05");
+                    alignCenter();
+                    valignCenter();
+                    
+                    control(new ButtonBuilder("Attributes_Button", "Attributes") 
+                    {{
+                        alignCenter();
+                        valignCenter();
+                        height("25%");
+                        width("25%");
+                        visibleToMouse(true);
+
+                        interactOnClick("ShowAttributesPopup()");
+                    }});
+
+
+
+                }
+                });
+                panel(new PanelBuilder("Skills_Panel_Three") {
+                {
+                    childLayoutCenter();
+                    width("100%");
+                    height("25%");
+                    //backgroundColor("#f008");
+                    alignCenter();
+                    valignCenter();
+                    
+                    control(new ButtonBuilder("Abilities_Button", "Abilities") 
+                    {{
+                        alignCenter();
+                        valignCenter();
+                        height("25%");
+                        width("25%");
+                        visibleToMouse(true);
+
+                        interactOnClick("ShowAbilitiesPopup()");
+                    }});
+
+
+
+                }
+                });
+                panel(new PanelBuilder("Skills_Panel_Four") {
+                {
+                    childLayoutCenter();
+                    width("100%");
+                    height("25%");
+                    //backgroundColor("#f005");
+                    alignCenter();
+                    valignCenter();
+
+                    control(new ButtonBuilder("Skills_Tab_BackButton", "Back") 
+                    {{
+                        alignCenter();
+                        valignCenter();
+                        height("25%");
+                        width("25%");
+                        visibleToMouse(true);
+
+                        interactOnClick("CloseSkillsPopup()");
+                    }});
+
+
+                }
+                });
+            }
+            });
+          }
+        }.registerPopup(nifty);
+    }
+    ////////////////////////////////////////////////////////////////////////////
+    //Register Attributes popup
+    ////////////////////////////////////////////////////////////////////////////
+    public void registerAttributesTab(Nifty nifty) 
+    {
+        new PopupBuilder("AttributesPopup") {
+        {
+
+
+            childLayoutCenter();
+            backgroundColor("#000a");
+
+            panel(new PanelBuilder("AttributesTab") {
+            {
+                childLayoutVertical();
+                width("75%");
+                height("75%");
+                //backgroundColor("#eeee");
+                alignCenter();
+                valignCenter();
+                backgroundImage("Interface/attributes.png");
+
+
+                panel(new PanelBuilder("Attributes_Points_Panel") {
+                {
+                    childLayoutCenter();
+                    width("100%");
+                    height("25%");
+                    //backgroundColor("#0f08");
+                    alignCenter();
+                    valignBottom();
+
+                    text(new TextBuilder() 
+                    {{
+                        alignCenter();
+                        valignBottom();
+                        text("Attribute Points: " );
+                        font("Interface/Fonts/Default.fnt");
+                        //wrap(true);
+                        height("100%");
+                        width("100%");
+                    }});
+
+                }
+                });
+                panel(new PanelBuilder("Health_Attributes_Panel") {
+                {
+                    childLayoutHorizontal();
+                    width("100%");
+                    height("12.5%");
+                    //backgroundColor("#0f05");
+                    alignCenter();
+                    valignCenter();
+                    
+                    panel(new PanelBuilder("Health_Left_Spacer_Panel") {
+                    {
+                        childLayoutCenter();
+                        width("25%");
+                        height("100%");
+                        //backgroundColor("#0f05");
+                        alignCenter();
+                        valignCenter();
+                    }
+                    });
+                    panel(new PanelBuilder("Current_Health_Panel") {
+                    {
+                        childLayoutCenter();
+                        width("12.5%");
+                        height("100%");
+                        //backgroundColor("#0f05");
+                        alignCenter();
+                        valignCenter();
+                        
+                        text(new TextBuilder() 
+                        {{
+                            id("CurrentMaxHealth");
+                            alignCenter();
+                            valignCenter();
+                            text("Max Health: ");
+                            font("Interface/Fonts/Default.fnt");
+                            //wrap(true);
+                            height("100%");
+                            width("100%");
+                        }});
+                        
+                    }
+                    });
+                    panel(new PanelBuilder("Health_Attribute_Panel") {
+                    {
+                        childLayoutCenter();
+                        width("25%");
+                        height("100%");
+                        //backgroundColor("#0f08");
+                        alignCenter();
+                        valignCenter();
+                        
+                        text(new TextBuilder() 
+                        {{
+                            //color(red);
+                            alignCenter();
+                            valignCenter();
+                            text("Health");
+                            
+                            font("Interface/Fonts/Default.fnt");
+                            //wrap(true);
+                            height("100%");
+                            width("100%");
+                        }});
+                        
+                    }
+                    });
+                    panel(new PanelBuilder("Health_Attribute_Button_Panel") {
+                    {
+                        childLayoutCenter();
+                        width("12.5%");
+                        height("100%");
+                        //backgroundColor("#0f05");
+                        alignCenter();
+                        valignCenter();
+                        
+                        control(new ButtonBuilder("Increase_Health_Button", "+") 
+                        {{
+                            alignCenter();
+                            valignCenter();
+                            
+                            height("25%");
+                            width("");
+                            visibleToMouse(true);
+
+                            //interactOnClick("CloseStoreTabPopup()");
+                        }});
+                        
+                    }
+                    });
+                     panel(new PanelBuilder("Health_Right_Spacer_Panel") {
+                    {
+                        childLayoutCenter();
+                        width("25%");
+                        height("100%");
+                        //backgroundColor("#0f05");
+                        alignCenter();
+                        valignTop();
+                    }
+                    });
+
+
+
+                }
+                });
+                panel(new PanelBuilder("Damage_Attributes_Panel") {
+                {
+                    childLayoutHorizontal();
+                    width("100%");
+                    height("12.5%");
+                    //backgroundColor("#f008");
+                    alignCenter();
+                    valignCenter();
+                    
+                    panel(new PanelBuilder("Damage_Left_Spacer_Panel") {
+                    {
+                        childLayoutCenter();
+                        width("25%");
+                        height("100%");
+                        //backgroundColor("#0f05");
+                        alignCenter();
+                        valignTop();
+                    }
+                    });
+                    panel(new PanelBuilder("Current_Damage_Panel") {
+                    {
+                        childLayoutCenter();
+                        width("12.5%");
+                        height("100%");
+                        //backgroundColor("#0f05");
+                        alignCenter();
+                        valignCenter();
+                        
+                        text(new TextBuilder() 
+                        {{
+                            id("CurrentDamageModifier");
+                            alignCenter();
+                            valignCenter();
+                            text("Damage: ");
+                            font("Interface/Fonts/Default.fnt");
+                            //wrap(true);
+                            height("100%");
+                            width("100%");
+                        }});
+                        
+                    }
+                    });
+                    panel(new PanelBuilder("Damage_Attribute_Panel") {
+                    {
+                        childLayoutCenter();
+                        width("25%");
+                        height("100%");
+                        //backgroundColor("#0f05");
+                        alignCenter();
+                        valignCenter();
+                        
+                        text(new TextBuilder() 
+                        {{
+                            //color(orange);
+                            alignCenter();
+                            valignCenter();
+                            text("Damage");
+                            
+                            font("Interface/Fonts/Default.fnt");
+                            //wrap(true);
+                            height("100%");
+                            width("100%");
+                        }});
+                        
+                    }
+                    });
+                    panel(new PanelBuilder("Damage_Attribute_Button_Panel") {
+                    {
+                        childLayoutCenter();
+                        width("12.5%");
+                        height("100%");
+                        //backgroundColor("#0f05");
+                        alignCenter();
+                        valignCenter();
+                        
+                        control(new ButtonBuilder("Increase_Damage_Button", "+") 
+                        {{
+                            alignCenter();
+                            valignCenter();
+                            
+                            height("25%");
+                            width("");
+                            visibleToMouse(true);
+
+                            //interactOnClick("CloseStoreTabPopup()");
+                        }});
+                        
+                    }
+                    });
+                     panel(new PanelBuilder("Damage_Right_Spacer_Panel") {
+                    {
+                        childLayoutCenter();
+                        width("25%");
+                        height("100%");
+                        //backgroundColor("#0f05");
+                        alignCenter();
+                        valignTop();
+                    }
+                    });
+
+
+
+                }
+                });
+                panel(new PanelBuilder("FireRate_Attributes_Panel") {
+                {
+                    childLayoutHorizontal();
+                    width("100%");
+                    height("12.5%");
+                    //backgroundColor("#f005");
+                    alignCenter();
+                    valignCenter();
+                    
+                    panel(new PanelBuilder("FireRate_Left_Spacer_Panel") {
+                    {
+                        childLayoutCenter();
+                        width("25%");
+                        height("100%");
+                        //backgroundColor("#0f05");
+                        alignCenter();
+                        valignTop();
+                    }
+                    });
+                    panel(new PanelBuilder("Current_FireRate_Panel") {
+                    {
+                        childLayoutCenter();
+                        width("12.5%");
+                        height("100%");
+                        //backgroundColor("#0f05");
+                        alignCenter();
+                        valignCenter();
+                        
+                        text(new TextBuilder() 
+                        {{
+                            id("CurrentFireRateModifier");
+                            alignCenter();
+                            valignCenter();
+                            text("Fire Rate: ");
+                            font("Interface/Fonts/Default.fnt");
+                            //wrap(true);
+                            height("100%");
+                            width("100%");
+                        }});
+                        
+                    }
+                    });
+                    panel(new PanelBuilder("FireRate_Attribute_Panel") {
+                    {
+                        childLayoutCenter();
+                        width("25%");
+                        height("100%");
+                        //backgroundColor("#0f05");
+                        alignCenter();
+                        valignCenter();
+                        
+                        text(new TextBuilder() 
+                        {{
+                            //color(green);
+                            alignCenter();
+                            valignCenter();
+                            text("Fire Rate");
+                            
+                            font("Interface/Fonts/Default.fnt");
+                            //wrap(true);
+                            height("100%");
+                            width("100%");
+                        }});
+                        
+                    }
+                    });
+                    panel(new PanelBuilder("FireRate_Attribute_Button_Panel") {
+                    {
+                        childLayoutCenter();
+                        width("12.5%");
+                        height("100%");
+                        //backgroundColor("#0f05");
+                        alignCenter();
+                        valignCenter();
+                        
+                        control(new ButtonBuilder("Increase_FireRate_Button", "+") 
+                        {{
+                            alignCenter();
+                            valignCenter();
+                            
+                            height("25%");
+                            width("");
+                            visibleToMouse(true);
+
+                            //interactOnClick("CloseStoreTabPopup()");
+                        }});
+                        
+                    }
+                    });
+                     panel(new PanelBuilder("FireRate_Right_Spacer_Panel") {
+                    {
+                        childLayoutCenter();
+                        width("25%");
+                        height("100%");
+                        //backgroundColor("#0f05");
+                        alignCenter();
+                        valignTop();
+                    }
+                    });
+
+
+
+                }
+                });
+                panel(new PanelBuilder("Speed_Attributes_Panel") {
+                {
+                    childLayoutHorizontal();
+                    width("100%");
+                    height("12.5%");
+                    //backgroundColor("#f005");
+                    alignCenter();
+                    valignCenter();
+                    
+                    panel(new PanelBuilder("Speed_Left_Spacer_Panel") {
+                    {
+                        childLayoutCenter();
+                        width("25%");
+                        height("100%");
+                        //backgroundColor("#0f05");
+                        alignCenter();
+                        valignTop();
+                    }
+                    });
+                    panel(new PanelBuilder("Current_Speed_Panel") {
+                    {
+                        childLayoutCenter();
+                        width("12.5%");
+                        height("100%");
+                        //backgroundColor("#0f05");
+                        alignCenter();
+                        valignCenter();
+                        
+                        text(new TextBuilder() 
+                        {{
+                            id("CurrentSpeedModifier");
+                            alignCenter();
+                            valignCenter();
+                            text("Speed: ");
+                            font("Interface/Fonts/Default.fnt");
+                            //wrap(true);
+                            height("100%");
+                            width("100%");
+                        }});
+                        
+                    }
+                    });
+                    panel(new PanelBuilder("Speed_Attribute_Panel") {
+                    {
+                        childLayoutCenter();
+                        width("25%");
+                        height("100%");
+                        //backgroundColor("#0f05");
+                        alignCenter();
+                        valignCenter();
+                        
+                        text(new TextBuilder() 
+                        {{
+                            //color(yellow);
+                            alignCenter();
+                            valignCenter();
+                            text("Speed");
+                            
+                            font("Interface/Fonts/Default.fnt");
+                            //wrap(true);
+                            height("100%");
+                            width("100%");
+                        }});
+                        
+                    }
+                    });
+                    panel(new PanelBuilder("Speed_Attribute_Button_Panel") {
+                    {
+                        childLayoutCenter();
+                        width("12.5%");
+                        height("100%");
+                        //backgroundColor("#0f05");
+                        alignCenter();
+                        valignCenter();
+                        
+                        control(new ButtonBuilder("Increase_Speed_Button", "+") 
+                        {{
+                            alignCenter();
+                            valignCenter();
+                            
+                            height("25%");
+                            width("");
+                            visibleToMouse(true);
+
+                            //interactOnClick("CloseStoreTabPopup()");
+                        }});
+                        
+                    }
+                    });
+                     panel(new PanelBuilder("Speed_Right_Spacer_Panel") {
+                    {
+                        childLayoutCenter();
+                        width("25%");
+                        height("100%");
+                        //backgroundColor("#0f05");
+                        alignCenter();
+                        valignTop();
+                    }
+                    });
+
+                    
+
+
+                }
+                });
+                panel(new PanelBuilder("Attributes_Panel_Six") {
+                {
+                    childLayoutCenter();
+                    width("100%");
+                    height("25%");
+                    //backgroundColor("#f005");
+                    alignCenter();
+                    valignCenter();
+
+                    control(new ButtonBuilder("Attributes_Tab_BackButton", "Back") 
+                    {{
+                        alignCenter();
+                        valignCenter();
+                        height("25%");
+                        width("25%");
+                        visibleToMouse(true);
+
+                        interactOnClick("CloseAttributesPopup()");
+                    }});
+
+
+                }
+                });
+            }
+            });
+          }
+        }.registerPopup(nifty);
+    }
+    ////////////////////////////////////////////////////////////////////////////
+    //Register Abilities popup
+    ////////////////////////////////////////////////////////////////////////////
+    public void registerAbilitiesTab(Nifty nifty) 
+    {
+        new PopupBuilder("AbilitiesPopup") {
+        {
+
+
+            childLayoutCenter();
+            backgroundColor("#000a");
+
+            panel(new PanelBuilder("AbilitiesTab") {
+            {
+                childLayoutVertical();
+                width("75%");
+                height("75%");
+                //backgroundColor("#eeee");
+                alignCenter();
+                valignCenter();
+                backgroundImage("Interface/abilities.png");
+
+
+                panel(new PanelBuilder("Abilities_Point_Panel") {
+                {
+                    childLayoutCenter();
+                    width("100%");
+                    height("25%");
+                    //backgroundColor("#0f08");
+                    alignCenter();
+                    valignCenter();
+
+                    text(new TextBuilder() 
+                    {{
+                        alignCenter();
+                        valignCenter();
+                        text("Ability Points: ");
+                        font("Interface/Fonts/Default.fnt");
+                        //wrap(true);
+                        height("100%");
+                        width("100%");
+                    }});
+
+                }
+                });
+                panel(new PanelBuilder("Sprint_Abilities_Panel") {
+                {
+                    childLayoutHorizontal();
+                    width("100%");
+                    height("12.5%");
+                    //backgroundColor("#0f05");
+                    alignCenter();
+                    valignTop();
+                    
+                    panel(new PanelBuilder("Sprint_Left_Spacer_Panel") {
+                    {
+                        childLayoutCenter();
+                        width("25%");
+                        height("100%");
+                        //backgroundColor("#0f05");
+                        alignCenter();
+                        valignTop();
+                    }
+                    });
+                    panel(new PanelBuilder("Sprint_Skill_Level_Panel") {
+                    {
+                        childLayoutCenter();
+                        width("12.5%");
+                        height("100%");
+                        //backgroundColor("#0f05");
+                        alignCenter();
+                        valignCenter();
+                        
+                        text(new TextBuilder() 
+                        {{
+                            id("SprintSkillLevel");
+                            alignCenter();
+                            valignCenter();
+                            text("Current Skill Level: ");
+                            font("Interface/Fonts/Default.fnt");
+                            //wrap(true);
+                            height("100%");
+                            width("100%");
+                        }});
+                        
+                    }
+                    });
+                    panel(new PanelBuilder("Sprint_Attribute_Panel") {
+                    {
+                        childLayoutCenter();
+                        width("25%");
+                        height("100%");
+                        //backgroundColor("#0f05");
+                        alignCenter();
+                        valignCenter();
+                        
+                        text(new TextBuilder() 
+                        {{
+                            //color(yellow);
+                            alignCenter();
+                            valignCenter();
+                            text("Sprint");
+                            
+                            font("Interface/Fonts/Default.fnt");
+                            //wrap(true);
+                            height("100%");
+                            width("100%");
+                        }});
+                        
+                    }
+                    });
+                    panel(new PanelBuilder("Sprint_Attribute_Button_Panel") {
+                    {
+                        childLayoutCenter();
+                        width("12.5%");
+                        height("100%");
+                        //backgroundColor("#0f05");
+                        alignCenter();
+                        valignCenter();
+                        
+                        control(new ButtonBuilder("Increase_Sprint_Button", "+") 
+                        {{
+                            alignCenter();
+                            valignCenter();
+                            
+                            height("25%");
+                            width("");
+                            visibleToMouse(true);
+
+                            //interactOnClick("CloseStoreTabPopup()");
+                        }});
+                        
+                    }
+                    });
+                     panel(new PanelBuilder("Sprint_Right_Spacer_Panel") {
+                    {
+                        childLayoutCenter();
+                        width("25%");
+                        height("100%");
+                        //backgroundColor("#0f05");
+                        alignCenter();
+                        valignTop();
+                    }
+                    });
+
+
+
+                }
+                });
+                panel(new PanelBuilder("Dash_Abilities_Panel") {
+                {
+                    childLayoutHorizontal();
+                    width("100%");
+                    height("12.5%");
+                    //backgroundColor("#f008");
+                    alignCenter();
+                    valignTop();
+                    
+                    panel(new PanelBuilder("Dash_Left_Spacer_Panel") {
+                    {
+                        childLayoutCenter();
+                        width("25%");
+                        height("100%");
+                        //backgroundColor("#0f05");
+                        alignCenter();
+                        valignTop();
+                    }
+                    });
+                    panel(new PanelBuilder("Dash_Skill_Level_Panel") {
+                    {
+                        childLayoutCenter();
+                        width("12.5%");
+                        height("100%");
+                        //backgroundColor("#0f05");
+                        alignCenter();
+                        valignCenter();
+                        
+                        text(new TextBuilder() 
+                        {{
+                            id("DashSkillLevel");
+                            alignCenter();
+                            valignCenter();
+                            text("Current Skill Level: ");
+                            font("Interface/Fonts/Default.fnt");
+                            //wrap(true);
+                            height("100%");
+                            width("100%");
+                        }});
+                        
+                    }
+                    });
+                    panel(new PanelBuilder("Dash_Attribute_Panel") {
+                    {
+                        childLayoutCenter();
+                        width("25%");
+                        height("100%");
+                       //backgroundColor("#0f05");
+                        alignCenter();
+                        valignCenter();
+                        
+                        text(new TextBuilder() 
+                        {{
+                            //color(orange);
+                            alignCenter();
+                            valignCenter();
+                            text("Dash");
+                            
+                            font("Interface/Fonts/Default.fnt");
+                            //wrap(true);
+                            height("100%");
+                            width("100%");
+                        }});
+                        
+                    }
+                    });
+                    panel(new PanelBuilder("Dash_Attribute_Button_Panel") {
+                    {
+                        childLayoutCenter();
+                        width("12.5%");
+                        height("100%");
+                        //backgroundColor("#0f05");
+                        alignCenter();
+                        valignCenter();
+                        
+                        control(new ButtonBuilder("Increase_Dash_Button", "+") 
+                        {{
+                            alignCenter();
+                            valignCenter();
+                            
+                            height("25%");
+                            width("");
+                            visibleToMouse(true);
+
+                            //interactOnClick("CloseStoreTabPopup()");
+                        }});
+                        
+                    }
+                    });
+                     panel(new PanelBuilder("Dash_Right_Spacer_Panel") {
+                    {
+                        childLayoutCenter();
+                        width("25%");
+                        height("100%");
+                        //backgroundColor("#0f05");
+                        alignCenter();
+                        valignTop();
+                    }
+                    });
+
+
+
+                }
+                });
+                panel(new PanelBuilder("SuperJump_Abilities_Panel") {
+                {
+                    childLayoutHorizontal();
+                    width("100%");
+                    height("12.5%");
+                    //backgroundColor("#f005");
+                    alignCenter();
+                    valignTop();
+
+                    panel(new PanelBuilder("SuperJump_Left_Spacer_Panel") {
+                    {
+                        childLayoutCenter();
+                        width("25%");
+                        height("100%");
+                        //backgroundColor("#0f05");
+                        alignCenter();
+                        valignTop();
+                    }
+                    });
+                    panel(new PanelBuilder("SuperJump_Skill_Level_Panel") {
+                    {
+                        childLayoutCenter();
+                        width("12.5%");
+                        height("100%");
+                        //backgroundColor("#0f05");
+                        alignCenter();
+                        valignCenter();
+                        
+                        text(new TextBuilder() 
+                        {{
+                            id("SuperJumpSkillLevel");
+                            alignCenter();
+                            valignCenter();
+                            text("Current Skill Level: ");
+                            font("Interface/Fonts/Default.fnt");
+                            //wrap(true);
+                            height("100%");
+                            width("100%");
+                        }});
+                        
+                    }
+                    });
+                    panel(new PanelBuilder("SuperJump_Attribute_Panel") {
+                    {
+                        childLayoutCenter();
+                        width("25%");
+                        height("100%");
+                        //backgroundColor("#0f05");
+                        alignCenter();
+                        valignCenter();
+                        
+                        text(new TextBuilder() 
+                        {{
+                            //color(red);
+                            alignCenter();
+                            valignCenter();
+                            text("Super Jump");
+                            
+                            font("Interface/Fonts/Default.fnt");
+                            //wrap(true);
+                            height("100%");
+                            width("100%");
+                        }});
+                        
+                    }
+                    });
+                    panel(new PanelBuilder("SuperJump_Attribute_Button_Panel") {
+                    {
+                        childLayoutCenter();
+                        width("12.5%");
+                        height("100%");
+                        //backgroundColor("#0f05");
+                        alignCenter();
+                        valignCenter();
+                        
+                        control(new ButtonBuilder("Increase_SuperJump_Button", "+") 
+                        {{
+                            alignCenter();
+                            valignCenter();
+                            
+                            height("25%");
+                            width("");
+                            visibleToMouse(true);
+
+                            //interactOnClick("CloseStoreTabPopup()");
+                        }});
+                        
+                    }
+                    });
+                     panel(new PanelBuilder("SuperJump_Right_Spacer_Panel") {
+                    {
+                        childLayoutCenter();
+                        width("25%");
+                        height("100%");
+                        //backgroundColor("#0f05");
+                        alignCenter();
+                        valignTop();
+                    }
+                    });
+
+
+                }
+                });
+                panel(new PanelBuilder("Hover_Abilities_Panel") {
+                {
+                    childLayoutHorizontal();
+                    width("100%");
+                    height("12.5%");
+                    //backgroundColor("#f005");
+                    alignCenter();
+                    valignTop();
+
+                    
+                    panel(new PanelBuilder("Hover_Left_Spacer_Panel") {
+                    {
+                        childLayoutCenter();
+                        width("25%");
+                        height("100%");
+                        //backgroundColor("#0f05");
+                        alignCenter();
+                        valignTop();
+                    }
+                    });
+                    panel(new PanelBuilder("Hover_Skill_Level_Panel") {
+                    {
+                        childLayoutCenter();
+                        width("12.5%");
+                        height("100%");
+                        //backgroundColor("#0f05");
+                        alignCenter();
+                        valignCenter();
+                        
+                        text(new TextBuilder() 
+                        {{
+                            id("HoverSkillLevel");
+                            alignCenter();
+                            valignCenter();
+                            text("Current Skill Level: ");
+                            font("Interface/Fonts/Default.fnt");
+                            //wrap(true);
+                            height("100%");
+                            width("100%");
+                        }});
+                        
+                    }
+                    });
+                    panel(new PanelBuilder("Hover_Abilitie_Panel") {
+                    {
+                        childLayoutCenter();
+                        width("25%");
+                        height("100%");
+                        //backgroundColor("#0f05");
+                        alignCenter();
+                        valignCenter();
+                        
+                        text(new TextBuilder() 
+                        {{
+                            //color(blue);
+                            alignCenter();
+                            valignCenter();
+                            text("Hover");
+                            
+                            font("Interface/Fonts/Default.fnt");
+                            //wrap(true);
+                            height("100%");
+                            width("100%");
+                        }});
+                        
+                    }
+                    });
+                    panel(new PanelBuilder("Hover_Abilities_Button_Panel") {
+                    {
+                        childLayoutCenter();
+                        width("12.5%");
+                        height("100%");
+                        //backgroundColor("#0f05");
+                        alignCenter();
+                        valignCenter();
+                        
+                        control(new ButtonBuilder("Increase_Hover_Button", "+") 
+                        {{
+                            alignCenter();
+                            valignCenter();
+                            
+                            height("25%");
+                            width("");
+                            visibleToMouse(true);
+
+                            //interactOnClick("CloseStoreTabPopup()");
+                        }});
+                        
+                    }
+                    });
+                     panel(new PanelBuilder("Hover_Right_Spacer_Panel") {
+                    {
+                        childLayoutCenter();
+                        width("25%");
+                        height("100%");
+                        //backgroundColor("#0f05");
+                        alignCenter();
+                        valignTop();
+                    }
+                    });
+                   
+
+
+                }
+                });
+                panel(new PanelBuilder("Abilities_Panel_Six") {
+                {
+                    childLayoutCenter();
+                    width("100%");
+                    height("25%");
+                    //backgroundColor("#f005");
+                    alignCenter();
+                    valignTop();
+
+                    control(new ButtonBuilder("Abilities_Tab_BackButton", "Back") 
+                    {{
+                        alignCenter();
+                        valignCenter();
+                        height("25%");
+                        width("25%");
+                        visibleToMouse(true);
+
+                        interactOnClick("CloseAbilitiesPopup()");
+                    }});
+
+
+                }
+                });
+            }
+            });
+          }
+        }.registerPopup(nifty);
     }
     public StartScreen getHud(){
         return start;

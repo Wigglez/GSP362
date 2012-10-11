@@ -20,24 +20,24 @@ public class Character  implements ActionListener, PhysicsCollisionListener{
     Main game;
     BulletAppState bulletAppState;
     // HUD elements
-    private static float currentHealth = 100;
+    public static float currentHealth = 100;
     private static float currentArmor = 25;
     private static float currentEnergy = 100;
 
-    private static float maxHealth = 100;
+    public static float maxHealth = 100;
     private static float maxArmor = 25;
     private static float maxEnergy = 100;
     private static float Pickup = 20;
     private static float currentLevel = 1;
     private static float currentExperience = 0;
-    private static float maxExperience = 10;
-    private static float currentScore = 0;
+    private static float maxExperience = 100;
+    public static float currentScore = 0;
     private static float abiltyPoints =0;
     private static float attributePoints =0; 
 
     private boolean damageTaken = false;
     private static float incomingDamage = 0;
-    private int enemiesDead = 0;
+    public int enemiesDead = 0;
     
     private static float hoverEnergyCost = 60f;
     
@@ -63,9 +63,9 @@ public class Character  implements ActionListener, PhysicsCollisionListener{
     private static boolean hoverActive = false;
     
     private Weapon currentWeapon;
-    private Weapon weaponSlot1;
-    private Weapon weaponSlot2;
-    private Weapon weaponSlot3;
+    private static Weapon weaponSlot1;
+    private static Weapon weaponSlot2;
+    private static Weapon weaponSlot3;
     private float damageModifier = 1.0f;
     private float fireDelay =0;
     private Vector<Bullet> bullets= new Vector<Bullet>();
@@ -189,16 +189,16 @@ public class Character  implements ActionListener, PhysicsCollisionListener{
             damageTaken = false;
         }
         
-        enemiesDead = (int)currentExperience;
+//        enemiesDead = (int)currentExperience;
         if(enemiesDead == 66){
             Win();
         } else if(currentHealth <= 0){
-            Lose();
+            //Lose();
         }
         
 //        System.out.print(currentHealth +"\n");
         game.getHud().bind(game.getNifty(), game.getHud().screen);
-        game.getHud().updateHUD(healthPercentage(), armorPercentage(), energyPercentage(), currentWeapon.getCurrentAmmo());
+        game.getHud().updateHUD(healthPercentage(), armorPercentage(), energyPercentage(), currentWeapon.getCurrentAmmo(), expPercentage(), getScore() );
     }
 
     private void setUpKeys() {
@@ -371,6 +371,16 @@ public class Character  implements ActionListener, PhysicsCollisionListener{
     public Weapon EquippedWeapon(){
         return currentWeapon;
     }
+    public Weapon WeaponSlot2()
+    {
+        
+        return weaponSlot2;
+    }
+    public Weapon WeaponSlot3()
+    {
+        return weaponSlot3;
+    }
+    
     
     public float DamageOutput(){
         return currentWeapon.getDammage() * damageModifier;
@@ -380,17 +390,36 @@ public class Character  implements ActionListener, PhysicsCollisionListener{
     }
     
     public void buyHealth(){
+        
+        
         currentHealth += 25;
+        
+        if(currentHealth > maxHealth)
+        {
+            currentHealth = maxHealth;
+        }
+        
         currentScore  -= 10;
+        
     }
     
     public void buyMiniGunAmmo(){
         weaponSlot2.setCurrentAmmo(weaponSlot2.getCurrentAmmo() + 100);
+        if(weaponSlot2.currentAmmo > weaponSlot2.maxAmmo)
+        {
+            weaponSlot2.currentAmmo = weaponSlot2.maxAmmo;
+        
+        }
         currentScore -= 30;
     }
     
     public void buyLaserRifleAmmo(){
         weaponSlot3.setCurrentAmmo(weaponSlot3.getCurrentAmmo() + 10);
+         if(weaponSlot3.currentAmmo > weaponSlot3.maxAmmo)
+        {
+            weaponSlot3.currentAmmo = weaponSlot3.maxAmmo;
+        
+        }
         currentScore -= 50;
     }
     
@@ -414,7 +443,9 @@ public class Character  implements ActionListener, PhysicsCollisionListener{
     
     public void addExperience(float exp) {
         currentExperience += exp;
-        System.out.print("BOOM  " + currentExperience + "\n");
+        //System.out.print("BOOM  " + currentExperience + "\n");
+        
+        
         
     }
    
@@ -426,11 +457,11 @@ public class Character  implements ActionListener, PhysicsCollisionListener{
 
     private void Win() {
         //Display Win Screen
-        //game.getHud.goToScreen("Win");
+        game.getHud().goToScreen("WinScreen");
     }
 
     private void Lose() {
         //Display Lose Screen
-        //game.getHud.goToScreen("Lose");
+        game.getHud().goToScreen("DeathScreen");
     }
 }

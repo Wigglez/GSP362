@@ -184,12 +184,14 @@ public class Enemy implements PhysicsCollisionListener{
     }
     
     public void Die(){
+        Juggernaut.enemiesDead += 1;
         Juggernaut.addExperience(experienceOnDeath);
         Juggernaut.addScore(scoreOnDeath);
         
         game.getRootNode().detachChild(enemyDebug);
         game.getRootNode().detachChild(enemyElephant);
         bulletAppState.getPhysicsSpace().remove(enemy);
+        System.out.print(Juggernaut.enemiesDead + "\n");
     }
     
     public boolean isDead(){

@@ -25,7 +25,7 @@ public class StartScreen extends AbstractAppState implements ScreenController {
   
   
   public Nifty nifty;
-//  private Main main;
+  private Main main;
   
   private Character Juggernaut;
  
@@ -39,16 +39,23 @@ public class StartScreen extends AbstractAppState implements ScreenController {
   public float healthPercentage;
   public float armorPercentage;
   public float energyPercentage;
-
+  public float experiencePercentage;
+  public float score;
+  public int miniGunAmmo;
   
   String currentScreen;
   
   public Element healthBar;
+  private Element Storepopup;
+  private Element StoreTabpopup;
+  private Element Skillspopup;
+  private Element Attributespopup;
+  private Element Abilitiespopup;
   /** custom methods */ 
  
   public StartScreen() 
   { 
-//      main = new Main();
+      main = new Main();
       Juggernaut = new Character();
       
       minigun = new miniGun();
@@ -58,6 +65,10 @@ public class StartScreen extends AbstractAppState implements ScreenController {
       healthPercentage = Juggernaut.healthPercentage();
       armorPercentage = Juggernaut.armorPercentage();
       energyPercentage = Juggernaut.energyPercentage();
+      experiencePercentage = Juggernaut.expPercentage();
+      score = Juggernaut.getScore();
+      
+      miniGunAmmo = minigun.currentAmmo;
     /** Your custom constructor, can accept arguments */ 
   
   } 
@@ -190,6 +201,22 @@ public class StartScreen extends AbstractAppState implements ScreenController {
       return energyPercentage;
       
   }
+  public float getExperiencePercentage()
+  {
+      System.out.print(experiencePercentage + "\n");
+      
+      return experiencePercentage;
+  }
+  public float getScore()
+  {
+
+      return score;
+  }
+  public int getMiniGunAmmo()
+  {
+
+      return miniGunAmmo;
+  }
   public void weapon1Clicked()
   {
       
@@ -260,6 +287,203 @@ public class StartScreen extends AbstractAppState implements ScreenController {
       
       //System.out.print(screen.getScreenId().toString() + " Scren id \n");
   }
+  ///////////////////////////////////////////////////////////////////////////
+  //Create/Show/Close main Store Pop up
+  ///////////////////////////////////////////////////////////////////////////
+  public void CreateStorePopup()
+  {
+    main.registerStorePopup(nifty);
+    Storepopup = nifty.createPopup("storePopup");
+    //System.out.print(" Create Store Called \n");
+  }
+  public void ShowStorePopup()
+  {
+    //isRunning = false;
+    this.CreateStorePopup();
+    nifty.showPopup(nifty.getCurrentScreen(), Storepopup.getId(), null);
+    //System.out.print(" Show Store Called \n");
+    
+     
+  }
+  public void CloseStorePopup()
+  {
+    //isRunning = true;
+    nifty.closePopup(Storepopup.getId());
+    
+  }
+  ////////////////////////////////////////////////////////////////////////////
+  //Create/Show/Close Store Tab popup
+  ////////////////////////////////////////////////////////////////////////////
+  public void CreateStoreTabPopup()
+  {
+    main.registerStoreTab(nifty);
+    StoreTabpopup = nifty.createPopup("storeTabPopup");
+    //System.out.print(" Create Store Tab Called \n");
+  }
+   public void ShowStoreTabPopup()
+  {
+    this.CloseStorePopup();
+    //System.out.print(" Close Store Called in Show Store Tab \n");
+    this.CreateStoreTabPopup();
+    nifty.showPopup(nifty.getCurrentScreen(), StoreTabpopup.getId(), null);
+    //System.out.print(" Show Store Tab Called \n");
+  }
+   
+  public void CloseStoreTabPopup()
+  {
+    nifty.closePopup(StoreTabpopup.getId());
+  }
+  
+  /////////////////////////////////////////////////////////////////////////////
+  //Create/Show/Close Skills popup
+  /////////////////////////////////////////////////////////////////////////////
+  public void CreateSkillsPopup()
+  {
+    main.registerSkillsTab(nifty);
+    Skillspopup = nifty.createPopup("SkillsPopup");
+    //System.out.print(" Create Skills popup Called \n");
+  }
+   public void ShowSkillsPopup()
+  {
+    //isRunning = false;
+    this.CreateSkillsPopup();
+    nifty.showPopup(nifty.getCurrentScreen(), Skillspopup.getId(), null);
+    //System.out.print(" Show Skills popup Called \n");
+    //System.out.print(this.isRunning + "\n");
+  }
+   
+  public void CloseSkillsPopup()
+  {
+    //isRunning = true;
+    nifty.closePopup(Skillspopup.getId());
+  }
+  
+  /////////////////////////////////////////////////////////////////////////////
+  //Create/Show/Close Attributes popup
+  /////////////////////////////////////////////////////////////////////////////
+  public void CreateAttributesPopup()
+  {
+    
+    main.registerAttributesTab(nifty);
+    Attributespopup = nifty.createPopup("AttributesPopup");
+    //System.out.print(" Create  Attributes popup Called \n");
+  }
+   public void ShowAttributesPopup()
+  {
+    this.CloseSkillsPopup();
+    this.CreateAttributesPopup();
+    nifty.showPopup(nifty.getCurrentScreen(), Attributespopup.getId(), null);
+    //System.out.print(" Show  Attributes popup Called \n");
+  }
+   
+  public void CloseAttributesPopup()
+  {
+    nifty.closePopup(Attributespopup.getId());
+    this.ShowSkillsPopup();
+  }
+  /////////////////////////////////////////////////////////////////////////////
+  //Create/Show/Close Attributes popup
+  /////////////////////////////////////////////////////////////////////////////
+  public void CreateAbilitiesPopup()
+  {
+    main.registerAbilitiesTab(nifty);
+    Abilitiespopup = nifty.createPopup("AbilitiesPopup");
+    //System.out.print(" Create  Abilities popup Called \n");
+  }
+   public void ShowAbilitiesPopup()
+  {
+    
+    this.CloseSkillsPopup();
+    this.CreateAbilitiesPopup();
+    nifty.showPopup(nifty.getCurrentScreen(), Abilitiespopup.getId(), null);
+    //System.out.print(" Show  Attributes popup Called \n");
+  }
+   
+  public void CloseAbilitiesPopup()
+  {
+    nifty.closePopup(Abilitiespopup.getId());
+    this.ShowSkillsPopup();
+  }
+  
+  
+  public void BuyHealth()
+  {
+      
+      if(Character.currentScore < 10)
+      {
+           Element niftyElement = nifty.getCurrentScreen().findElementByName("buyHealthButton");
+           niftyElement.disable();
+      }
+      else
+      {
+          if(Character.currentHealth >= Character.maxHealth)
+          {
+              Element niftyElement = nifty.getCurrentScreen().findElementByName("buyHealthButton");
+              niftyElement.disable();
+
+          }
+          else
+          {
+              Juggernaut.buyHealth();
+
+              Element niftyCurrentHealthElement = nifty.getCurrentScreen().findElementByName("Current_Health");
+
+              niftyCurrentHealthElement.getRenderer(TextRenderer.class).setText((int)Character.currentHealth + "");
+          }
+      }
+      
+  }
+  public void BuyMiniGunAmmo()
+  {
+       if(Character.currentScore < 30)
+      {
+           Element niftyElement = nifty.getCurrentScreen().findElementByName("Buy_MiniGun_Ammo_Button");
+           niftyElement.disable();
+      }
+      else
+      {
+          if(Juggernaut.WeaponSlot2().getCurrentAmmo() >= Juggernaut.WeaponSlot2().getMaxAmmo())
+          {
+              Element niftyElement = nifty.getCurrentScreen().findElementByName("Buy_MiniGun_Ammo_Button");
+              niftyElement.disable();
+
+          }
+          else
+          {
+              Juggernaut.buyMiniGunAmmo();
+              
+              Element niftyCurrentHealthElement = nifty.getCurrentScreen().findElementByName("MiniGun_Current_Ammo");
+
+              niftyCurrentHealthElement.getRenderer(TextRenderer.class).setText(Juggernaut.WeaponSlot2().currentAmmo + "");
+          }
+      }
+      
+  }
+  public void BuyLaserRifleAmmo()
+  {
+      if(Character.currentScore < 50)
+      {
+           Element niftyElement = nifty.getCurrentScreen().findElementByName("Buy_LaserGun_Ammo_Button");
+           niftyElement.disable();
+      }
+      else
+      {
+          if(Juggernaut.WeaponSlot3().getCurrentAmmo() >= Juggernaut.WeaponSlot3().getMaxAmmo())
+          {
+              Element niftyElement = nifty.getCurrentScreen().findElementByName("Buy_LaserGun_Ammo_Button");
+              niftyElement.disable();
+
+          }
+          else
+          {
+              Juggernaut.buyLaserRifleAmmo();
+              
+              Element niftyCurrentHealthElement = nifty.getCurrentScreen().findElementByName("LaserGun_Current_Ammo");
+
+              niftyCurrentHealthElement.getRenderer(TextRenderer.class).setText(Juggernaut.WeaponSlot3().currentAmmo + "");
+          }
+      }
+  }
   public void DoNothing()
   {
       
@@ -304,7 +528,7 @@ public class StartScreen extends AbstractAppState implements ScreenController {
      
       
 
-  public void updateHUD(float health,float armor,float energy, float Ammo){
+  public void updateHUD(float health,float armor,float energy, float Ammo, float experience, float score){
          
         Element niftyElement = nifty.getCurrentScreen().findElementByName("PlayerHealth");
         if(niftyElement != null){
@@ -319,9 +543,17 @@ public class StartScreen extends AbstractAppState implements ScreenController {
             // swap old with new image
             niftyElement.setWidth((int)energy * 2);
             
+            niftyElement = nifty.getCurrentScreen().findElementByName("PlayerExperience");
+            
+            niftyElement.setWidth((int)experience * 13);
+            
             Element niftyAmmoElement = nifty.getCurrentScreen().findElementByName("Ammo");
       
-      niftyAmmoElement.getRenderer(TextRenderer.class).setText("Ammo: " + Ammo);
+            niftyAmmoElement.getRenderer(TextRenderer.class).setText("Ammo: " + Ammo);
+            
+            niftyElement = nifty.getCurrentScreen().findElementByName("score");
+      
+            niftyElement.getRenderer(TextRenderer.class).setText("" + score);
         }
     }
  

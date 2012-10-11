@@ -18,7 +18,7 @@ public abstract class Weapon {
     protected float dammage;
     protected float fireRate;
     protected int maxAmmo;
-    protected static int currentAmmo;
+    protected int currentAmmo;
     
     protected Material bulletMaterial;
     
