@@ -57,6 +57,11 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
     Character Juggernaut;                   //Game Character
     Enemy[] Enemy = new Enemy[66];
     
+    HealthPickup HealthPickup1; //test Health Pickup
+    HealthPickup HealthPickup2; // Boss area Health Pickup
+    HealthPickup HealthPickup3; // Boss area Health Pickup
+    HealthPickup HealthPickup4; // Boss area Health Pickup
+    
     Vector3f spawnLocation;
     Vector3f spawnDirection;
 
@@ -99,7 +104,13 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
         
         //Create the player character
         Juggernaut = new Character(this, bulletAppState);
-        
+         
+        //create Health pickups
+        HealthPickup1 = new HealthPickup(Juggernaut,this, bulletAppState, new Vector3f(170f, 0f, 0f));
+        HealthPickup2 = new HealthPickup(Juggernaut,this, bulletAppState, new Vector3f(360f, 316f, 0f));
+        HealthPickup3 = new HealthPickup(Juggernaut,this, bulletAppState, new Vector3f(350f, 316f, 0f));
+        HealthPickup4 = new HealthPickup(Juggernaut,this, bulletAppState, new Vector3f(196f, 316f, 0f));
+                
         // Creates enemies in the world
         setUpEnemies();
                 
@@ -152,6 +163,12 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
         
         //Update player
         Juggernaut.Update(tpf);
+        
+        //Health Pickups
+        HealthPickup1.Update(tpf, Juggernaut.getPosition());
+        HealthPickup2.Update(tpf, Juggernaut.getPosition());
+        HealthPickup3.Update(tpf, Juggernaut.getPosition());
+        HealthPickup4.Update(tpf, Juggernaut.getPosition());
         
        // Update enemies
 	for (int itr = 0; itr < Enemy.length; itr++) {

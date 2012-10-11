@@ -27,7 +27,7 @@ public class Character  implements ActionListener, PhysicsCollisionListener{
     private static float maxHealth = 100;
     private static float maxArmor = 25;
     private static float maxEnergy = 100;
-
+    private static float Pickup = 20;
     private static float currentLevel = 1;
     private static float currentExperience = 0;
     private static float maxExperience = 10;
@@ -361,7 +361,13 @@ public class Character  implements ActionListener, PhysicsCollisionListener{
     public float DamageOutput(){
         return currentWeapon.getDammage() * damageModifier;
     }
+    public void healthPickup(float pickup){
+        currentHealth += pickup;
+    }
     
+    public float getPickup(){
+        return Pickup;
+    }
     public void collision(PhysicsCollisionEvent event) {
         if(event.getNodeA().getName().equals("Player") && event.getNodeB().getName().equals("Enemy")){
             incomingDamage = 25;
