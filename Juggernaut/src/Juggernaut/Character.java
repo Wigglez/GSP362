@@ -368,11 +368,15 @@ public class Character  implements ActionListener, PhysicsCollisionListener{
     public float getPickup(){
         return Pickup;
     }
+    
+    public void takeDamage(float damage) {
+        damageTaken = true;
+        incomingDamage = damage;
+    }
+   
     public void collision(PhysicsCollisionEvent event) {
         if(event.getNodeA().getName().equals("Player") && event.getNodeB().getName().equals("Enemy")){
-            incomingDamage = 25;
-            damageTaken = true;
-            
+            takeDamage(25);
         }
     }
 }
