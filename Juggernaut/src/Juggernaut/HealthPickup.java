@@ -108,8 +108,10 @@ public class HealthPickup implements PhysicsCollisionListener{
      
       public void collision(PhysicsCollisionEvent event) {
         if(event.getNodeA().getName().equals("Player") && event.getNodeB().equals(this.healthPickup)){
+            if(Juggernaut.healthPercentage() < 100){
             this.Despawn();
             Juggernaut.healthPickup(increase);
+            }
             
         }
       }
@@ -129,9 +131,10 @@ public class HealthPickup implements PhysicsCollisionListener{
         float distFromPlayer = playerPos.x - HealthPickup.getPhysicsLocation().x;
         float pickup = 1;
         
-        if (distFromPlayerY > -7 && distFromPlayerY < 7) {
+        if (distFromPlayerY > -3 && distFromPlayerY < 3) {
        
         if( distFromPlayer > -1 && distFromPlayer < 1) {
+            if(Juggernaut.healthPercentage() < 100){
             this.Despawn();
             
             
@@ -139,6 +142,7 @@ public class HealthPickup implements PhysicsCollisionListener{
 //           game.getRootNode().detachChild(healthDebug);
 //           bulletAppState.getPhysicsSpace().remove(HealthPickup);
            Pickup = true;
+            }
            
            
           
