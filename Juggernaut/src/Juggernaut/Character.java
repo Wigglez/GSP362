@@ -289,6 +289,12 @@ public class Character  implements ActionListener, PhysicsCollisionListener{
 
     }
     
+    public float expPercentage() {
+  
+        return (currentExperience / maxExperience) * 100;
+
+    }
+    
     public void fireWeapon(){
         bullets.add(currentWeapon.Fire(damageModifier, player.getPhysicsLocation(), player.getViewDirection().normalize().negate(), game, bulletAppState));
     }
@@ -371,6 +377,19 @@ public class Character  implements ActionListener, PhysicsCollisionListener{
     public void takeDamage(float damage) {
         damageTaken = true;
         incomingDamage = damage;
+    }
+    
+    public float getScore() {
+        return currentScore;
+    }
+    
+    
+    public void addScore(float score) {
+        currentScore += score;
+    }
+    
+    public void addExperience(float exp) {
+        currentExperience += exp;
     }
    
     public void collision(PhysicsCollisionEvent event) {
