@@ -193,7 +193,7 @@ public class Character  implements ActionListener, PhysicsCollisionListener{
         if(enemiesDead == 66){
             Win();
         } else if(currentHealth <= 0){
-            //Lose();
+            Lose();
         }
         
 //        System.out.print(currentHealth +"\n");
