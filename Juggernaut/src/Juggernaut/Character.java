@@ -27,13 +27,12 @@ public class Character  implements ActionListener, PhysicsCollisionListener{
     private static float maxHealth = 100;
     private static float maxArmor = 25;
     private static float maxEnergy = 100;
-    
     private static float Pickup = 20;
     private static float currentLevel = 1;
     private static float currentExperience = 0;
-    private static float maxExperience = 100;
+    private static float maxExperience = 10;
     private static float currentScore = 0;
-    private static float abiltyPoints = 0;
+    private static float abiltyPoints =0;
     private static float attributePoints =0; 
 
     private boolean damageTaken = false;
@@ -225,20 +224,22 @@ public class Character  implements ActionListener, PhysicsCollisionListener{
             player.jump();
         } else if(binding.equals("Fire")){
             isFiring = value; 
-        } else if(binding.equals("Weapon1")){
-            switchWeapon(1);
-            game.getHud().weapon1Clicked();
-        }else if(binding.equals("Weapon2")){
-            switchWeapon(2);
-            game.getHud().weapon2Clicked();
-        }else if(binding.equals("Weapon3")){
-            switchWeapon(3);
-            game.getHud().weapon3Clicked();
         } else if(binding.equals("Sprint")){
             sprintActive = value;
         } else if(binding.equals("Hover")){
             hoverActive = value;
-        }
+        }else if(bullets.isEmpty()){
+            if(binding.equals("Weapon1")){
+                switchWeapon(1);
+                game.getHud().weapon1Clicked();
+            }else if(binding.equals("Weapon2")){
+                switchWeapon(2);
+                game.getHud().weapon2Clicked();
+            }else if(binding.equals("Weapon3")){
+                switchWeapon(3);
+                game.getHud().weapon3Clicked();
+            }
+        } 
         
          
     }
@@ -288,12 +289,6 @@ public class Character  implements ActionListener, PhysicsCollisionListener{
 
     }
     
-     public float expPercentage() {
-  
-        return (currentExperience / maxExperience) * 100;
-
-    }
-    
     public void fireWeapon(){
         bullets.add(currentWeapon.Fire(damageModifier, player.getPhysicsLocation(), player.getViewDirection().normalize().negate(), game, bulletAppState));
     }
@@ -333,12 +328,14 @@ public class Character  implements ActionListener, PhysicsCollisionListener{
     }
     
     private void switchWeapon(int weaponSlot){
-        if(weaponSlot == 1){
-            currentWeapon = weaponSlot1;
-        } else if(weaponSlot == 2){
-            currentWeapon = weaponSlot2;
-        } else if(weaponSlot == 3){
-            currentWeapon = weaponSlot3;
+        if(bullets.isEmpty()){
+            if(weaponSlot == 1){
+                currentWeapon = weaponSlot1;
+            } else if(weaponSlot == 2){
+                currentWeapon = weaponSlot2;
+            } else if(weaponSlot == 3){
+                currentWeapon = weaponSlot3;
+            }
         }
     }
     
@@ -371,23 +368,9 @@ public class Character  implements ActionListener, PhysicsCollisionListener{
         return Pickup;
     }
     
-    
     public void takeDamage(float damage) {
         damageTaken = true;
         incomingDamage = damage;
-    }
-    
-    public float getScore() {
-        return currentScore;
-    }
-    
-    
-    public void addScore(float score) {
-        currentScore += score;
-    }
-    
-    public void addExperience(float exp) {
-        currentExperience += exp;
     }
    
     public void collision(PhysicsCollisionEvent event) {

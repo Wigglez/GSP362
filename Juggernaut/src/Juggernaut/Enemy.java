@@ -28,8 +28,8 @@ public class Enemy implements PhysicsCollisionListener{
     private  float currentHealth = 6;
     private float maxHealth = 3;
     
-    private float experienceOnDeath = 1;
-    private float scoreOnDeath = 10;
+    private float experienceOnDeath = 0;
+    private float scoreOnDeath = 0;
     
     private float Damage = 3;
     
@@ -184,9 +184,6 @@ public class Enemy implements PhysicsCollisionListener{
     }
     
     public void Die(){
-        Juggernaut.addExperience(experienceOnDeath);
-        Juggernaut.addScore(scoreOnDeath);
-      
         game.getRootNode().detachChild(enemyDebug);
         game.getRootNode().detachChild(enemyElephant);
         bulletAppState.getPhysicsSpace().remove(enemy);
