@@ -304,7 +304,7 @@ public class StartScreen extends AbstractAppState implements ScreenController {
      
       
 
-  public void updateHUD(float health,float armor,float energy){
+  public void updateHUD(float health,float armor,float energy, float Ammo){
          
         Element niftyElement = nifty.getCurrentScreen().findElementByName("PlayerHealth");
         if(niftyElement != null){
@@ -318,6 +318,10 @@ public class StartScreen extends AbstractAppState implements ScreenController {
             niftyElement = nifty.getCurrentScreen().findElementByName("PlayerEnergy");
             // swap old with new image
             niftyElement.setWidth((int)energy * 2);
+            
+            Element niftyAmmoElement = nifty.getCurrentScreen().findElementByName("Ammo");
+      
+      niftyAmmoElement.getRenderer(TextRenderer.class).setText("Ammo: " + Ammo);
         }
     }
  

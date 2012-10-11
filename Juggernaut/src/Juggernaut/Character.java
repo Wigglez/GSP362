@@ -37,6 +37,7 @@ public class Character  implements ActionListener, PhysicsCollisionListener{
 
     private boolean damageTaken = false;
     private static float incomingDamage = 0;
+    private int enemiesDead = 0;
     
     private static float hoverEnergyCost = 60f;
     
@@ -188,9 +189,16 @@ public class Character  implements ActionListener, PhysicsCollisionListener{
             damageTaken = false;
         }
         
+        enemiesDead = (int)currentExperience;
+        if(enemiesDead == 66){
+            Win();
+        } else if(currentHealth <= 0){
+            Lose();
+        }
+        
 //        System.out.print(currentHealth +"\n");
         game.getHud().bind(game.getNifty(), game.getHud().screen);
-        game.getHud().updateHUD(healthPercentage(), armorPercentage(), energyPercentage());
+        game.getHud().updateHUD(healthPercentage(), armorPercentage(), energyPercentage(), currentWeapon.getCurrentAmmo());
     }
 
     private void setUpKeys() {
@@ -296,9 +304,10 @@ public class Character  implements ActionListener, PhysicsCollisionListener{
     }
     
     public void fireWeapon(){
-        bullets.add(currentWeapon.Fire(damageModifier, player.getPhysicsLocation(), player.getViewDirection().normalize().negate(), game, bulletAppState));
+        if(currentWeapon == weaponSlot1 || currentWeapon.getCurrentAmmo() > 0){
+            bullets.add(currentWeapon.Fire(damageModifier, player.getPhysicsLocation(), player.getViewDirection().normalize().negate(), game, bulletAppState));
+        }
     }
-    
     public void upgradeDamageModifier(){
         damageModifier += .1f;
     }
@@ -370,6 +379,21 @@ public class Character  implements ActionListener, PhysicsCollisionListener{
         currentHealth += pickup;
     }
     
+    public void buyHealth(){
+        currentHealth += 25;
+        currentScore  -= 10;
+    }
+    
+    public void buyMiniGunAmmo(){
+        weaponSlot2.setCurrentAmmo(weaponSlot2.getCurrentAmmo() + 100);
+        currentScore -= 30;
+    }
+    
+    public void buyLaserRifleAmmo(){
+        weaponSlot3.setCurrentAmmo(weaponSlot3.getCurrentAmmo() + 10);
+        currentScore -= 50;
+    }
+    
     public float getPickup(){
         return Pickup;
     }
@@ -391,11 +415,22 @@ public class Character  implements ActionListener, PhysicsCollisionListener{
     public void addExperience(float exp) {
         currentExperience += exp;
         System.out.print("BOOM  " + currentExperience + "\n");
+        
     }
    
     public void collision(PhysicsCollisionEvent event) {
         if(event.getNodeA().getName().equals("Player") && event.getNodeB().getName().equals("Enemy")){
             takeDamage(25);
         }
+    }
+
+    private void Win() {
+        //Display Win Screen
+        //game.getHud.goToScreen("Win");
+    }
+
+    private void Lose() {
+        //Display Lose Screen
+        //game.getHud.goToScreen("Lose");
     }
 }

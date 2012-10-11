@@ -19,14 +19,14 @@ public class miniGun extends Weapon{
      dammage = 0.5f;
      fireRate = .125f;
      maxAmmo = 100;
-     currentAmmo = 0;
+     currentAmmo = 300;
     }
     miniGun(SimpleApplication gameRef)
     {
      dammage = 0.5f;
      fireRate = .1f;
-     maxAmmo = 100;
-     currentAmmo = 0;
+     maxAmmo = 300;
+     currentAmmo = 300;
      
      bulletMaterial = new Material(gameRef.getAssetManager(), "Common/MatDefs/Misc/Unshaded.j3md");
      bulletMaterial.setColor("Color", ColorRGBA.Yellow);

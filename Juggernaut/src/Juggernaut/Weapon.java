@@ -18,12 +18,15 @@ public abstract class Weapon {
     protected float dammage;
     protected float fireRate;
     protected int maxAmmo;
-    protected int currentAmmo;
+    protected static int currentAmmo;
     
     protected Material bulletMaterial;
     
     public void setCurrentAmmo(int currentAmmo) {
         this.currentAmmo = currentAmmo;
+        if(currentAmmo > maxAmmo){
+            currentAmmo = maxAmmo;
+        }
     }
 
   
@@ -51,7 +54,9 @@ public abstract class Weapon {
     public Bullet Fire(float damageModifier, Vector3f pos, Vector3f dir, Main game, BulletAppState bulletAppState) {
         
         Bullet bullet = new Bullet(bulletMaterial, dammage * damageModifier, pos, dir, game, bulletAppState);
-        
+        if(currentAmmo > 0){
+            currentAmmo--;
+        }
        return bullet;
     }
     

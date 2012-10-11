@@ -24,7 +24,7 @@ public class laserRifle extends Weapon{
         dammage = 6;
         fireRate = 1.5f;
         maxAmmo = 20;
-        currentAmmo = 0;
+        currentAmmo = 20;
         
         bulletMaterial = new Material(gameRef.getAssetManager(), "Common/MatDefs/Misc/Unshaded.j3md");
         bulletMaterial.setColor("Color", ColorRGBA.Red);
