@@ -192,13 +192,23 @@ public class Enemy implements PhysicsCollisionListener{
         bulletAppState.getPhysicsSpace().remove(enemy);
     }
     
+    public boolean isDead(){
+        return (currentHealth <= 0);
+    }
+    
     public void collision(PhysicsCollisionEvent event) {
         if(event.getNodeA().getName().equals("Player") && event.getNodeB().equals(this.enemyElephant)){
-            Die();            
+            experienceOnDeath = 0;
+            scoreOnDeath = 0;
+            
+            incomingDamage = currentHealth;
+            damageTaken = true;
         } else if(event.getNodeB().getName().equals("Bullet") && event.getNodeA().equals(this.enemyElephant)){
+            experienceOnDeath = 1;
+            scoreOnDeath = 10;
+            
             damageTaken = true;
             incomingDamage = Juggernaut.DamageOutput();
-            System.out.print(incomingDamage + "\n");
         }
         
         

@@ -390,6 +390,7 @@ public class Character  implements ActionListener, PhysicsCollisionListener{
     
     public void addExperience(float exp) {
         currentExperience += exp;
+        System.out.print("BOOM  " + currentExperience + "\n");
     }
    
     public void collision(PhysicsCollisionEvent event) {

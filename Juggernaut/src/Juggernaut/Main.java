@@ -186,7 +186,9 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
         
        // Update enemies
 	for (int itr = 0; itr < Enemy.length; itr++) {
-            Enemy[itr].Update(dt, Juggernaut.getPosition());
+            if(!Enemy[itr].isDead()){
+                Enemy[itr].Update(dt, Juggernaut.getPosition());
+            }
 	}
         
        
