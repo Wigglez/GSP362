@@ -32,8 +32,8 @@ public class Character  implements ActionListener, PhysicsCollisionListener{
     private static float currentExperience = 0;
     private static float maxExperience = 100;
     public static float currentScore = 0;
-    private static float abiltyPoints =0;
-    private static float attributePoints =0; 
+    public static float abiltyPoints =0;
+    public static float attributePoints =0; 
 
     private boolean damageTaken = false;
     private static float incomingDamage = 0;
@@ -44,18 +44,25 @@ public class Character  implements ActionListener, PhysicsCollisionListener{
     private static float hoverEnergyCost = 60f;
     
     private boolean sprintActive;
-    private static float sprintEnergyCost = 35f;
-    private static float sprintSpeed =0;
+    public static float sprintEnergyCost = 35f;
+    public static float sprintSpeed =0;
     
     private boolean dashActive;
-    private static float dashEnergyCost;
-    private static float dashDistance;
-    private static float dashDamage;
+    public static float dashEnergyCost;
+    public static float dashDistance;
+    public static float dashDamage;
 
+    //Skill Levels
+    public static int sprintSkillLevel = 1;
+    public static int dashSkillLevel = 1;
+    public static int superJumpSkillLevel = 1;
+    public static int hoverSkillLevel = 1;
+    
+    
     // Movement
-    private static float movementSpeed = 0;
-    private static float jumpHeight = 50;
-    private static float superJumpHeight = 100;
+    public static float movementSpeed = 0;
+    public static float jumpHeight = 50;
+    public static float superJumpHeight = 100;
 
     // Booleans
     private static boolean pickUpAdded = false;
@@ -68,7 +75,7 @@ public class Character  implements ActionListener, PhysicsCollisionListener{
     private static Weapon weaponSlot1;
     private static Weapon weaponSlot2;
     private static Weapon weaponSlot3;
-    private float damageModifier = 1.0f;
+    public static float damageModifier = 1.0f;
     private float fireDelay =0;
     private Vector<Bullet> bullets= new Vector<Bullet>();
     

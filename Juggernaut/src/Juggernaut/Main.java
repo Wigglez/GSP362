@@ -2408,7 +2408,7 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
                     {{
                         alignCenter();
                         valignBottom();
-                        text("Attribute Points: " );
+                        text("Attribute Points: " + (int)Character.attributePoints);
                         font("Interface/Fonts/Default.fnt");
                         //wrap(true);
                         height("100%");
@@ -2450,7 +2450,7 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
                             id("CurrentMaxHealth");
                             alignCenter();
                             valignCenter();
-                            text("Max Health: ");
+                            text("Max Health: " + (int)Character.maxHealth);
                             font("Interface/Fonts/Default.fnt");
                             //wrap(true);
                             height("100%");
@@ -2554,7 +2554,7 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
                             id("CurrentDamageModifier");
                             alignCenter();
                             valignCenter();
-                            text("Damage: ");
+                            text("Damage: " +  "x" + Character.damageModifier);
                             font("Interface/Fonts/Default.fnt");
                             //wrap(true);
                             height("100%");
@@ -2658,7 +2658,7 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
                             id("CurrentFireRateModifier");
                             alignCenter();
                             valignCenter();
-                            text("Fire Rate: ");
+                            text("Fire Rate: "+ (int)Juggernaut.WeaponSlot2().fireRate);
                             font("Interface/Fonts/Default.fnt");
                             //wrap(true);
                             height("100%");
@@ -2681,7 +2681,7 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
                             //color(green);
                             alignCenter();
                             valignCenter();
-                            text("Fire Rate");
+                            text("Fire Rate" );
                             
                             font("Interface/Fonts/Default.fnt");
                             //wrap(true);
@@ -2762,7 +2762,7 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
                             id("CurrentSpeedModifier");
                             alignCenter();
                             valignCenter();
-                            text("Speed: ");
+                            text("Speed: " + (int)Character.movementSpeed);
                             font("Interface/Fonts/Default.fnt");
                             //wrap(true);
                             height("100%");
@@ -2898,7 +2898,7 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
                     {{
                         alignCenter();
                         valignCenter();
-                        text("Ability Points: ");
+                        text("Ability Points: " + (int)Character.abiltyPoints);
                         font("Interface/Fonts/Default.fnt");
                         //wrap(true);
                         height("100%");
@@ -2940,7 +2940,7 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
                             id("SprintSkillLevel");
                             alignCenter();
                             valignCenter();
-                            text("Current Skill Level: ");
+                            text("Current Skill Level: " + Character.sprintSkillLevel);
                             font("Interface/Fonts/Default.fnt");
                             //wrap(true);
                             height("100%");
@@ -3044,7 +3044,7 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
                             id("DashSkillLevel");
                             alignCenter();
                             valignCenter();
-                            text("Current Skill Level: ");
+                            text("Current Skill Level: " + Character.dashSkillLevel);
                             font("Interface/Fonts/Default.fnt");
                             //wrap(true);
                             height("100%");
@@ -3148,7 +3148,7 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
                             id("SuperJumpSkillLevel");
                             alignCenter();
                             valignCenter();
-                            text("Current Skill Level: ");
+                            text("Current Skill Level: " + Character.superJumpSkillLevel);
                             font("Interface/Fonts/Default.fnt");
                             //wrap(true);
                             height("100%");
@@ -3252,7 +3252,7 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
                             id("HoverSkillLevel");
                             alignCenter();
                             valignCenter();
-                            text("Current Skill Level: ");
+                            text("Current Skill Level: " + Character.hoverSkillLevel);
                             font("Interface/Fonts/Default.fnt");
                             //wrap(true);
                             height("100%");
