@@ -39,6 +39,7 @@ public class Character  implements ActionListener, PhysicsCollisionListener{
     private static float incomingDamage = 0;
     private static float armorDelay = 3.0f;
     private static float rechargeDelay = 3.0f;
+    private static float armorRechargeRate = 5.0f;
     public int enemiesDead = 0;
     
     private static float hoverEnergyCost = 60f;
@@ -189,17 +190,15 @@ public class Character  implements ActionListener, PhysicsCollisionListener{
         }
         
         if(damageTaken){
-//            currentArmor -= incomingDamage;
-//            
-//            incomingDamage = currentArmor;
-//            
-//            currentHealth += incomingDamage;
-//            
-//            if(currentArmor < 0 ){
-//                currentArmor = 0;
-//            }
+
             if(currentArmor > 0){
-                currentArmor -= incomingDamage;
+                if(incomingDamage > currentArmor){
+                    incomingDamage -= currentArmor;
+                    currentArmor = 0;
+                    currentHealth -= incomingDamage;
+                }else{
+                    currentArmor -= incomingDamage;
+                }
             }else{
                 currentHealth -= incomingDamage;
             }
@@ -344,16 +343,32 @@ public class Character  implements ActionListener, PhysicsCollisionListener{
     }
     public void upgradeDamageModifier(){
         damageModifier += .1f;
+        attributePoints -= 1;
     }
     
     public void upgradeHealth(){
         maxHealth += 25;
         currentHealth = maxHealth;
+        attributePoints -= 1;
     }
     
     public void upgradeArmor(){
         maxArmor += 25;
+        armorDelay -= 0.2f;
+        armorRechargeRate += 3.0f;
         currentArmor = maxArmor;
+        attributePoints -=1;
+    }
+    
+    public void upgradeHover(){
+        hoverEnergyCost -= 3.0f;
+        abiltyPoints -= 1;
+    }
+    
+    public void upgradeSprint(){
+        sprintSpeed += 0.1f;
+        sprintEnergyCost -= 2.0f;
+        abiltyPoints -= 1;        
     }
     
     public void checkXP(){
