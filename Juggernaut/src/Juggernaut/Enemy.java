@@ -34,10 +34,6 @@ public class Enemy implements PhysicsCollisionListener{
     private float Damage = 3;
     
     private float movementSpeed = 0;
-    private Quaternion rotation;
-    
-    private float dt = 0;
-    private float prevTime = 0;
     
     Spatial enemyElephant;
     private RigidBodyControl enemy;
@@ -95,7 +91,6 @@ public class Enemy implements PhysicsCollisionListener{
         bulletAppState.getPhysicsSpace().add(enemy);
         
         movementSpeed = 10.f;
-        rotation = YAW090;
         enemy.setAngularDamping(1);
         
     }
@@ -107,13 +102,11 @@ public class Enemy implements PhysicsCollisionListener{
 //            enemy.setLinearVelocity(new Vector3f(-1, -9.8f,0).mult(movementSpeed));
             enemy.setLinearVelocity(Vector3f.UNIT_X.negate().multLocal(movementSpeed).add(new Vector3f(0, -15f, 0)));
             enemy.setPhysicsRotation(YAW090);
-            rotation = YAW090;
 //            walkDirection.addLocal(Vector3f.UNIT_X.negate().multLocal(movementSpeed));
 //            enemy.setViewDirection(walkDirection.negate());
         } else if(walkRight) { 
             enemy.setLinearVelocity(Vector3f.UNIT_X.clone().multLocal(movementSpeed).add(new Vector3f(0, -15f, 0)));
             enemy.setPhysicsRotation(YAW270);
-            rotation = YAW270;
 //            walkDirection.addLocal(Vector3f.UNIT_X.clone().multLocal(movementSpeed));
 //            enemy.setViewDirection(walkDirection.negate());
         } 
@@ -122,10 +115,7 @@ public class Enemy implements PhysicsCollisionListener{
 //        enemy.setWalkDirection(walkDirection);
 
         enemyDebug.setLocalTranslation(enemy.getPhysicsLocation());
-        
-        
-        dt = game.getTimer().getTimeInSeconds() - prevTime;
-        prevTime = game.getTimer().getTimeInSeconds();
+     
         
         
        // Aggro
@@ -158,15 +148,6 @@ public class Enemy implements PhysicsCollisionListener{
         
     }
     
-    public void onAction(String binding, boolean value, float tpf){
-       
-        if(binding.equals("Left")){
-            walkLeft = value;
-        } else if(binding.equals("Right")){
-            walkRight = value;
-        } 
-    }
-    
     public Spatial getSpatial(){
         return enemyElephant;
     }
@@ -177,10 +158,6 @@ public class Enemy implements PhysicsCollisionListener{
     
     public float getDamage(){
         return Damage;
-    }
-    
-    public void takeDamage(float damage){
-        currentHealth -= damage;
     }
     
     public void Die(){
