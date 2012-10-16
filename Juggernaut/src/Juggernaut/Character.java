@@ -177,12 +177,9 @@ public class Character  implements ActionListener, PhysicsCollisionListener{
         }
         
         if(currentEnergy < maxEnergy){
-            if(!sprintActive && !hoverActive) 
+            if(!sprintActive && !hoverActive)
                 currentEnergy += 10f * dt;
-        } else {
-            currentEnergy = maxEnergy;
         }
-        
         
         if(damageTaken){
 //            currentArmor -= incomingDamage;
@@ -239,10 +236,8 @@ public class Character  implements ActionListener, PhysicsCollisionListener{
         game.getInputManager().addMapping("Weapon1", new KeyTrigger(KeyInput.KEY_1), new KeyTrigger(KeyInput.KEY_NUMPAD1));
         game.getInputManager().addMapping("Weapon2", new KeyTrigger(KeyInput.KEY_2), new KeyTrigger(KeyInput.KEY_NUMPAD2));
         game.getInputManager().addMapping("Weapon3", new KeyTrigger(KeyInput.KEY_3), new KeyTrigger(KeyInput.KEY_NUMPAD3));
-        game.getInputManager().addMapping("SprintR", new KeyTrigger(KeyInput.KEY_RCONTROL));
-        game.getInputManager().addMapping("SprintL", new KeyTrigger(KeyInput.KEY_LCONTROL));
-        game.getInputManager().addMapping("HoverR", new KeyTrigger(KeyInput.KEY_RSHIFT));
-        game.getInputManager().addMapping("HoverL", new KeyTrigger(KeyInput.KEY_LSHIFT));
+        game.getInputManager().addMapping("Sprint", new KeyTrigger(KeyInput.KEY_RCONTROL));
+        game.getInputManager().addMapping("Hover", new KeyTrigger(KeyInput.KEY_RSHIFT));
         game.getInputManager().addListener(this, "Left");
         game.getInputManager().addListener(this, "Right");
         game.getInputManager().addListener(this, "Jump");
@@ -250,10 +245,8 @@ public class Character  implements ActionListener, PhysicsCollisionListener{
         game.getInputManager().addListener(this, "Weapon1");
         game.getInputManager().addListener(this, "Weapon2");
         game.getInputManager().addListener(this, "Weapon3");
-        game.getInputManager().addListener(this, "SprintR");
-        game.getInputManager().addListener(this, "SprintL");
-        game.getInputManager().addListener(this, "HoverR");
-        game.getInputManager().addListener(this, "HoverL");
+        game.getInputManager().addListener(this, "Sprint");
+        game.getInputManager().addListener(this, "Hover");
     }
     
     public void onAction(String binding, boolean value, float tpf){
@@ -266,9 +259,9 @@ public class Character  implements ActionListener, PhysicsCollisionListener{
             player.jump();
         } else if(binding.equals("Fire")){
             isFiring = value; 
-        } else if(binding.equals("SprintR") || binding.equals("SprintL")){
+        } else if(binding.equals("Sprint")){
             sprintActive = value;
-        } else if(binding.equals("HoverR") || binding.equals("HoverL")){
+        } else if(binding.equals("Hover")){
             hoverActive = value;
         }else if(bullets.isEmpty()){
             if(binding.equals("Weapon1")){
