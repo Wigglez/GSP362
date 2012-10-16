@@ -1,6 +1,7 @@
 package Juggernaut;
 
 import com.jme3.app.SimpleApplication;
+import com.jme3.audio.AudioNode;
 import com.jme3.bullet.BulletAppState;
 import com.jme3.bullet.collision.PhysicsCollisionEvent;
 import com.jme3.bullet.collision.PhysicsCollisionListener;
@@ -84,6 +85,47 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
     CameraChunk []views = new CameraChunk[54];//holds all the different camera views
     CameraChunk currentView;                  //Stores the current view to update camPos and lookAt
 
+    // Sounds
+    AudioNode bossDeathSound;
+    AudioNode bossMissileSound;
+    AudioNode bossMissileCollisionSound;
+    AudioNode damageTakenSound;
+    AudioNode damageTaken2Sound;
+    AudioNode dashSound;
+    AudioNode electricitySound;
+    AudioNode elevatorSidewaysSound;
+    AudioNode elevatorUpSound;
+    AudioNode gameStartSound;
+    AudioNode healthLowSound;
+    AudioNode jumpSound;
+    AudioNode keyPickupSound;
+    AudioNode landingSound;
+    AudioNode laserRifleSound;
+    AudioNode levelUpSound;
+    AudioNode menuButtonSelectionHoverSound;
+    AudioNode menuSelectionClickSound;
+    AudioNode menuWelcomeSound;
+    AudioNode minigunSound;
+    AudioNode pickupSound;
+    AudioNode pistolSound;
+    AudioNode playerDeathSound;
+    AudioNode shieldAddedSound;
+    AudioNode shieldDownSound;
+    AudioNode shopPurchaseSound;
+    AudioNode superJumpSound;
+    AudioNode teleportInSound;
+    AudioNode teleportOutSound;
+    AudioNode walkingSound;
+
+    // Music
+    AudioNode bgm1;
+    AudioNode bgm2;
+    AudioNode bgm3;
+    AudioNode bossDeathMusic;
+    AudioNode bossMusic;
+    AudioNode creditsMusic;
+    AudioNode menuMusic;
+    
     public static void main(String[] args) {
         
         java.util.logging.Logger.getLogger("").setLevel(Level.WARNING);
@@ -126,6 +168,9 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
                 
         //Creates viewing boxes or Camera Chunks in the world
         setUpCameraBoxes();   
+        
+        // Assigns audio to its respective files
+        setUpAudio();
         
         //Load in the level
         Spatial map = assetManager.loadModel("Models/levelLayout - Update_cameraPos.obj");
@@ -449,6 +494,49 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
 
         
     }
+    
+    private void setUpAudio() {
+//        bossDeathSound = new AudioNode(assetManager, "Sound/Effect/Boss_death.ogg");
+//        bossMissileSound = new AudioNode(assetManager, "Sound/Effect/Boss_missile.ogg");
+//        bossMissileCollisionSound = new AudioNode(assetManager, "Sound/Effect/Boss_missile_collision.ogg");
+//        damageTakenSound = new AudioNode(assetManager, "Sound/Effect/Damage_taken.ogg");
+//        damageTaken2Sound = new AudioNode(assetManager, "Sound/Effect/Damage_taken2.ogg");
+//        dashSound = new AudioNode(assetManager, "Sound/Effect/Dash.ogg");
+//        electricitySound = new AudioNode(assetManager, "Sound/Effect/Electricity.ogg");
+//        elevatorSidewaysSound = new AudioNode(assetManager, "Sound/Effect/Elevator_sideways.ogg");
+//        elevatorUpSound = new AudioNode(assetManager, "Sound/Effect/Elevator_up.ogg");
+//        gameStartSound = new AudioNode(assetManager, "Sound/Effect/Game_start.ogg");
+//        healthLowSound = new AudioNode(assetManager, "Sound/Effect/Health_low.ogg");
+//        jumpSound = new AudioNode(assetManager, "Sound/Effect/Jump.ogg");
+//        keyPickupSound = new AudioNode(assetManager, "Sound/Effect/Key_pickup.ogg");
+//        landingSound = new AudioNode(assetManager, "Sound/Effect/Landing.ogg");
+//        laserRifleSound = new AudioNode(assetManager, "Sound/Effect/Laser_rifle.ogg");
+//        levelUpSound = new AudioNode(assetManager, "Sound/Effect/Level_up.ogg");
+//        menuButtonSelectionHoverSound = new AudioNode(assetManager, "Sound/Effect/Menu_button_selection_hover.ogg");
+//        menuSelectionClickSound = new AudioNode(assetManager, "Sound/Effect/Menu_selection_click.ogg");
+//        menuWelcomeSound = new AudioNode(assetManager, "Sound/Effect/Menu_welcome.ogg");
+//        minigunSound = new AudioNode(assetManager, "Sound/Effect/Minigun_fire.ogg");
+//        pickupSound = new AudioNode(assetManager, "Sound/Effect/Pickup.ogg");
+//        pistolSound = new AudioNode(assetManager, "Sound/Effect/Pistol.ogg");
+//        playerDeathSound = new AudioNode(assetManager, "Sound/Effect/Player_death.ogg");
+//        shieldAddedSound = new AudioNode(assetManager, "Sound/Effect/Shield_added.ogg");
+//        shieldDownSound = new AudioNode(assetManager, "Sound/Effect/Shield_down.ogg");
+//        shopPurchaseSound = new AudioNode(assetManager, "Sound/Effect/Shop_purchase.ogg");
+//        superJumpSound = new AudioNode(assetManager, "Sound/Effect/Super_jump.ogg");
+//        teleportInSound = new AudioNode(assetManager, "Sound/Effect/Teleport_in.ogg");
+//        teleportOutSound = new AudioNode(assetManager, "Sound/Effect/Teleport_out.ogg");
+//        walkingSound = new AudioNode(assetManager, "Sound/Effect/Walking.ogg");
+//
+//        // Music
+        bgm1 = new AudioNode(assetManager, "Sound/Music/Background_music1.ogg", false);
+//        bgm2 = new AudioNode(assetManager, "Sound/Music/Background_music2.ogg", true);
+//        bgm3 = new AudioNode(assetManager, "Sound/Music/Background_music3.ogg", true);
+//        bossDeathMusic = new AudioNode(assetManager, "Sound/Music/Boss_death_music.ogg", true);
+//        bossMusic = new AudioNode(assetManager, "Sound/Music/Boss_music.ogg", true);
+//        creditsMusic = new AudioNode(assetManager, "Sound/Music/Credits.ogg", true);
+//        menuMusic = new AudioNode(assetManager, "Sound/Music/Menu_music.ogg", true);
+    }
+    
     public void CreateHUD()
     {
            
