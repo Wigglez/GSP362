@@ -190,6 +190,7 @@ public class Character  implements ActionListener, PhysicsCollisionListener{
         }
         
         if(damageTaken){
+            game.damageTakenSound.play();
 
             if(currentArmor > 0){
                 if(incomingDamage > currentArmor){
@@ -208,15 +209,17 @@ public class Character  implements ActionListener, PhysicsCollisionListener{
             
         } else {
             rechargeDelay += dt;
+            
         }
         
         if(rechargeDelay > armorDelay){
+            game.shieldAddedSound.play();
             currentArmor += 5 * dt;
             if(currentArmor >= maxArmor){
                 currentArmor = maxArmor;
                 rechargeDelay =0;
+                game.shieldAddedSound.stop();
             }
-            
         }
         
         
@@ -226,6 +229,7 @@ public class Character  implements ActionListener, PhysicsCollisionListener{
         if(enemiesDead == 66){
             Win();
         } else if(currentHealth <= 0){
+            game.playerDeathSound.play();
             Lose();
         }
         

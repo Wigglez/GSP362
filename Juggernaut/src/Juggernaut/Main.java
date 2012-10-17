@@ -223,6 +223,7 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
         for(int i = 0; i < lava.length; i++){            
             if(lava[i].testForPlayer(Juggernaut.getControl())){
                 Juggernaut.takeDamage(15f * dt);
+                damageTakenSound.play();
             }
         }   
         
