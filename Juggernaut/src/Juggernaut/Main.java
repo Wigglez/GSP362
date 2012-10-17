@@ -62,6 +62,7 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
     private static Character Juggernaut;
     //Game Character
     Enemy[] Enemy = new Enemy[66];
+    Boss boss;
     
     //HealthPickup HealthPickup1; //test Health Pickup
     HealthPickup HealthPickup2; // Boss area Health Pickup
@@ -165,6 +166,8 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
         
         // Creates enemies in the world
         setUpEnemies();
+        //Create Boss
+        boss = new Boss(Juggernaut, this, bulletAppState, new Vector3f(425, 325, 0), new Vector3f(1,0,0) );
                 
         //Creates viewing boxes or Camera Chunks in the world
         setUpCameraBoxes();   
@@ -241,6 +244,9 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
                 Enemy[itr].Update(dt, Juggernaut.getPosition());
             }
 	}
+        
+        //Update boss
+        boss.Update(dt, Juggernaut.getPosition());
         
        
         //Step through all views and test if player is in that space

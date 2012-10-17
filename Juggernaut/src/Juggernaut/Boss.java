@@ -73,7 +73,7 @@ public class Boss implements PhysicsCollisionListener{
        }
 
        game.getRootNode().attachChild(bossAlien);
-        CylinderCollisionShape cylinderShape = new CylinderCollisionShape(new Vector3f(2,2,2), 1);
+        CylinderCollisionShape cylinderShape = new CylinderCollisionShape(new Vector3f(2,8,2), 1);
         boss = new RigidBodyControl(cylinderShape, .05f);
 
 
@@ -119,11 +119,23 @@ public class Boss implements PhysicsCollisionListener{
         attackDelay += dt;
         if(attackDelay > attackSpeed){
             Vector3f toPlayer = playerPos.subtractLocal(boss.getPhysicsLocation());
-            Bullet b = new Bullet(bulletMaterial, Damage, boss.getPhysicsLocation(), toPlayer, game, bulletAppState );
+            Bullet b = new Bullet(bulletMaterial, Damage, boss.getPhysicsLocation(), toPlayer.normalizeLocal(), game, bulletAppState );
+            bullets.add(b);
+            attackDelay = 0;
+            System.out.print(toPlayer.toString() + "\n");
         }
         if(damageTaken){
             currentHealth -= incomingDamage;
             damageTaken = false;
+        }
+        
+        for(int bulletItr = 0; bulletItr < bullets.size(); bulletItr++){
+            Bullet testBullet = bullets.get(bulletItr);
+            if(testBullet.LifeTime(dt) ){
+                testBullet.delete();
+                bullets.remove(bulletItr);
+            }
+
         }
 
     }

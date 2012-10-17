@@ -55,7 +55,7 @@ public class Bullet implements PhysicsCollisionListener {
 
         bulletPhys.setGravity(Vector3f.ZERO);
         
-        bulletPhys.setLinearVelocity(new Vector3f(35,0,0).mult(dir));
+        bulletPhys.setLinearVelocity(dir.multLocal(35));//new Vector3f(35,1,0).mult(dir));
         velocity = bulletPhys.getLinearVelocity();
         this.damage = damage;
         
