@@ -235,8 +235,9 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
 	}
         
         //Update boss
-        boss.Update(dt, Juggernaut.getPosition());
-        
+        if(!boss.isDead()){
+            boss.Update(dt, Juggernaut.getPosition());
+        }
        
         //Step through all views and test if player is in that space
         //If true, set current view to this view

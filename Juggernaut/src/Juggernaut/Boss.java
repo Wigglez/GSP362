@@ -24,13 +24,13 @@ public class Boss implements PhysicsCollisionListener{
     private BulletAppState bulletAppState;
     Character Juggernaut;
     
-    private  float currentHealth = 6;
-    private float maxHealth = 3;
+    private  float currentHealth = 30;
+    private float maxHealth = 30;
     
-    private float experienceOnDeath = 1;
-    private float scoreOnDeath = 10;
+    private float experienceOnDeath = 50;
+    private float scoreOnDeath = 100;
     
-    private float Damage = 3;
+    private float Damage = 30;
     Spatial bossAlien;
     private RigidBodyControl boss;
     
@@ -105,9 +105,12 @@ public class Boss implements PhysicsCollisionListener{
         float distFromPlayerY = playerPos.y - boss.getPhysicsLocation().y;
 
         if (distFromPlayerY > -7 && distFromPlayerY < 15) {
+            
             if (distFromPlayerX > -60 && distFromPlayerX < 0) {
                 attackPlayer = true;
-            } 
+            } else{
+                attackPlayer = false;
+            }
 
         } else{
                 currentHealth += 1 * dt;
@@ -116,17 +119,29 @@ public class Boss implements PhysicsCollisionListener{
                 }
         }
         
+        
+        
         attackDelay += dt;
-        if(attackDelay > attackSpeed){
+        if( attackPlayer && attackDelay > attackSpeed){
+            
             Vector3f toPlayer = playerPos.subtractLocal(boss.getPhysicsLocation());
             Bullet b = new Bullet(bulletMaterial, Damage, boss.getPhysicsLocation(), toPlayer.normalizeLocal(), game, bulletAppState );
             bullets.add(b);
             attackDelay = 0;
-            System.out.print(toPlayer.toString() + "\n");
+            
         }
+        
         if(damageTaken){
             currentHealth -= incomingDamage;
             damageTaken = false;
+        }
+        
+        if(currentHealth <= maxHealth/2.0f){
+            attackSpeed = .5f;
+            Damage = 50.0f;
+        } else{
+            attackSpeed = 1.0f;
+            Damage = 30.0f;
         }
         
         for(int bulletItr = 0; bulletItr < bullets.size(); bulletItr++){
@@ -136,6 +151,10 @@ public class Boss implements PhysicsCollisionListener{
                 bullets.remove(bulletItr);
             }
 
+        }
+        
+        if(currentHealth <= 0){
+            Die();
         }
 
     }
@@ -151,21 +170,25 @@ public class Boss implements PhysicsCollisionListener{
     public float getDamage(){
         return Damage;
     }
+    
+    public void Die(){
+        Juggernaut.addExperience(experienceOnDeath);
+        Juggernaut.addScore(scoreOnDeath);
+        
+        game.getRootNode().detachChild(bossDebug);
+        game.getRootNode().detachChild(bossAlien);
+        bulletAppState.getPhysicsSpace().remove(boss);
+    }
+    
+    public boolean isDead(){
+        return (currentHealth <= 0);
+    }
 
     public void collision(PhysicsCollisionEvent event) {
-    //        if(event.getNodeA().getName().equals("Player") && event.getNodeB().equals(this.enemyElephant)){
-    //            experienceOnDeath = 0;
-    //            scoreOnDeath = 0;
-    //            
-    //            incomingDamage = currentHealth;
-    //            damageTaken = true;
-    //        } else if(event.getNodeB().getName().equals("Bullet") && event.getNodeA().equals(this.enemyElephant)){
-    //            experienceOnDeath = 1;
-    //            scoreOnDeath = 10;
-    //            
-    //            damageTaken = true;
-    //            incomingDamage = Juggernaut.DamageOutput();
-    //        }
+            if(event.getNodeB().getName().equals("Bullet") && event.getNodeA().equals(bossAlien)){
+                damageTaken = true;
+                incomingDamage = Juggernaut.DamageOutput();
+            }
 
 
     }

@@ -44,7 +44,7 @@ public class Bullet implements PhysicsCollisionListener {
         sphere = new Sphere(32, 32, .4f, true, false);
         bulletGeo = new Geometry("Bullet", sphere);
         game.getRootNode().attachChild(bulletGeo);
-        Vector3f bulletOffset = new Vector3f(2*dir.x, 0, 0);
+        Vector3f bulletOffset = new Vector3f(3*dir.x, 0, 0);
         bulletGeo.setLocalTranslation(pos.add(bulletOffset));
         bulletGeo.setMaterial(bulletMat);
         bulletPhys = new RigidBodyControl(.01f);
@@ -106,7 +106,10 @@ public class Bullet implements PhysicsCollisionListener {
      public void collision(PhysicsCollisionEvent event) {
          if(event.getNodeB().equals(this.bulletGeo) && event.getNodeA().getName().equals("Enemy")
           || event.getNodeA().equals(this.bulletGeo) && event.getNodeB().getName().equals("LevleGeo")
-          || event.getNodeB().equals(this.bulletGeo) && event.getNodeA().getName().equals("Health")){
+          || event.getNodeB().equals(this.bulletGeo) && event.getNodeA().getName().equals("Health")
+          || event.getNodeB().equals(this.bulletGeo) && event.getNodeA().getName().equals("Player")
+          || event.getNodeB().equals(this.bulletGeo) && event.getNodeA().getName().equals("Boss")
+          || event.getNodeB().equals(this.bulletGeo) && event.getNodeA().getName().equals("Bullet")){
             delete();
         }
         

@@ -105,7 +105,7 @@ public class Character  implements ActionListener, PhysicsCollisionListener{
         ninja = game.getAssetManager().loadModel("Models/Ninja/Ninja.mesh.xml");
         ninja.setName("Player");
         ninja.scale(0.02f, 0.02f, 0.02f);
-        ninja.setLocalTranslation(new Vector3f(350, 316, 0));
+//        ninja.setLocalTranslation(new Vector3f(350, 316, 0));
         game.getRootNode().attachChild(ninja);
         CapsuleCollisionShape capsuleShape = new CapsuleCollisionShape(1f, 2f);
         player = new CharacterControl(capsuleShape, .05f);
@@ -444,6 +444,9 @@ public class Character  implements ActionListener, PhysicsCollisionListener{
     }
     public void healthPickup(float pickup){
         currentHealth += pickup;
+        if(currentHealth > maxHealth){
+            currentHealth = maxHealth;
+        }
     }
     
     public void buyHealth(){
@@ -509,7 +512,11 @@ public class Character  implements ActionListener, PhysicsCollisionListener{
     public void collision(PhysicsCollisionEvent event) {
         if(event.getNodeA().getName().equals("Player") && event.getNodeB().getName().equals("Enemy")){
             takeDamage(25);
+        }else if(event.getNodeA().getName().equals("Player") && event.getNodeB().getName().equals("Bullet"))
+        {
+            takeDamage(game.boss.getDamage());
         }
+        
     }
 
     private void Win() {
