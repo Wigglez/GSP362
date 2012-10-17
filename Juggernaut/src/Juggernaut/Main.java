@@ -1048,7 +1048,7 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
                                     id("WeaponDamageText");
                                     childLayoutHorizontal();
                                     alignLeft();
-                                    text("Damage: " + (int)pistol.dammage);
+                                    text("Damage: " + (int)pistol.damage);
                                     font("Interface/Fonts/Default.fnt");
                                     //wrap(true);
                                     height("100%");

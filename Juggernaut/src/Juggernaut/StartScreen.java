@@ -229,7 +229,7 @@ public class StartScreen extends AbstractAppState implements ScreenController {
       
       Element niftyDamageElement = nifty.getCurrentScreen().findElementByName("WeaponDamageText");
       
-      niftyDamageElement.getRenderer(TextRenderer.class).setText("Damage: " + pistol.dammage);
+      niftyDamageElement.getRenderer(TextRenderer.class).setText("Damage: " + pistol.damage);
       
       Element niftyFireRateElement = nifty.getCurrentScreen().findElementByName("WeaponFireRateText");
       
@@ -252,7 +252,7 @@ public class StartScreen extends AbstractAppState implements ScreenController {
       
       Element niftyDamageElement = nifty.getCurrentScreen().findElementByName("WeaponDamageText");
       
-      niftyDamageElement.getRenderer(TextRenderer.class).setText("Damage: " + minigun.dammage);
+      niftyDamageElement.getRenderer(TextRenderer.class).setText("Damage: " + minigun.damage);
       
       Element niftyFireRateElement = nifty.getCurrentScreen().findElementByName("WeaponFireRateText");
       
@@ -275,7 +275,7 @@ public class StartScreen extends AbstractAppState implements ScreenController {
       
       Element niftyDamageElement = nifty.getCurrentScreen().findElementByName("WeaponDamageText");
       
-      niftyDamageElement.getRenderer(TextRenderer.class).setText("Damage: " + laserRifle.dammage);
+      niftyDamageElement.getRenderer(TextRenderer.class).setText("Damage: " + laserRifle.damage);
       
       Element niftyFireRateElement = nifty.getCurrentScreen().findElementByName("WeaponFireRateText");
       

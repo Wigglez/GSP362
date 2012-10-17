@@ -436,7 +436,7 @@ public class Character  implements ActionListener, PhysicsCollisionListener{
     
     
     public float DamageOutput(){
-        return currentWeapon.getDammage() * damageModifier;
+        return currentWeapon.getDamage() * damageModifier;
     }
     public void healthPickup(float pickup){
         currentHealth += pickup;

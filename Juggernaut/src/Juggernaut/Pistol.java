@@ -17,13 +17,13 @@ public class Pistol extends Weapon{
  
     Pistol()
     {
-        dammage = 1;
+        damage = 1;
         fireRate = .75f;
         maxAmmo = 0;
         currentAmmo = 0;  
     }
     Pistol(SimpleApplication gameRef){
-        dammage = .75f;
+        damage = .75f;
         fireRate = .25f;
         maxAmmo = 0;
         currentAmmo = 0;

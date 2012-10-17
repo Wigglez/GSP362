@@ -15,7 +15,7 @@ import java.util.Vector;
  * @author Vince
  */
 public abstract class Weapon {
-    protected float dammage;
+    protected float damage;
     protected float fireRate;
     protected int maxAmmo;
     protected int currentAmmo;
@@ -39,8 +39,8 @@ public abstract class Weapon {
         return currentAmmo;
     }
 
-    public float getDammage() {
-        return dammage;
+    public float getDamage() {
+        return damage;
     }
 
     public float getFireRate() {
@@ -53,7 +53,7 @@ public abstract class Weapon {
     
     public Bullet Fire(float damageModifier, Vector3f pos, Vector3f dir, Main game, BulletAppState bulletAppState) {
         
-        Bullet bullet = new Bullet(bulletMaterial, dammage * damageModifier, pos, dir, game, bulletAppState);
+        Bullet bullet = new Bullet(bulletMaterial, damage * damageModifier, pos, dir, game, bulletAppState);
         if(currentAmmo > 0){
             currentAmmo--;
         }

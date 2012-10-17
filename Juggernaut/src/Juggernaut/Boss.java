@@ -8,10 +8,13 @@ import com.jme3.bullet.collision.shapes.CapsuleCollisionShape;
 import com.jme3.bullet.collision.shapes.CylinderCollisionShape;
 import com.jme3.bullet.control.CharacterControl;
 import com.jme3.bullet.control.RigidBodyControl;
+import com.jme3.material.Material;
+import com.jme3.math.ColorRGBA;
 import com.jme3.math.FastMath;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Spatial;
+import java.util.Vector;
 /**
  *
  * @author Vince
@@ -28,7 +31,6 @@ public class Boss implements PhysicsCollisionListener{
     private float scoreOnDeath = 10;
     
     private float Damage = 3;
-    
     Spatial bossAlien;
     private RigidBodyControl boss;
     
@@ -38,11 +40,13 @@ public class Boss implements PhysicsCollisionListener{
     private static float incomingDamage = 0;
     
     private boolean attackPlayer = false;
-    private float attackDelay = 1.0f;
+    private float attackDelay = 0f;
+    private float attackSpeed = 1.0f;
     private boolean isEnraged = false;
     private float shotsFired = 0;
     
-    
+    private Material bulletMaterial;
+    private Vector<Bullet> bullets= new Vector<Bullet>();
 
    
     public static final Quaternion YAW090   = new Quaternion().fromAngleAxis(FastMath.PI/2,   new Vector3f(0,1,0));
@@ -86,6 +90,9 @@ public class Boss implements PhysicsCollisionListener{
 
         boss.setAngularDamping(1);
         
+        bulletMaterial = new Material(gameRef.getAssetManager(), "Common/MatDefs/Misc/Unshaded.j3md");
+        bulletMaterial.setColor("Color", ColorRGBA.Orange);
+        
     }
 
     public void Update(float dt, Vector3f playerPos){
@@ -109,6 +116,11 @@ public class Boss implements PhysicsCollisionListener{
                 }
         }
         
+        attackDelay += dt;
+        if(attackDelay > attackSpeed){
+            Vector3f toPlayer = playerPos.subtractLocal(boss.getPhysicsLocation());
+            Bullet b = new Bullet(bulletMaterial, Damage, boss.getPhysicsLocation(), toPlayer, game, bulletAppState );
+        }
         if(damageTaken){
             currentHealth -= incomingDamage;
             damageTaken = false;

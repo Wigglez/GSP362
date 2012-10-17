@@ -15,13 +15,13 @@ import com.jme3.math.ColorRGBA;
 public class laserRifle extends Weapon{
     laserRifle()
     {
-        dammage = 6;
+        damage = 6;
         fireRate = 1.5f;
         maxAmmo = 20;
         currentAmmo = 0;
     }
     laserRifle(SimpleApplication gameRef){
-        dammage = 6;
+        damage = 6;
         fireRate = 1.5f;
         maxAmmo = 20;
         currentAmmo = 20;

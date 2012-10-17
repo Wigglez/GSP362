@@ -28,7 +28,7 @@ public class Bullet implements PhysicsCollisionListener {
     float lifeTime;
     Vector3f velocity;
     Vector3f direction;
-    float dammage;
+    float damage;
     
     static Sphere sphere;
     Geometry bulletGeo;
@@ -38,7 +38,7 @@ public class Bullet implements PhysicsCollisionListener {
         
     }
     
-    Bullet(Material bulletMat, float dammage, Vector3f pos, Vector3f dir, Main gameRef, BulletAppState bulletAppStateRef){
+    Bullet(Material bulletMat, float damage, Vector3f pos, Vector3f dir, Main gameRef, BulletAppState bulletAppStateRef){
         game = gameRef;
         bulletAppState = bulletAppStateRef;
         sphere = new Sphere(32, 32, .4f, true, false);
@@ -57,7 +57,7 @@ public class Bullet implements PhysicsCollisionListener {
         
         bulletPhys.setLinearVelocity(new Vector3f(35,0,0).mult(dir));
         velocity = bulletPhys.getLinearVelocity();
-        this.dammage = dammage;
+        this.damage = damage;
         
         lifeTime = 0;
         lifespan = 1.5f;
