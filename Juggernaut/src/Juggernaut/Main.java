@@ -87,25 +87,17 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
     CameraChunk currentView;                  //Stores the current view to update camPos and lookAt
 
     // Sounds
-    AudioNode bossDeathSound;
+    AudioNode bossInitiateSound;
     AudioNode bossMissileSound;
-    AudioNode bossMissileCollisionSound;
     AudioNode damageTakenSound;
-    AudioNode damageTaken2Sound;
-    AudioNode dashSound;
-    AudioNode electricitySound;
-    AudioNode elevatorSidewaysSound;
-    AudioNode elevatorUpSound;
-    AudioNode gameStartSound;
+    AudioNode doorUnlockSound;
     AudioNode healthLowSound;
-    AudioNode jumpSound;
+    AudioNode healthPickupSound;
     AudioNode keyPickupSound;
-    AudioNode landingSound;
     AudioNode laserRifleSound;
     AudioNode levelUpSound;
     AudioNode menuButtonSelectionHoverSound;
     AudioNode menuSelectionClickSound;
-    AudioNode menuWelcomeSound;
     AudioNode minigunSound;
     AudioNode pickupSound;
     AudioNode pistolSound;
@@ -113,18 +105,14 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
     AudioNode shieldAddedSound;
     AudioNode shieldDownSound;
     AudioNode shopPurchaseSound;
-    AudioNode superJumpSound;
-    AudioNode teleportInSound;
-    AudioNode teleportOutSound;
+    AudioNode victorySound;
     AudioNode walkingSound;
 
     // Music
     AudioNode bgm1;
     AudioNode bgm2;
     AudioNode bgm3;
-    AudioNode bossDeathMusic;
     AudioNode bossMusic;
-    AudioNode creditsMusic;
     AudioNode menuMusic;
     
     public static void main(String[] args) {
@@ -255,7 +243,6 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
             if(views[i].testForPlayer(Juggernaut.getControl())){
                 currentView = views[i];
             }
-                
         }   
         
         cam.setLocation(currentView.CamPosition());
@@ -502,45 +489,81 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
     }
     
     private void setUpAudio() {
-//        bossDeathSound = new AudioNode(assetManager, "Sound/Effect/Boss_death.ogg");
-//        bossMissileSound = new AudioNode(assetManager, "Sound/Effect/Boss_missile.ogg");
-//        bossMissileCollisionSound = new AudioNode(assetManager, "Sound/Effect/Boss_missile_collision.ogg");
-//        damageTakenSound = new AudioNode(assetManager, "Sound/Effect/Damage_taken.ogg");
-//        damageTaken2Sound = new AudioNode(assetManager, "Sound/Effect/Damage_taken2.ogg");
-//        dashSound = new AudioNode(assetManager, "Sound/Effect/Dash.ogg");
-//        electricitySound = new AudioNode(assetManager, "Sound/Effect/Electricity.ogg");
-//        elevatorSidewaysSound = new AudioNode(assetManager, "Sound/Effect/Elevator_sideways.ogg");
-//        elevatorUpSound = new AudioNode(assetManager, "Sound/Effect/Elevator_up.ogg");
-//        gameStartSound = new AudioNode(assetManager, "Sound/Effect/Game_start.ogg");
-//        healthLowSound = new AudioNode(assetManager, "Sound/Effect/Health_low.ogg");
-//        jumpSound = new AudioNode(assetManager, "Sound/Effect/Jump.ogg");
-//        keyPickupSound = new AudioNode(assetManager, "Sound/Effect/Key_pickup.ogg");
-//        landingSound = new AudioNode(assetManager, "Sound/Effect/Landing.ogg");
-//        laserRifleSound = new AudioNode(assetManager, "Sound/Effect/Laser_rifle.ogg");
-//        levelUpSound = new AudioNode(assetManager, "Sound/Effect/Level_up.ogg");
-//        menuButtonSelectionHoverSound = new AudioNode(assetManager, "Sound/Effect/Menu_button_selection_hover.ogg");
-//        menuSelectionClickSound = new AudioNode(assetManager, "Sound/Effect/Menu_selection_click.ogg");
-//        menuWelcomeSound = new AudioNode(assetManager, "Sound/Effect/Menu_welcome.ogg");
-//        minigunSound = new AudioNode(assetManager, "Sound/Effect/Minigun_fire.ogg");
-//        pickupSound = new AudioNode(assetManager, "Sound/Effect/Pickup.ogg");
-//        pistolSound = new AudioNode(assetManager, "Sound/Effect/Pistol.ogg");
-//        playerDeathSound = new AudioNode(assetManager, "Sound/Effect/Player_death.ogg");
-//        shieldAddedSound = new AudioNode(assetManager, "Sound/Effect/Shield_added.ogg");
-//        shieldDownSound = new AudioNode(assetManager, "Sound/Effect/Shield_down.ogg");
-//        shopPurchaseSound = new AudioNode(assetManager, "Sound/Effect/Shop_purchase.ogg");
-//        superJumpSound = new AudioNode(assetManager, "Sound/Effect/Super_jump.ogg");
-//        teleportInSound = new AudioNode(assetManager, "Sound/Effect/Teleport_in.ogg");
-//        teleportOutSound = new AudioNode(assetManager, "Sound/Effect/Teleport_out.ogg");
-//        walkingSound = new AudioNode(assetManager, "Sound/Effect/Walking.ogg");
-//
-//        // Music
-        bgm1 = new AudioNode(assetManager, "Sound/Music/Background_music1.ogg", false);
-//        bgm2 = new AudioNode(assetManager, "Sound/Music/Background_music2.ogg", true);
-//        bgm3 = new AudioNode(assetManager, "Sound/Music/Background_music3.ogg", true);
-//        bossDeathMusic = new AudioNode(assetManager, "Sound/Music/Boss_death_music.ogg", true);
-//        bossMusic = new AudioNode(assetManager, "Sound/Music/Boss_music.ogg", true);
-//        creditsMusic = new AudioNode(assetManager, "Sound/Music/Credits.ogg", true);
-//        menuMusic = new AudioNode(assetManager, "Sound/Music/Menu_music.ogg", true);
+        bossInitiateSound = new AudioNode(assetManager, "Sound/Effect/Boss_initiate.wav");
+        bossInitiateSound.setName("BossInitiateSound");
+        
+        bossMissileSound = new AudioNode(assetManager, "Sound/Effect/Boss_missile.wav");
+        bossMissileSound.setName("BossMissileSound");
+        
+        damageTakenSound = new AudioNode(assetManager, "Sound/Effect/Damage_taken.wav");
+        damageTakenSound.setName("DamageTakenSound");
+        
+        doorUnlockSound = new AudioNode(assetManager, "Sound/Effect/Door_unlock.wav");
+        doorUnlockSound.setName("DoorUnlockSound");
+        
+        healthLowSound = new AudioNode(assetManager, "Sound/Effect/Health_low.wav");
+        healthLowSound.setName("HealthLowSound");
+        
+        healthPickupSound = new AudioNode(assetManager, "Sound/Effect/Health_pickup.wav");
+        healthPickupSound.setName("HealthPickupSound");
+        
+        keyPickupSound = new AudioNode(assetManager, "Sound/Effect/Key_pickup.wav");
+        keyPickupSound.setName("KeyPickup");
+        
+        laserRifleSound = new AudioNode(assetManager, "Sound/Effect/Laser_rifle.wav");
+        laserRifleSound.setName("LaserRifleSound");
+        
+        levelUpSound = new AudioNode(assetManager, "Sound/Effect/Level_up.wav");
+        levelUpSound.setName("LevelUpSound");
+        
+        menuButtonSelectionHoverSound = new AudioNode(assetManager, "Sound/Effect/Menu_button_selection_hover.wav");
+        menuButtonSelectionHoverSound.setName("MenuButtonSelectionHoverSound");
+        
+        menuSelectionClickSound = new AudioNode(assetManager, "Sound/Effect/Menu_selection_click.wav");
+        menuSelectionClickSound.setName("MenuSelectionClickSound");
+        
+        minigunSound = new AudioNode(assetManager, "Sound/Effect/Minigun.wav");
+        minigunSound.setName("MinigunSound");
+        
+        pickupSound = new AudioNode(assetManager, "Sound/Effect/Pickup.wav");
+        pickupSound.setName("PickupSound");
+        
+        pistolSound = new AudioNode(assetManager, "Sound/Effect/Pistol.wav");
+        pistolSound.setName("PistolSound");
+        
+        playerDeathSound = new AudioNode(assetManager, "Sound/Effect/Player_death.wav");
+        playerDeathSound.setName("PlayerDeathSound");
+        
+        shieldAddedSound = new AudioNode(assetManager, "Sound/Effect/Shield_added.wav");
+        shieldAddedSound.setName("ShieldAddedSound");
+        
+        shieldDownSound = new AudioNode(assetManager, "Sound/Effect/Shield_down.wav");
+        shieldDownSound.setName("ShieldDownSound");
+        
+        shopPurchaseSound = new AudioNode(assetManager, "Sound/Effect/Shop_purchase.wav");
+        shopPurchaseSound.setName("ShopPurchaseSound");
+        
+        victorySound = new AudioNode(assetManager, "Sound/Effect/Victory.wav");
+        victorySound.setName("VictorySound");
+        
+        walkingSound = new AudioNode(assetManager, "Sound/Effect/Walking.wav");
+        walkingSound.setName("WalkingSound");
+
+        // Music
+        bgm1 = new AudioNode(assetManager, "Sound/Music/bgm1.wav", false);
+        bgm1.setName("Bgm1");
+        
+        bgm2 = new AudioNode(assetManager, "Sound/Music/bgm2.wav", false);
+        bgm2.setName("Bgm2");
+        
+        bgm3 = new AudioNode(assetManager, "Sound/Music/bgm3.wav", false);
+        bgm3.setName("Bgm3");
+        
+        bossMusic = new AudioNode(assetManager, "Sound/Music/Boss_music.wav", false);
+        bossMusic.setName("BossMusic");
+        
+        menuMusic = new AudioNode(assetManager, "Sound/Music/Menu_music.wav", false);
+        menuMusic.setName("MenuMusic");
     }
     
     public void CreateHUD()
