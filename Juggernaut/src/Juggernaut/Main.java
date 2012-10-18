@@ -48,6 +48,7 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
     
     private static StartScreen start;
     private Nifty nifty;
+    private static boolean isRunning = false;
     
     
     
@@ -207,48 +208,56 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
 
     @Override
     public void simpleUpdate(float tpf) {
-        
-        dt = getTimer().getTimeInSeconds() - prevTime;
-        prevTime = getTimer().getTimeInSeconds();
-        
-        //Update player
-        Juggernaut.Update(dt);
-        
-        //Health Pickups
-        //HealthPickup1.Update(dt, Juggernaut.getPosition());
-        HealthPickup2.Update(dt, Juggernaut.getPosition());
-        HealthPickup3.Update(dt, Juggernaut.getPosition());
-        HealthPickup4.Update(dt, Juggernaut.getPosition());
-        
-        for(int i = 0; i < lava.length; i++){            
-            if(lava[i].testForPlayer(Juggernaut.getControl())){
-                Juggernaut.takeDamage(15f * dt);
-                damageTakenSound.play();
+        if(isRunning){
+            
+            dt = getTimer().getTimeInSeconds() - prevTime;
+            prevTime = getTimer().getTimeInSeconds();
+
+            //Update player
+            Juggernaut.Update(dt);
+
+            //Health Pickups
+            //HealthPickup1.Update(dt, Juggernaut.getPosition());
+            HealthPickup2.Update(dt, Juggernaut.getPosition());
+            HealthPickup3.Update(dt, Juggernaut.getPosition());
+            HealthPickup4.Update(dt, Juggernaut.getPosition());
+
+            for(int i = 0; i < lava.length; i++){            
+                if(lava[i].testForPlayer(Juggernaut.getControl())){
+                    Juggernaut.takeDamage(15f * dt);
+                    damageTakenSound.play();
+                }
+            }   
+
+           // Update enemies
+            for (int itr = 0; itr < Enemy.length; itr++) {
+                if(!Enemy[itr].isDead()){
+                    Enemy[itr].Update(dt, Juggernaut.getPosition());
+                }
             }
-        }   
-        
-       // Update enemies
-	for (int itr = 0; itr < Enemy.length; itr++) {
-            if(!Enemy[itr].isDead()){
-                Enemy[itr].Update(dt, Juggernaut.getPosition());
+
+            //Update boss
+            if(!boss.isDead()){
+                boss.Update(dt, Juggernaut.getPosition());
             }
-	}
+
+            //Step through all views and test if player is in that space
+            //If true, set current view to this view
+            for(int i = 0; i < views.length; i++){            
+                if(views[i].testForPlayer(Juggernaut.getControl())){
+                    currentView = views[i];
+                }
+            }   
+
+            cam.setLocation(currentView.CamPosition());
+            cam.lookAt(currentView.CamLookAt(), Vector3f.UNIT_Y);
         
-        //Update boss
-        if(!boss.isDead()){
-            boss.Update(dt, Juggernaut.getPosition());
         }
-       
-        //Step through all views and test if player is in that space
-        //If true, set current view to this view
-        for(int i = 0; i < views.length; i++){            
-            if(views[i].testForPlayer(Juggernaut.getControl())){
-                currentView = views[i];
-            }
-        }   
         
-        cam.setLocation(currentView.CamPosition());
-        cam.lookAt(currentView.CamLookAt(), Vector3f.UNIT_Y);
+        bulletAppState.setEnabled(isRunning);
+        
+        
+        System.out.print(isRunning + "\n");
 
     }
 
@@ -3475,5 +3484,9 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
     }
     public Nifty getNifty(){
         return nifty;
+    }
+    
+    public void setIsRunningState(boolean runGame){
+        isRunning = runGame;
     }
 }

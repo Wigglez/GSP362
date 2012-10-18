@@ -224,9 +224,9 @@ public class Character  implements ActionListener, PhysicsCollisionListener{
         
         
         
-        
+        //enemiesDead == 66){
 //        enemiesDead = (int)currentExperience;
-        if(enemiesDead == 66){
+        if(game.boss.isDead()){
             Win();
         } else if(currentHealth <= 0){
             game.playerDeathSound.play();

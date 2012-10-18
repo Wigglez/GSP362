@@ -85,6 +85,9 @@ public class StartScreen extends AbstractAppState implements ScreenController {
   public void goToScreen(String nextScreen) 
   {
     nifty.gotoScreen(nextScreen);  // switch to another screen
+    if(nextScreen.contentEquals("hud")){
+        main.setIsRunningState(true);
+    }
     // start the game and do some more stuff...
    
   }
@@ -224,21 +227,22 @@ public class StartScreen extends AbstractAppState implements ScreenController {
       
       // find old image
       Element niftyImageElement = nifty.getCurrentScreen().findElementByName("CurrentWeapon");
-      // swap old with new image
-      niftyImageElement.getRenderer(ImageRenderer.class).setImage(img);
-      
-      Element niftyDamageElement = nifty.getCurrentScreen().findElementByName("WeaponDamageText");
-      
-      niftyDamageElement.getRenderer(TextRenderer.class).setText("Damage: " + pistol.damage);
-      
-      Element niftyFireRateElement = nifty.getCurrentScreen().findElementByName("WeaponFireRateText");
-      
-      niftyFireRateElement.getRenderer(TextRenderer.class).setText("Fire Rate: " + pistol.fireRate);
-      
-      Element niftyAmmoElement = nifty.getCurrentScreen().findElementByName("Ammo");
-      
-      niftyAmmoElement.getRenderer(TextRenderer.class).setText("Ammo: " + pistol.currentAmmo);
-      
+      if(niftyImageElement != null){
+          // swap old with new image
+          niftyImageElement.getRenderer(ImageRenderer.class).setImage(img);
+
+          Element niftyDamageElement = nifty.getCurrentScreen().findElementByName("WeaponDamageText");
+
+          niftyDamageElement.getRenderer(TextRenderer.class).setText("Damage: " + pistol.damage);
+
+          Element niftyFireRateElement = nifty.getCurrentScreen().findElementByName("WeaponFireRateText");
+
+          niftyFireRateElement.getRenderer(TextRenderer.class).setText("Fire Rate: " + pistol.fireRate);
+
+          Element niftyAmmoElement = nifty.getCurrentScreen().findElementByName("Ammo");
+
+          niftyAmmoElement.getRenderer(TextRenderer.class).setText("Ammo: " + pistol.currentAmmo);
+      }
       //System.out.print(screen.getScreenId().toString() + " Scren id \n");
   }
   public void weapon2Clicked()
@@ -247,22 +251,23 @@ public class StartScreen extends AbstractAppState implements ScreenController {
       
       // find old image
       Element niftyElement = nifty.getCurrentScreen().findElementByName("CurrentWeapon");
-      // swap old with new image
-      niftyElement.getRenderer(ImageRenderer.class).setImage(img);
-      
-      Element niftyDamageElement = nifty.getCurrentScreen().findElementByName("WeaponDamageText");
-      
-      niftyDamageElement.getRenderer(TextRenderer.class).setText("Damage: " + minigun.damage);
-      
-      Element niftyFireRateElement = nifty.getCurrentScreen().findElementByName("WeaponFireRateText");
-      
-      niftyFireRateElement.getRenderer(TextRenderer.class).setText("Fire Rate: " + minigun.fireRate);
-      
-      Element niftyAmmoElement = nifty.getCurrentScreen().findElementByName("Ammo");
-      
-      niftyAmmoElement.getRenderer(TextRenderer.class).setText("Ammo: " + minigun.currentAmmo);
-      //System.out.print(screen.getScreenId().toString() + " Scren id \n");
-      
+      if(niftyElement != null){
+          // swap old with new image
+          niftyElement.getRenderer(ImageRenderer.class).setImage(img);
+
+          Element niftyDamageElement = nifty.getCurrentScreen().findElementByName("WeaponDamageText");
+
+          niftyDamageElement.getRenderer(TextRenderer.class).setText("Damage: " + minigun.damage);
+
+          Element niftyFireRateElement = nifty.getCurrentScreen().findElementByName("WeaponFireRateText");
+
+          niftyFireRateElement.getRenderer(TextRenderer.class).setText("Fire Rate: " + minigun.fireRate);
+
+          Element niftyAmmoElement = nifty.getCurrentScreen().findElementByName("Ammo");
+
+          niftyAmmoElement.getRenderer(TextRenderer.class).setText("Ammo: " + minigun.currentAmmo);
+          //System.out.print(screen.getScreenId().toString() + " Scren id \n");
+      }
   }
   public void weapon3Clicked()
   {
@@ -270,20 +275,22 @@ public class StartScreen extends AbstractAppState implements ScreenController {
       
       // find old image
       Element niftyElement = nifty.getCurrentScreen().findElementByName("CurrentWeapon");
-      // swap old with new image
-      niftyElement.getRenderer(ImageRenderer.class).setImage(img);
-      
-      Element niftyDamageElement = nifty.getCurrentScreen().findElementByName("WeaponDamageText");
-      
-      niftyDamageElement.getRenderer(TextRenderer.class).setText("Damage: " + laserRifle.damage);
-      
-      Element niftyFireRateElement = nifty.getCurrentScreen().findElementByName("WeaponFireRateText");
-      
-      niftyFireRateElement.getRenderer(TextRenderer.class).setText("Fire Rate: " + laserRifle.fireRate);
-      
-      Element niftyAmmoElement = nifty.getCurrentScreen().findElementByName("Ammo");
-      
-      niftyAmmoElement.getRenderer(TextRenderer.class).setText("Ammo: " + laserRifle.currentAmmo);
+      if(niftyElement != null){
+          // swap old with new image
+          niftyElement.getRenderer(ImageRenderer.class).setImage(img);
+
+          Element niftyDamageElement = nifty.getCurrentScreen().findElementByName("WeaponDamageText");
+
+          niftyDamageElement.getRenderer(TextRenderer.class).setText("Damage: " + laserRifle.damage);
+
+          Element niftyFireRateElement = nifty.getCurrentScreen().findElementByName("WeaponFireRateText");
+
+          niftyFireRateElement.getRenderer(TextRenderer.class).setText("Fire Rate: " + laserRifle.fireRate);
+
+          Element niftyAmmoElement = nifty.getCurrentScreen().findElementByName("Ammo");
+
+          niftyAmmoElement.getRenderer(TextRenderer.class).setText("Ammo: " + laserRifle.currentAmmo);
+      }
       
       //System.out.print(screen.getScreenId().toString() + " Scren id \n");
   }
@@ -301,6 +308,7 @@ public class StartScreen extends AbstractAppState implements ScreenController {
     //isRunning = false;
     this.CreateStorePopup();
     nifty.showPopup(nifty.getCurrentScreen(), Storepopup.getId(), null);
+    main.setIsRunningState(false);
     //System.out.print(" Show Store Called \n");
     
      
@@ -309,6 +317,7 @@ public class StartScreen extends AbstractAppState implements ScreenController {
   {
     //isRunning = true;
     nifty.closePopup(Storepopup.getId());
+    main.setIsRunningState(true);
     
   }
   ////////////////////////////////////////////////////////////////////////////
@@ -326,12 +335,14 @@ public class StartScreen extends AbstractAppState implements ScreenController {
     //System.out.print(" Close Store Called in Show Store Tab \n");
     this.CreateStoreTabPopup();
     nifty.showPopup(nifty.getCurrentScreen(), StoreTabpopup.getId(), null);
+    main.setIsRunningState(false);
     //System.out.print(" Show Store Tab Called \n");
   }
    
   public void CloseStoreTabPopup()
   {
     nifty.closePopup(StoreTabpopup.getId());
+    main.setIsRunningState(true);
   }
   
   /////////////////////////////////////////////////////////////////////////////
@@ -348,6 +359,7 @@ public class StartScreen extends AbstractAppState implements ScreenController {
     //isRunning = false;
     this.CreateSkillsPopup();
     nifty.showPopup(nifty.getCurrentScreen(), Skillspopup.getId(), null);
+    main.setIsRunningState(false);
     //System.out.print(" Show Skills popup Called \n");
     //System.out.print(this.isRunning + "\n");
   }
@@ -356,6 +368,7 @@ public class StartScreen extends AbstractAppState implements ScreenController {
   {
     //isRunning = true;
     nifty.closePopup(Skillspopup.getId());
+    main.setIsRunningState(true);
   }
   
   /////////////////////////////////////////////////////////////////////////////
@@ -373,6 +386,7 @@ public class StartScreen extends AbstractAppState implements ScreenController {
     this.CloseSkillsPopup();
     this.CreateAttributesPopup();
     nifty.showPopup(nifty.getCurrentScreen(), Attributespopup.getId(), null);
+    main.setIsRunningState(false);
     //System.out.print(" Show  Attributes popup Called \n");
   }
    
@@ -396,6 +410,7 @@ public class StartScreen extends AbstractAppState implements ScreenController {
     this.CloseSkillsPopup();
     this.CreateAbilitiesPopup();
     nifty.showPopup(nifty.getCurrentScreen(), Abilitiespopup.getId(), null);
+    main.setIsRunningState(false);
     //System.out.print(" Show  Attributes popup Called \n");
   }
    
