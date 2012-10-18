@@ -214,7 +214,9 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
             prevTime = getTimer().getTimeInSeconds();
 
             //Update player
-            Juggernaut.Update(dt);
+            if(!Juggernaut.isDead()) {
+                Juggernaut.Update(dt);
+            }
 
             //Health Pickups
             //HealthPickup1.Update(dt, Juggernaut.getPosition());
@@ -224,8 +226,7 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
 
             for(int i = 0; i < lava.length; i++){            
                 if(lava[i].testForPlayer(Juggernaut.getControl())){
-                    Juggernaut.takeDamage(15f * dt);
-                    damageTakenSound.play();
+                    Juggernaut.takeDamage(70f * dt);
                 }
             }   
 

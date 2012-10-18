@@ -141,6 +141,7 @@ public class HealthPickup implements PhysicsCollisionListener{
                 }
 
                 if(Pickup){
+                   game.healthPickupSound.play();
                    Juggernaut.healthPickup(pickup);
                    Pickup = false;
                    //this.HealthPickup(currentHealth);

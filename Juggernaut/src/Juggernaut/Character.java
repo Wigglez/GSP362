@@ -71,6 +71,7 @@ public class Character  implements ActionListener, PhysicsCollisionListener{
     private static boolean shieldActive = false;
     private static boolean superJumpActive = false;
     private static boolean hoverActive = false;
+    private static boolean isDead = false;
     
     private Weapon currentWeapon;
     private static Weapon weaponSlot1;
@@ -525,7 +526,19 @@ public class Character  implements ActionListener, PhysicsCollisionListener{
     }
 
     private void Lose() {
+        // If you lose, you are dead.
+        isDead = true;
+        
         //Display Lose Screen
         game.getHud().goToScreen("DeathScreen");
+        
+        // Remove the player from the game
+        game.getRootNode().detachChild(playerDebug);
+        game.getRootNode().detachChild(ninja);
+        bulletAppState.getPhysicsSpace().remove(player);
+    }
+    
+    public boolean isDead() {
+        return isDead;
     }
 }
