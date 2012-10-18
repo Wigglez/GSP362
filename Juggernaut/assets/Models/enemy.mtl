@@ -1,0 +1,13 @@
+# Blender MTL File: 'None'
+# Material Count: 1
+newmtl Material.001_giger_alien_texture1.png_giger_alien_texture1.png__giger_alien_texture1.png
+Ns 84.313725
+Ka 0.000000 0.000000 0.000000
+Kd 0.262144 0.158633 0.100529
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd giger_alien_texture1.png
+
+

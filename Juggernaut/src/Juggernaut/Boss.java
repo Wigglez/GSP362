@@ -62,9 +62,9 @@ public class Boss implements PhysicsCollisionListener{
         this.game = gameRef;
         this.bulletAppState = bulletAppStateRef;
         bulletAppState.getPhysicsSpace().addCollisionListener(this);
-        bossAlien = game.getAssetManager().loadModel("Models/Elephant/Elephant.mesh.xml");
+        bossAlien = game.getAssetManager().loadModel("Models/Hydralisk.OBJ");
         bossAlien.setName("Boss");
-        bossAlien.scale(0.04f, 0.04f, 0.04f);
+        bossAlien.scale(1.75f, 1.75f, 1.75f);
        bossAlien.setLocalTranslation(spawnLocation);
        if(spawnDirection.x == 1.0f){
            bossAlien.setLocalRotation(YAW090);
@@ -97,7 +97,7 @@ public class Boss implements PhysicsCollisionListener{
 
     public void Update(float dt, Vector3f playerPos){
 
-        boss.setPhysicsLocation(new Vector3f(boss.getPhysicsLocation().x, boss.getPhysicsLocation().y, 0));
+         boss.setPhysicsLocation(new Vector3f(425, 320, 0));
 
         bossDebug.setLocalTranslation(boss.getPhysicsLocation());
 

@@ -1,0 +1,39 @@
+# Blender MTL File: 'None'
+# Material Count: 3
+newmtl Material.001_solger_texture_1.png_solger_texture_1.png_solger_t_solger_texture_1.png
+Ns 86.274510
+Ka 0.000000 0.000000 0.000000
+Kd 0.000000 0.000000 0.000000
+Ks 1.551224 1.551224 1.551224
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Users\Mateus\Pictures\solger texture 1.png
+
+
+newmtl Material.002_solger_texture_1.png_solger_texture_1.png.001_solg_solger_texture_1.png.001
+Ns 45.098039
+Ka 0.000000 0.000000 0.000000
+Kd 0.057118 0.057118 0.057118
+Ks 0.049475 0.049475 0.049475
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Users\Mateus\Pictures\solger texture 1.png
+map_Bump d:\\Mateus\\Pictures\\mutant texture 1_NRM.jpg
+map_Ks d:\\Mateus\\Pictures\\solger texture 1_SPEC.jpg
+
+
+newmtl Material_solger_texture_1.png_solger_texture_1.png.002_solger_t_solger_texture_1.png.002
+Ns 47.058824
+Ka 0.000000 0.000000 0.000000
+Kd 0.087656 0.087656 0.087656
+Ks 0.001000 0.001000 0.001000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Users\Mateus\Pictures\solger texture 1.png
+map_Bump C:\\Users\\Mateus\\Pictures\\solger texture 1_NRM.jpg
+map_Ks d:\\Mateus\\Pictures\\mutant texture 1_SPEC.jpg
+
+

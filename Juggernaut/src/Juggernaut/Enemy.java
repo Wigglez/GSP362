@@ -62,9 +62,9 @@ public class Enemy implements PhysicsCollisionListener{
         this.bulletAppState = bulletAppStateRef;
         bulletAppState.getPhysicsSpace().addCollisionListener(this);
         //Load Ninja as filler for character model
-        enemyElephant = game.getAssetManager().loadModel("Models/Elephant/Elephant.mesh.xml");
+        enemyElephant = game.getAssetManager().loadModel("Models/enemy.obj");
         enemyElephant.setName("Enemy");
-        enemyElephant.scale(0.04f, 0.04f, 0.04f);
+        enemyElephant.scale(1.25f, 1.25f, 1.25f);
        enemyElephant.setLocalTranslation(spawnLocation);
        if(spawnDirection.x == 1.0f){
            enemyElephant.setLocalRotation(YAW090);
@@ -74,7 +74,7 @@ public class Enemy implements PhysicsCollisionListener{
        
 //        ninja.setLocalTranslation(new Vector3f(341, 300, 0));
         game.getRootNode().attachChild(enemyElephant);
-        CylinderCollisionShape cylinderShape = new CylinderCollisionShape(new Vector3f(2,2,2), 1);
+        CylinderCollisionShape cylinderShape = new CylinderCollisionShape(new Vector3f(2,3.5f,2), 1);
         enemy = new RigidBodyControl(cylinderShape, .05f);
         
 //        enemy.setFallSpeed(50);

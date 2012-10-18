@@ -103,12 +103,12 @@ public class Character  implements ActionListener, PhysicsCollisionListener{
         this.bulletAppState = bulletAppStateRef;
         bulletAppState.getPhysicsSpace().addCollisionListener(this);
         //Load Ninja as filler for character model
-        ninja = game.getAssetManager().loadModel("Models/Ninja/Ninja.mesh.xml");
+        ninja = game.getAssetManager().loadModel("Models/warer 3.obj");
         ninja.setName("Player");
-        ninja.scale(0.02f, 0.02f, 0.02f);
+        ninja.scale(.75f, .75f, .75f);
 //        ninja.setLocalTranslation(new Vector3f(350, 316, 0));
         game.getRootNode().attachChild(ninja);
-        CapsuleCollisionShape capsuleShape = new CapsuleCollisionShape(1f, 2f);
+        CapsuleCollisionShape capsuleShape = new CapsuleCollisionShape(2f, 2f);
         player = new CharacterControl(capsuleShape, .05f);
         player.setJumpSpeed(50);
         player.setFallSpeed(50);
