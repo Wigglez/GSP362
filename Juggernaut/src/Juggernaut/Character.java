@@ -136,14 +136,14 @@ public class Character  implements ActionListener, PhysicsCollisionListener{
     void Update(float dt){
         // Movement
         walkDirection.set( 0, 0, 0);
-        if(left) { 
-            walkDirection.addLocal(Vector3f.UNIT_X.negate().multLocal(movementSpeed));
-            player.setViewDirection(walkDirection.negate());
-        }
+        
         if(right) { 
             walkDirection.addLocal(Vector3f.UNIT_X.clone().multLocal(movementSpeed));
             player.setViewDirection(walkDirection.negate());
-        }
+        } else if(left) { 
+            walkDirection.addLocal(Vector3f.UNIT_X.negate().multLocal(movementSpeed));
+            player.setViewDirection(walkDirection.negate());
+        } 
         
         player.setWalkDirection(walkDirection);
         player.setPhysicsLocation(new Vector3f(player.getPhysicsLocation().x, player.getPhysicsLocation().y, 0));
@@ -214,7 +214,10 @@ public class Character  implements ActionListener, PhysicsCollisionListener{
         }
         
         if(rechargeDelay > armorDelay){
-            game.shieldAddedSound.play();
+            if(currentArmor <= 5) {
+                game.shieldAddedSound.play();
+            }
+            
             currentArmor += 5 * dt;
             if(currentArmor >= maxArmor){
                 currentArmor = maxArmor;
@@ -348,6 +351,14 @@ public class Character  implements ActionListener, PhysicsCollisionListener{
     public void fireWeapon(){
         if(currentWeapon == weaponSlot1 || currentWeapon.getCurrentAmmo() > 0){
             bullets.add(currentWeapon.Fire(damageModifier, player.getPhysicsLocation(), player.getViewDirection().normalize().negate(), game, bulletAppState));
+        
+            if(currentWeapon == weaponSlot1) {
+                game.pistolSound.play();
+            } else if (currentWeapon == weaponSlot2) {
+                game.minigunSound.play();
+            } else if (currentWeapon == weaponSlot3) {
+                game.laserRifleSound.play();
+            }
         }
     }
     public void upgradeDamageModifier(){
