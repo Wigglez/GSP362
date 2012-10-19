@@ -1,0 +1,104 @@
+# Blender MTL File: 'None'
+# Material Count: 9
+newmtl Fabric_Grey_Carpet
+Ns 0.000000
+Ka 0.000000 0.000000 0.000000
+Kd 0.141200 0.141200 0.141200
+Ks 0.000000 0.000000 0.000000
+Ni 1.000000
+d 0.000000
+illum 2
+
+
+newmtl Ground_Water
+Ns 47.058824
+Ka 0.000000 0.000000 0.000000
+Kd 0.197680 0.800000 0.166240
+Ks 0.817600 0.905900 0.970600
+Ni 1.000000
+d 0.000000
+illum 2
+map_Bump Map__16_Noise.tga
+
+
+newmtl Material.001_solger_texture_1.png_solger_texture_1.png_solger_t_solger_texture_1.png
+Ns 84.313725
+Ka 0.000000 0.000000 0.000000
+Kd 0.000000 0.000000 0.000000
+Ks 1.551224 1.551224 1.551224
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Users\Mateus\Pictures\solger texture 1.png
+
+
+newmtl Material.002_solger_texture_1.png_solger_texture_1.png.001_solg_solger_texture_1.png.001
+Ns 41.176471
+Ka 0.000000 0.000000 0.000000
+Kd 0.045694 0.045694 0.045694
+Ks 0.049475 0.049475 0.049475
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Users\Mateus\Pictures\solger texture 1.png
+map_Ks d:\\Mateus\\Pictures\\solger texture 1_SPEC.jpg
+map_Bump d:\\Mateus\\Pictures\\mutant texture 1_NRM.jpg
+
+
+newmtl Material_solger_texture_1.png_solger_texture_1.png.002_solger_t_solger_texture_1.png.002
+Ns 45.098039
+Ka 0.000000 0.000000 0.000000
+Kd 0.070125 0.070125 0.070125
+Ks 0.001000 0.001000 0.001000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Users\Mateus\Pictures\solger texture 1.png
+map_Ks d:\\Mateus\\Pictures\\mutant texture 1_SPEC.jpg
+map_Bump C:\\Users\\Mateus\\Pictures\\solger texture 1_NRM.jpg
+
+
+newmtl Metal_Black_Plain_Map__12_Noise.tga
+Ns 23.529412
+Ka 0.000000 0.000000 0.000000
+Kd 0.351360 0.351360 0.351360
+Ks 1.269000 1.269000 1.269000
+Ni 1.000000
+d 0.000000
+illum 2
+map_Kd Map__12_Noise.tga
+map_Ka Map__12_Noise.tga
+
+
+newmtl Metal_Grey_Plain_Map__12_Noise.tga
+Ns 23.529412
+Ka 0.000000 0.000000 0.000000
+Kd 0.351360 0.351360 0.351360
+Ks 1.269000 1.269000 1.269000
+Ni 1.000000
+d 0.000000
+illum 2
+map_Kd Map__12_Noise.tga
+map_Ka Map__12_Noise.tga
+
+
+newmtl Wood_Grey_Plank
+Ns 0.000000
+Ka 0.000000 0.000000 0.000000
+Kd 0.156880 0.360800 0.426640
+Ks 0.000000 0.000000 0.000000
+Ni 1.000000
+d 0.000000
+illum 2
+
+
+newmtl wire_006134006
+Ns 29.411765
+Ka 0.000000 0.000000 0.000000
+Kd 0.018800 0.420400 0.018800
+Ks 0.350000 0.350000 0.350000
+Ni 1.000000
+d 0.000000
+illum 2
+
+

@@ -1,0 +1,219 @@
+# Blender MTL File: 'None'
+# Material Count: 21
+newmtl Default
+Ns 47.058824
+Ka 0.000000 0.000000 0.000000
+Kd 0.560000 0.560000 0.560000
+Ks 0.707000 0.707000 0.707000
+Ni 1.000000
+d 0.000000
+illum 2
+
+
+newmtl Material.001_solger_texture_1.png_solger_texture_1.png_solger_t_solger_texture_1.png
+Ns 84.313725
+Ka 0.000000 0.000000 0.000000
+Kd 0.000000 0.000000 0.000000
+Ks 1.551224 1.551224 1.551224
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Users\Mateus\Pictures\solger texture 1.png
+
+
+newmtl Material.002_solger_texture_1.png_solger_texture_1.png.001_solg_solger_texture_1.png.001
+Ns 41.176471
+Ka 0.000000 0.000000 0.000000
+Kd 0.045694 0.045694 0.045694
+Ks 0.049475 0.049475 0.049475
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Users\Mateus\Pictures\solger texture 1.png
+map_Ks d:\\Mateus\\Pictures\\solger texture 1_SPEC.jpg
+map_Bump d:\\Mateus\\Pictures\\mutant texture 1_NRM.jpg
+
+
+newmtl Material_solger_texture_1.png_solger_texture_1.png.002_solger_t_solger_texture_1.png.002
+Ns 45.098039
+Ka 0.000000 0.000000 0.000000
+Kd 0.070125 0.070125 0.070125
+Ks 0.001000 0.001000 0.001000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Users\Mateus\Pictures\solger texture 1.png
+map_Ks d:\\Mateus\\Pictures\\mutant texture 1_SPEC.jpg
+map_Bump C:\\Users\\Mateus\\Pictures\\solger texture 1_NRM.jpg
+
+
+newmtl amarillos
+Ns 0.000000
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.800000 0.000000
+Ks 0.000000 0.000000 0.000000
+Ni 1.000000
+d 0.000000
+illum 2
+
+
+newmtl bater_as
+Ns 15.686275
+Ka 0.000000 0.000000 0.000000
+Kd 0.000000 0.458000 0.367040
+Ks 0.000000 4.177200 4.330000
+Ni 1.000000
+d 0.000000
+illum 2
+
+
+newmtl blancos
+Ns 0.000000
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.800000 0.800000
+Ks 1.290000 1.290000 1.290000
+Ni 1.000000
+d 0.000000
+illum 2
+
+
+newmtl cannon
+Ns 7.843137
+Ka 0.000000 0.000000 0.000000
+Kd 0.084720 0.084720 0.090960
+Ks 1.023800 1.023800 1.023800
+Ni 1.000000
+d 0.000000
+illum 2
+
+
+newmtl cannonFX
+Ns 15.686275
+Ka 0.000000 0.000000 0.000000
+Kd 0.630560 0.630560 0.630560
+Ks 0.000000 4.177200 4.330000
+Ni 1.000000
+d 0.000000
+illum 2
+
+
+newmtl combustible
+Ns 21.568627
+Ka 0.000000 0.000000 0.000000
+Kd 0.153760 0.153760 0.160000
+Ks 1.383000 1.383000 1.383000
+Ni 1.000000
+d 0.000000
+illum 2
+
+
+newmtl commscreen
+Ns 0.000000
+Ka 0.000000 0.000000 0.000000
+Kd 0.131760 0.800000 0.000000
+Ks 0.000000 0.000000 0.000000
+Ni 1.000000
+d 0.000000
+illum 2
+
+
+newmtl foco_ultrasonido
+Ns 13.725490
+Ka 0.000000 0.000000 0.000000
+Kd 0.000000 0.000000 0.800000
+Ks 1.061100 1.061100 1.061100
+Ni 1.000000
+d 0.000000
+illum 2
+
+
+newmtl gomas1
+Ns 13.725490
+Ka 0.000000 0.000000 0.000000
+Kd 0.050160 0.050160 0.050160
+Ks 0.153100 0.153100 0.153100
+Ni 1.000000
+d 0.000000
+illum 2
+
+
+newmtl gomas2
+Ns 37.254902
+Ka 0.000000 0.000000 0.000000
+Kd 0.053360 0.094080 0.050160
+Ks 0.421000 0.421000 0.421000
+Ni 1.000000
+d 0.000000
+illum 2
+
+
+newmtl guardamano
+Ns 15.686275
+Ka 0.000000 0.000000 0.000000
+Kd 0.178800 0.153760 0.272960
+Ks 0.511900 0.511900 0.511900
+Ni 1.000000
+d 0.000000
+illum 2
+
+
+newmtl masa
+Ns 7.843137
+Ka 0.000000 0.000000 0.000000
+Kd 0.188240 0.178800 0.084720
+Ks 1.023800 1.023800 1.023800
+Ni 1.000000
+d 0.000000
+illum 2
+
+
+newmtl negros
+Ns 17.647059
+Ka 0.000000 0.000000 0.000000
+Kd 0.000000 0.000000 0.000000
+Ks 1.392000 1.392000 1.392000
+Ni 1.000000
+d 0.000000
+illum 2
+
+
+newmtl panelIRrejilla
+Ns 0.000000
+Ka 0.000000 0.000000 0.000000
+Kd 0.131760 0.800000 0.000000
+Ks 0.494100 3.000000 0.000000
+Ni 1.000000
+d 0.000000
+illum 2
+
+
+newmtl panelIRvelo
+Ns 21.568627
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.000000 0.000000
+Ks 0.044900 0.044900 0.044900
+Ni 1.000000
+d 0.670000
+illum 2
+
+
+newmtl rojos1
+Ns 21.568627
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.000000 0.000000
+Ks 0.829600 0.860000 0.000000
+Ni 1.000000
+d 0.000000
+illum 2
+
+
+newmtl rojos2
+Ns 27.450980
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.000000 0.000000
+Ks 1.500000 0.782400 0.782400
+Ni 1.000000
+d 0.000000
+illum 2
+
+

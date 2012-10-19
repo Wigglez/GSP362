@@ -1,9 +1,9 @@
 # Blender MTL File: 'None'
 # Material Count: 1
-newmtl mat1_HydraliskTex1.bmp.001_HydraliskTex1.bmp
-Ns 23.529412
+newmtl mat1_HydraliskTex1.bmp.001_HydraliskTex1.bmp_HydraliskTex1.bmp
+Ns 21.568627
 Ka 0.000000 0.000000 0.000000
-Kd 0.352000 0.352000 0.352000
+Kd 0.281600 0.281600 0.281600
 Ks 0.378000 0.378000 0.378000
 Ni 1.000000
 d 0.000000
