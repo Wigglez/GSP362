@@ -90,10 +90,10 @@ public class HealthPickup implements PhysicsCollisionListener{
         HealthPickup.setCollideWithGroups(1);
         HealthPickup.setCollisionGroup(4);
       
-        healthDebug = HealthPickup.createDebugShape(game.getAssetManager());
+        //healthDebug = HealthPickup.createDebugShape(game.getAssetManager());
         
         healthPickup.addControl(HealthPickup);
-        game.getRootNode().attachChild(healthDebug);
+        //game.getRootNode().attachChild(healthDebug);
 
         bulletAppState.getPhysicsSpace().add(HealthPickup);
              
@@ -109,7 +109,7 @@ public class HealthPickup implements PhysicsCollisionListener{
         }
       }
        public void Despawn(){
-        game.getRootNode().detachChild(healthDebug);
+        //game.getRootNode().detachChild(healthDebug);
         game.getRootNode().detachChild(healthPickup);
         bulletAppState.getPhysicsSpace().remove(HealthPickup);
         isActive = false;
@@ -119,7 +119,7 @@ public class HealthPickup implements PhysicsCollisionListener{
      void Update(float dt, Vector3f playerPos) {
          if(isActive){
         
-             healthDebug.setLocalTranslation(HealthPickup.getPhysicsLocation());
+//             healthDebug.setLocalTranslation(HealthPickup.getPhysicsLocation());
 
             float distFromPlayerY = playerPos.y - HealthPickup.getPhysicsLocation().y;
 

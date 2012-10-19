@@ -81,10 +81,10 @@ public class Boss implements PhysicsCollisionListener{
         boss.setCollideWithGroups(2);
         boss.setCollisionGroup(3);
 
-        bossDebug = boss.createDebugShape(game.getAssetManager());
+        //bossDebug = boss.createDebugShape(game.getAssetManager());
 
         bossAlien.addControl(boss);
-        game.getRootNode().attachChild(bossDebug);
+        //game.getRootNode().attachChild(bossDebug);
 
         bulletAppState.getPhysicsSpace().add(boss);
 
@@ -99,7 +99,7 @@ public class Boss implements PhysicsCollisionListener{
 
          boss.setPhysicsLocation(new Vector3f(425, 320, 0));
 
-        bossDebug.setLocalTranslation(boss.getPhysicsLocation());
+        //.setLocalTranslation(boss.getPhysicsLocation());
 
         float distFromPlayerX = playerPos.x - boss.getPhysicsLocation().x;
         float distFromPlayerY = playerPos.y - boss.getPhysicsLocation().y;
@@ -128,6 +128,8 @@ public class Boss implements PhysicsCollisionListener{
             Bullet b = new Bullet(bulletMaterial, Damage, boss.getPhysicsLocation(), toPlayer.normalizeLocal(), game, bulletAppState );
             bullets.add(b);
             attackDelay = 0;
+            
+            game.bossMissileSound.play();
             
         }
         

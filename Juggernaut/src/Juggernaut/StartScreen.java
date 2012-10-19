@@ -46,11 +46,11 @@ public class StartScreen extends AbstractAppState implements ScreenController {
   String currentScreen;
   
   public Element healthBar;
-  private Element Storepopup;
-  private Element StoreTabpopup;
-  private Element Skillspopup;
-  private Element Attributespopup;
-  private Element Abilitiespopup;
+  public Element Storepopup;
+  public Element StoreTabpopup;
+  public Element Skillspopup;
+  public Element Attributespopup;
+  public Element Abilitiespopup;
   /** custom methods */ 
  
   public StartScreen() 
@@ -499,6 +499,7 @@ public class StartScreen extends AbstractAppState implements ScreenController {
           }
       }
   }
+  
   public void DoNothing()
   {
       

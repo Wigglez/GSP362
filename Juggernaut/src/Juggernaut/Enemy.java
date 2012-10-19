@@ -83,10 +83,10 @@ public class Enemy implements PhysicsCollisionListener{
         enemy.setCollideWithGroups(2);
         enemy.setCollisionGroup(3);
         
-        enemyDebug = enemy.createDebugShape(game.getAssetManager());
+        //enemyDebug = enemy.createDebugShape(game.getAssetManager());
         
         enemyElephant.addControl(enemy);
-        game.getRootNode().attachChild(enemyDebug);
+        //game.getRootNode().attachChild(enemyDebug);
 
         bulletAppState.getPhysicsSpace().add(enemy);
         
@@ -114,7 +114,7 @@ public class Enemy implements PhysicsCollisionListener{
         enemy.setPhysicsLocation(new Vector3f(enemy.getPhysicsLocation().x, enemy.getPhysicsLocation().y, 0));
 //        enemy.setWalkDirection(walkDirection);
 
-        enemyDebug.setLocalTranslation(enemy.getPhysicsLocation());
+        //enemyDebug.setLocalTranslation(enemy.getPhysicsLocation());
      
         
         
@@ -165,7 +165,7 @@ public class Enemy implements PhysicsCollisionListener{
         Juggernaut.addExperience(experienceOnDeath);
         Juggernaut.addScore(scoreOnDeath);
         
-        game.getRootNode().detachChild(enemyDebug);
+        //game.getRootNode().detachChild(enemyDebug);
         game.getRootNode().detachChild(enemyElephant);
         bulletAppState.getPhysicsSpace().remove(enemy);
         System.out.print(Juggernaut.enemiesDead + "\n");

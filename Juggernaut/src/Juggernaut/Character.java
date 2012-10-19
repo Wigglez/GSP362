@@ -91,6 +91,7 @@ public class Character  implements ActionListener, PhysicsCollisionListener{
     private static boolean right = false;
     
     private static boolean isFiring = false;
+    private static boolean healthLow = false;
     
     Character(){
         
@@ -106,7 +107,7 @@ public class Character  implements ActionListener, PhysicsCollisionListener{
         ninja = game.getAssetManager().loadModel("Models/warer 3.obj");
         ninja.setName("Player");
         ninja.scale(.75f, .75f, .75f);
-//        ninja.setLocalTranslation(new Vector3f(350, 316, 0));
+        //ninja.setLocalTranslation(new Vector3f(350, 316, 0));
         game.getRootNode().attachChild(ninja);
         CapsuleCollisionShape capsuleShape = new CapsuleCollisionShape(2f, 2f);
         player = new CharacterControl(capsuleShape, .05f);
@@ -116,9 +117,9 @@ public class Character  implements ActionListener, PhysicsCollisionListener{
         player.setViewDirection(new Vector3f(-1.0f, 0, 0));
         player.setCollideWithGroups(2);
         
-        playerDebug = player.createDebugShape(game.getAssetManager());
+//        playerDebug = player.createDebugShape(game.getAssetManager());
         ninja.addControl(player);
-        game.getRootNode().attachChild(playerDebug);
+//        game.getRootNode().attachChild(playerDebug);
 
         bulletAppState.getPhysicsSpace().add(player);
       
@@ -149,7 +150,7 @@ public class Character  implements ActionListener, PhysicsCollisionListener{
         player.setPhysicsLocation(new Vector3f(player.getPhysicsLocation().x, player.getPhysicsLocation().y, 0));
 
 
-        playerDebug.setLocalTranslation(player.getPhysicsLocation());
+//        playerDebug.setLocalTranslation(player.getPhysicsLocation());
         
         
         fireDelay += dt;
@@ -158,7 +159,7 @@ public class Character  implements ActionListener, PhysicsCollisionListener{
             if(fireDelay > currentWeapon.getFireRate()){
                 fireWeapon();
                 fireDelay = 0;
-            }            
+            }      
         }
         
         
@@ -189,6 +190,12 @@ public class Character  implements ActionListener, PhysicsCollisionListener{
             if(!sprintActive && !hoverActive)
                 currentEnergy += 10f * dt;
         }
+        
+        if(healthPercentage() <= 25) {
+            game.healthLowSound.play();
+        }
+        
+        
         
         if(damageTaken){
             game.damageTakenSound.play();
@@ -226,7 +233,7 @@ public class Character  implements ActionListener, PhysicsCollisionListener{
             }
         }
         
-        
+        checkXP();
         
         //enemiesDead == 66){
 //        enemiesDead = (int)currentExperience;
@@ -392,7 +399,7 @@ public class Character  implements ActionListener, PhysicsCollisionListener{
     }
     
     public void checkXP(){
-        if(currentExperience > maxExperience){
+        if(currentExperience >= maxExperience){
             LevelUp();
             currentExperience = maxExperience - currentExperience;
             maxExperience = currentLevel * 10;
@@ -400,6 +407,8 @@ public class Character  implements ActionListener, PhysicsCollisionListener{
     }
 
     private void LevelUp() {
+        game.levelUpSound.play();
+        
         currentLevel += 1;
         attributePoints += 2;
         if(currentLevel % 2 != 0){
@@ -532,21 +541,25 @@ public class Character  implements ActionListener, PhysicsCollisionListener{
     }
 
     private void Win() {
+        game.setIsRunningState(false);
+        
         //Display Win Screen
         game.getHud().goToScreen("WinScreen");
+        
+       
     }
 
     private void Lose() {
         // If you lose, you are dead.
         isDead = true;
         
+        game.setIsRunningState(false);
+        
         //Display Lose Screen
         game.getHud().goToScreen("DeathScreen");
         
-        // Remove the player from the game
-        game.getRootNode().detachChild(playerDebug);
-        game.getRootNode().detachChild(ninja);
-        bulletAppState.getPhysicsSpace().remove(player);
+       
+        
     }
     
     public boolean isDead() {

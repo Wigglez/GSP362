@@ -108,6 +108,7 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
     AudioNode shopPurchaseSound;
     AudioNode victorySound;
     AudioNode walkingSound;
+    AudioNode weaponChangeFailSound;
 
     // Music
     AudioNode bgm1;
@@ -127,7 +128,7 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
         app.setSettings(settings);
         app.start();
     }
-
+    
     @Override
     public void simpleInitApp() {
         
@@ -141,6 +142,7 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
         stateManager.attach(bulletAppState);
         bulletAppState.getPhysicsSpace().addCollisionListener(this);
 //        bulletAppState.getPhysicsSpace().enableDebug(assetManager);  //Shows wireframes of models
+        
         
         //Create the player character
         Juggernaut = new Character(this, bulletAppState);
@@ -209,6 +211,8 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
     @Override
     public void simpleUpdate(float tpf) {
         if(isRunning){
+            menuMusic.stop();
+            bgm1.play();
             
             dt = getTimer().getTimeInSeconds() - prevTime;
             prevTime = getTimer().getTimeInSeconds();
@@ -249,16 +253,45 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
                     currentView = views[i];
                 }
             }   
+            
+            // If the player is in the boss view, we change the music
+            if(currentView == views[53]) {
+                bgm1.stop();
+                bossMusic.play();
+            } else {
+                bossMusic.stop();
+            }
 
             cam.setLocation(currentView.CamPosition());
             cam.lookAt(currentView.CamLookAt(), Vector3f.UNIT_Y);
         
+        } else {
+            bgm1.stop();
+            
+            if(nifty.getCurrentScreen().equals(nifty.getScreen("WinScreen"))) {
+                bossMusic.stop();
+                victorySound.play();
+            } else {
+                if(nifty.getCurrentScreen().equals(nifty.getScreen("DeathScreen"))) {
+                    bossMusic.stop();
+                } else {
+                    menuMusic.play();
+                }
+            }
+//            if(this.getHud().screen != null) {
+//                if(!this.getHud().screen.getScreenId().equals("WinScreen") || !this.getHud().screen.getScreenId().equals("DeathScreen")) {
+//                menuMusic.play();
+//                }
+           
+            
+            
         }
         
         bulletAppState.setEnabled(isRunning);
         
         
-        System.out.print(isRunning + "\n");
+        
+        //System.out.print(isRunning + "\n");
 
     }
 
@@ -560,6 +593,9 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
         
         walkingSound = new AudioNode(assetManager, "Sound/Effect/Walking.wav");
         walkingSound.setName("WalkingSound");
+        
+        weaponChangeFailSound = new AudioNode(assetManager, "Sound/Effect/Weapon_change_fail.wav");
+        weaponChangeFailSound.setName("WeaponChangeFailSound");
 
         // Music
         bgm1 = new AudioNode(assetManager, "Sound/Music/bgm1.wav", false);
@@ -706,7 +742,7 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
 
             layer(new LayerBuilder("background") {{
                 childLayoutCenter();
-                //backgroundColor("#0000");
+                //backgroundColor("#AAAA");
                 // <!-- ... -->
                 image(new ImageBuilder() {{
                     filename("Interface/Hud_Background.png");
@@ -2071,7 +2107,7 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
                             height("50%");
                             width("50%");
                             visibleToMouse(true);
-
+                            
                             interactOnClick("BuyHealth()");
                         }});
                    
