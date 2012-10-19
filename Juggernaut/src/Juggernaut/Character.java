@@ -22,11 +22,11 @@ public class Character  implements ActionListener, PhysicsCollisionListener{
     // HUD elements
     public static float currentHealth = 100;
     private static float currentArmor = 25;
-    private static float currentEnergy = 100;
+    private static float currentEnergy = 10000;
 
     public static float maxHealth = 100;
     private static float maxArmor = 25;
-    private static float maxEnergy = 100;
+    private static float maxEnergy = 10000;
     private static float Pickup = 20;
     private static float currentLevel = 1;
     private static float currentExperience = 0;
@@ -176,12 +176,18 @@ public class Character  implements ActionListener, PhysicsCollisionListener{
         if(hoverActive && currentEnergy > 0){
             sprintActive = false;
             hover(dt);
+            
+            game.hoverSound.play();
         } else {
             player.setFallSpeed(50);
         }
         
         if(sprintActive && currentEnergy > 0){
             sprint(dt);
+            
+            game.sprintSound.setVolume(10);
+            game.sprintSound.play();
+            
         } else {
             movementSpeed = 0.4f;
         }

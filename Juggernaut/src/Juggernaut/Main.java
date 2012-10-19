@@ -94,6 +94,7 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
     AudioNode doorUnlockSound;
     AudioNode healthLowSound;
     AudioNode healthPickupSound;
+    AudioNode hoverSound;
     AudioNode keyPickupSound;
     AudioNode laserRifleSound;
     AudioNode levelUpSound;
@@ -106,6 +107,7 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
     AudioNode shieldAddedSound;
     AudioNode shieldDownSound;
     AudioNode shopPurchaseSound;
+    AudioNode sprintSound;
     AudioNode victorySound;
     AudioNode walkingSound;
     AudioNode weaponChangeFailSound;
@@ -552,6 +554,9 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
         healthPickupSound = new AudioNode(assetManager, "Sound/Effect/Health_pickup.wav");
         healthPickupSound.setName("HealthPickupSound");
         
+        hoverSound = new AudioNode(assetManager, "Sound/Effect/Hover.wav");
+        hoverSound.setName("HoverSound");
+        
         keyPickupSound = new AudioNode(assetManager, "Sound/Effect/Key_pickup.wav");
         keyPickupSound.setName("KeyPickup");
         
@@ -587,6 +592,9 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
         
         shopPurchaseSound = new AudioNode(assetManager, "Sound/Effect/Shop_purchase.wav");
         shopPurchaseSound.setName("ShopPurchaseSound");
+        
+        sprintSound = new AudioNode(assetManager, "Sound/Effect/Sprint.wav");
+        sprintSound.setName("SprintSound");
         
         victorySound = new AudioNode(assetManager, "Sound/Effect/Victory.wav");
         victorySound.setName("VictorySound");
