@@ -181,7 +181,7 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
         Material backgroundMat = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
         backgroundMat.setTexture("ColorMap", assetManager.loadTexture("Models/citydestroyed.jpg"));
 //        backgroundMat.setTexture("ColorMap", assetManager.loadTexture("Models/Destroyedcity_2.jpg"));
-        backgroundBox = new Box(new Vector3f(0, 0, 0), 44, 20, 0.5f);
+        backgroundBox = new Box(new Vector3f(0, 0, 0), 45, 20, 0.5f);
         background = new Geometry("Background", backgroundBox);
         background.setMaterial(backgroundMat);
         rootNode.attachChild(background);
