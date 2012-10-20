@@ -8,6 +8,7 @@ import com.jme3.bullet.control.CharacterControl;
 import com.jme3.input.KeyInput;
 import com.jme3.input.controls.ActionListener;
 import com.jme3.input.controls.KeyTrigger;
+import com.jme3.math.Matrix3f;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Spatial;
 import java.util.Iterator;
@@ -106,10 +107,10 @@ public class Character  implements ActionListener, PhysicsCollisionListener{
         //Load Ninja as filler for character model
         ninja = game.getAssetManager().loadModel("Models/warer 3.obj");
         ninja.setName("Player");
-        ninja.scale(.75f, .75f, .75f);
-        //ninja.setLocalTranslation(new Vector3f(350, 316, 0));
+        ninja.scale(.5f, .5f, .5f);
+//        ninja.setLocalTranslation(new Vector3f(350, 316, 0));
         game.getRootNode().attachChild(ninja);
-        CapsuleCollisionShape capsuleShape = new CapsuleCollisionShape(2f, 2f);
+        CapsuleCollisionShape capsuleShape = new CapsuleCollisionShape(1.25f, 1.25f);
         player = new CharacterControl(capsuleShape, .05f);
         player.setJumpSpeed(50);
         player.setFallSpeed(50);

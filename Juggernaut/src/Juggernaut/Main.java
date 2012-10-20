@@ -64,7 +64,7 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
     
     private static Character Juggernaut;
     //Game Character
-    Enemy[] Enemy = new Enemy[66];
+    Enemy[] Enemy = new Enemy[47];
     Boss boss;
     
     //HealthPickup HealthPickup1; //test Health Pickup
@@ -305,7 +305,7 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
         
         
         
-        //System.out.print(isRunning + "\n");
+        //System.out.print(Juggernaut.getPosition() + "\n");
 
     }
 
@@ -337,145 +337,108 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
                         new Vector3f(89f, -7f, 0f), new Vector3f(1, 0, 0));
         Enemy[3] = new Enemy( Juggernaut, this, bulletAppState, new Vector3f(135f, -7f,
                         0f), new Vector3f(1, 0, 0));
-        Enemy[4] = new Enemy( Juggernaut, this, bulletAppState, new Vector3f(152f, -7f,
-                        0f), new Vector3f(1, 0, 0));
-        Enemy[5] = new Enemy( Juggernaut, this, bulletAppState, new Vector3f(183f, 0f,
+        Enemy[4] = new Enemy( Juggernaut, this, bulletAppState, new Vector3f(128f, -7f,
                         0f), new Vector3f(1, 0, 0));
 
         // Second floor (enemies face left)
-        Enemy[6] = new Enemy( Juggernaut, this, bulletAppState, new Vector3f(213f, 16f, 0f),
+        Enemy[5] = new Enemy( Juggernaut, this, bulletAppState, new Vector3f(213f, 16f, 0f),
                         new Vector3f(1, 0, 0));
-        Enemy[7] = new Enemy( Juggernaut, this, bulletAppState, new Vector3f(250f, 24f, 0f),
-                        new Vector3f(1, 0, 0));
-        Enemy[8] = new Enemy( Juggernaut, this, bulletAppState, new Vector3f(265f, 24f, 0f),
-                        new Vector3f(1, 0, 0));
-        Enemy[9] = new Enemy( Juggernaut, this, bulletAppState, new Vector3f(285f, 24f, 0f),
-                        new Vector3f(1, 0, 0));
-        Enemy[10] = new Enemy( Juggernaut, this, bulletAppState,
-                        new Vector3f(327f, 24f, 0f), new Vector3f(1, 0, 0));
-        Enemy[11] = new Enemy( Juggernaut, this, bulletAppState,
-                        new Vector3f(361f, 24f, 0f), new Vector3f(1, 0, 0));
-        Enemy[12] = new Enemy( Juggernaut, this, bulletAppState,
+        Enemy[6] = new Enemy( Juggernaut, this, bulletAppState,
                         new Vector3f(392f, 16f, 0f), new Vector3f(1, 0, 0));
-        Enemy[13] = new Enemy( Juggernaut, this, bulletAppState, new Vector3f(448f, 31.5f,
-                        0f), new Vector3f(1, 0, 0));
-        Enemy[14] = new Enemy( Juggernaut, this, bulletAppState, new Vector3f(464f, 38f,
-                        0f), new Vector3f(1, 0, 0));
-        Enemy[15] = new Enemy( Juggernaut, this, bulletAppState,
+        Enemy[7] = new Enemy( Juggernaut, this, bulletAppState,
                         new Vector3f(494f, 39f, 0f), new Vector3f(1, 0, 0));
-        Enemy[16] = new Enemy( Juggernaut, this, bulletAppState,
-                        new Vector3f(510f, 49f, 0f), new Vector3f(1, 0, 0));
-        Enemy[17] = new Enemy( Juggernaut, this, bulletAppState,
+        Enemy[8] = new Enemy( Juggernaut, this, bulletAppState,
                         new Vector3f(527f, 49f, 0f), new Vector3f(1, 0, 0));
-        Enemy[18] = new Enemy( Juggernaut, this, bulletAppState,
-                        new Vector3f(527f, 57f, 0f), new Vector3f(1, 0, 0));
 
         // Third floor (enemies face right)
-        Enemy[19] = new Enemy( Juggernaut, this, bulletAppState,
+        Enemy[9] = new Enemy( Juggernaut, this, bulletAppState,
                         new Vector3f(490f, 65f, 0f), new Vector3f(-1, 0, 0));
-        Enemy[20] = new Enemy( Juggernaut, this, bulletAppState,
-                        new Vector3f(451f, 70f, 0f), new Vector3f(-1, 0, 0));
-        Enemy[21] = new Enemy( Juggernaut, this, bulletAppState,
-                        new Vector3f(439f, 75f, 0f), new Vector3f(-1, 0, 0));
-        Enemy[22] = new Enemy( Juggernaut, this, bulletAppState,
+        Enemy[10] = new Enemy( Juggernaut, this, bulletAppState,
                         new Vector3f(402f, 88f, 0f), new Vector3f(-1, 0, 0));
-        Enemy[23] = new Enemy( Juggernaut, this, bulletAppState,
+        Enemy[11] = new Enemy( Juggernaut, this, bulletAppState,
                         new Vector3f(385f, 88f, 0f), new Vector3f(-1, 0, 0));
-        Enemy[24] = new Enemy( Juggernaut, this, bulletAppState,
-                        new Vector3f(373f, 88f, 0f), new Vector3f(-1, 0, 0));
-        Enemy[25] = new Enemy( Juggernaut, this, bulletAppState,
-                        new Vector3f(356f, 98f, 0f), new Vector3f(-1, 0, 0));
-        Enemy[26] = new Enemy( Juggernaut, this, bulletAppState,
-                        new Vector3f(346f, 108f, 0f), new Vector3f(-1, 0, 0));
-        Enemy[27] = new Enemy( Juggernaut, this, bulletAppState,
-                        new Vector3f(335f, 118f, 0f), new Vector3f(-1, 0, 0));
-        Enemy[28] = new Enemy( Juggernaut, this, bulletAppState,
+        Enemy[12] = new Enemy( Juggernaut, this, bulletAppState,
                         new Vector3f(315f, 128f, 0f), new Vector3f(-1, 0, 0));
-        Enemy[29] = new Enemy( Juggernaut, this, bulletAppState,
+        Enemy[13] = new Enemy( Juggernaut, this, bulletAppState,
                         new Vector3f(278f, 128f, 0f), new Vector3f(-1, 0, 0));
-        Enemy[30] = new Enemy( Juggernaut, this, bulletAppState,
+        Enemy[14] = new Enemy( Juggernaut, this, bulletAppState,
                         new Vector3f(221f, 88f, 0f), new Vector3f(-1, 0, 0));
-        Enemy[31] = new Enemy( Juggernaut, this, bulletAppState,
+        Enemy[15] = new Enemy( Juggernaut, this, bulletAppState,
                         new Vector3f(201f, 88f, 0f), new Vector3f(-1, 0, 0));
-        Enemy[32] = new Enemy( Juggernaut, this, bulletAppState,
-                        new Vector3f(192f, 97f, 0f), new Vector3f(-1, 0, 0));
 
         // Fourth floor (enemies face right)
-        Enemy[33] = new Enemy( Juggernaut, this, bulletAppState,
+        Enemy[16] = new Enemy( Juggernaut, this, bulletAppState,
                         new Vector3f(167f, 178f, 0f), new Vector3f(-1, 0, 0));
-        Enemy[34] = new Enemy( Juggernaut, this, bulletAppState,
+        Enemy[17] = new Enemy( Juggernaut, this, bulletAppState,
                         new Vector3f(-11f, 116f, 0f), new Vector3f(-1, 0, 0));
-        Enemy[35] = new Enemy( Juggernaut, this, bulletAppState,
+        Enemy[18] = new Enemy( Juggernaut, this, bulletAppState,
                         new Vector3f(-19f, 116f, 0f), new Vector3f(-1, 0, 0));
-        Enemy[36] = new Enemy( Juggernaut, this, bulletAppState,
+        Enemy[19] = new Enemy( Juggernaut, this, bulletAppState,
                         new Vector3f(-32f, 116f, 0f), new Vector3f(-1, 0, 0));
-        Enemy[37] = new Enemy( Juggernaut, this, bulletAppState,
+        Enemy[20] = new Enemy( Juggernaut, this, bulletAppState,
                         new Vector3f(-82f, 116f, 0f), new Vector3f(-1, 0, 0));
-        Enemy[38] = new Enemy( Juggernaut, this, bulletAppState, new Vector3f(-105f, 116f,
+        Enemy[21] = new Enemy( Juggernaut, this, bulletAppState, new Vector3f(-105f, 116f,
                         0f), new Vector3f(-1, 0, 0));
-        Enemy[39] = new Enemy( Juggernaut, this, bulletAppState, new Vector3f(-129f, 116f,
+        Enemy[22] = new Enemy( Juggernaut, this, bulletAppState, new Vector3f(-129f, 116f,
                         0f), new Vector3f(-1, 0, 0));
-        Enemy[40] = new Enemy( Juggernaut, this, bulletAppState, new Vector3f(-148f, 116f,
+        Enemy[23] = new Enemy( Juggernaut, this, bulletAppState, new Vector3f(-148f, 116f,
                         0f), new Vector3f(-1, 0, 0));
-        Enemy[41] = new Enemy( Juggernaut, this, bulletAppState, new Vector3f(-218f, 116f,
+        Enemy[24] = new Enemy( Juggernaut, this, bulletAppState, new Vector3f(-218f, 116f,
                         0f), new Vector3f(-1, 0, 0));
-        Enemy[42] = new Enemy( Juggernaut, this, bulletAppState, new Vector3f(-253f, 116f,
+        Enemy[25] = new Enemy( Juggernaut, this, bulletAppState, new Vector3f(-253f, 116f,
                         0f), new Vector3f(-1, 0, 0));
-        Enemy[43] = new Enemy( Juggernaut, this, bulletAppState, new Vector3f(-260f, 116f,
+        Enemy[26] = new Enemy( Juggernaut, this, bulletAppState, new Vector3f(-260f, 116f,
                         0f), new Vector3f(-1, 0, 0));
-        Enemy[44] = new Enemy( Juggernaut, this, bulletAppState, new Vector3f(-267f, 116f,
+        Enemy[27] = new Enemy( Juggernaut, this, bulletAppState, new Vector3f(-267f, 116f,
                         0f), new Vector3f(-1, 0, 0));
-        Enemy[45] = new Enemy( Juggernaut, this, bulletAppState, new Vector3f(-275f, 116f,
+        Enemy[28] = new Enemy( Juggernaut, this, bulletAppState, new Vector3f(-275f, 116f,
                         0f), new Vector3f(-1, 0, 0));
-        Enemy[46] = new Enemy( Juggernaut, this, bulletAppState, new Vector3f(-286f, 116f,
+        Enemy[29] = new Enemy( Juggernaut, this, bulletAppState, new Vector3f(-286f, 116f,
                         0f), new Vector3f(-1, 0, 0));
 
         // Fourth floor up (enemies face right)
-        Enemy[47] = new Enemy( Juggernaut, this, bulletAppState, new Vector3f(-106f, 190f,
+        Enemy[30] = new Enemy( Juggernaut, this, bulletAppState, new Vector3f(-106f, 190f,
                         0f), new Vector3f(-1, 0, 0));
-        Enemy[48] = new Enemy( Juggernaut, this, bulletAppState, new Vector3f(-134f, 190f,
+        Enemy[31] = new Enemy( Juggernaut, this, bulletAppState, new Vector3f(-134f, 190f,
                         0f), new Vector3f(-1, 0, 0));
-        Enemy[49] = new Enemy( Juggernaut, this, bulletAppState, new Vector3f(-153f, 190f,
+        Enemy[32] = new Enemy( Juggernaut, this, bulletAppState, new Vector3f(-153f, 190f,
                         0f), new Vector3f(-1, 0, 0));
 
         // Fourth floor down (enemies face left)
-        Enemy[50] = new Enemy( Juggernaut, this, bulletAppState,
-                        new Vector3f(-189f, 68f, 0f), new Vector3f(-1, 0, 0));
-        Enemy[51] = new Enemy( Juggernaut, this, bulletAppState,
+        Enemy[33] = new Enemy( Juggernaut, this, bulletAppState,
                         new Vector3f(-170f, 68f, 0f), new Vector3f(1, 0, 0));
-        Enemy[52] = new Enemy( Juggernaut, this, bulletAppState,
+        Enemy[34] = new Enemy( Juggernaut, this, bulletAppState,
                         new Vector3f(-126f, 68f, 0f), new Vector3f(1, 0, 0));
-        Enemy[53] = new Enemy( Juggernaut, this, bulletAppState,
+        Enemy[35] = new Enemy( Juggernaut, this, bulletAppState,
                         new Vector3f(-113f, 68f, 0f), new Vector3f(1, 0, 0));
 
         // Fifth floor (enemies face left)
-        Enemy[54] = new Enemy( Juggernaut, this, bulletAppState,
+        Enemy[36] = new Enemy( Juggernaut, this, bulletAppState,
                         new Vector3f(225f, 236f, 0f), new Vector3f(1, 0, 0));
-        Enemy[55] = new Enemy( Juggernaut, this, bulletAppState,
+        Enemy[37] = new Enemy( Juggernaut, this, bulletAppState,
                         new Vector3f(254f, 236f, 0f), new Vector3f(1, 0, 0));
-        Enemy[56] = new Enemy( Juggernaut, this, bulletAppState,
-                        new Vector3f(287f, 246f, 0f), new Vector3f(1, 0, 0));
-        Enemy[57] = new Enemy( Juggernaut, this, bulletAppState,
+
+        Enemy[38] = new Enemy( Juggernaut, this, bulletAppState,
                         new Vector3f(311f, 236f, 0f), new Vector3f(1, 0, 0));
-        Enemy[58] = new Enemy( Juggernaut, this, bulletAppState,
+        Enemy[39] = new Enemy( Juggernaut, this, bulletAppState,
                         new Vector3f(345f, 236f, 0f), new Vector3f(1, 0, 0));
-        Enemy[59] = new Enemy( Juggernaut, this, bulletAppState,
+        Enemy[40] = new Enemy( Juggernaut, this, bulletAppState,
                         new Vector3f(366f, 236f, 0f), new Vector3f(1, 0, 0));
 
         // Sixth floor (enemies face left)
-        Enemy[60] = new Enemy( Juggernaut, this, bulletAppState,
+        Enemy[41] = new Enemy( Juggernaut, this, bulletAppState,
                         new Vector3f(304f, 296f, 0f), new Vector3f(1, 0, 0));
-        Enemy[61] = new Enemy( Juggernaut, this, bulletAppState,
+        Enemy[42] = new Enemy( Juggernaut, this, bulletAppState,
                         new Vector3f(327f, 296f, 0f), new Vector3f(1, 0, 0));
-        Enemy[62] = new Enemy( Juggernaut, this, bulletAppState,
+        Enemy[43] = new Enemy( Juggernaut, this, bulletAppState,
                         new Vector3f(373f, 296f, 0f), new Vector3f(1, 0, 0));
 
         // Seventh floor (enemies face right)
-        Enemy[63] = new Enemy( Juggernaut, this, bulletAppState,
+        Enemy[44] = new Enemy( Juggernaut, this, bulletAppState,
                         new Vector3f(254f, 316f, 0f), new Vector3f(-1, 0, 0));
-        Enemy[64] = new Enemy( Juggernaut, this, bulletAppState,
+        Enemy[45] = new Enemy( Juggernaut, this, bulletAppState,
                         new Vector3f(225f, 316f, 0f), new Vector3f(-1, 0, 0));
-        Enemy[65] = new Enemy( Juggernaut, this, bulletAppState,
+        Enemy[46] = new Enemy( Juggernaut, this, bulletAppState,
                         new Vector3f(210f, 316f, 0f), new Vector3f(-1, 0, 0));
     }
     

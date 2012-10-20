@@ -177,7 +177,6 @@ public class Boss implements PhysicsCollisionListener{
         Juggernaut.addExperience(experienceOnDeath);
         Juggernaut.addScore(scoreOnDeath);
         
-        game.getRootNode().detachChild(bossDebug);
         game.getRootNode().detachChild(bossAlien);
         bulletAppState.getPhysicsSpace().remove(boss);
     }
