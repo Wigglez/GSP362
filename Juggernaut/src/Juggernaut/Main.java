@@ -20,9 +20,11 @@ import com.jme3.scene.Spatial;
 import com.jme3.scene.shape.Box;
 import com.jme3.system.AppSettings;
 import com.jme3.math.FastMath;
+import com.jme3.math.Plane;
 
 import com.jme3.niftygui.NiftyJmeDisplay;
 import com.jme3.system.AppSettings;
+import com.jme3.texture.Texture;
 import com.jme3.ui.Picture;
 import de.lessvoid.nifty.Nifty;
 import de.lessvoid.nifty.builder.ImageBuilder;
@@ -86,6 +88,9 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
     
     CameraChunk []views = new CameraChunk[54];//holds all the different camera views
     CameraChunk currentView;                  //Stores the current view to update camPos and lookAt
+    
+    Box backgroundBox;
+    Spatial background;
 
     // Sounds
     AudioNode bossInitiateSound;
@@ -173,7 +178,13 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
         map.setName("LevleGeo");
         rootNode.attachChild(map);
         
-        Material mark_mat = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
+        Material backgroundMat = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
+        backgroundMat.setTexture("ColorMap", assetManager.loadTexture("Models/citydestroyed.jpg"));
+//        backgroundMat.setTexture("ColorMap", assetManager.loadTexture("Models/Destroyedcity_2.jpg"));
+        backgroundBox = new Box(new Vector3f(0, 0, 0), 44, 20, 0.5f);
+        background = new Geometry("Background", backgroundBox);
+        background.setMaterial(backgroundMat);
+        rootNode.attachChild(background);
  //       mark_mat.setColor("Color", ColorRGBA.White);
  //       mark.setMaterial(mark_mat);
 //        mark.setLocalTranslation(1f,1f,1f);
@@ -266,6 +277,7 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
 
             cam.setLocation(currentView.CamPosition());
             cam.lookAt(currentView.CamLookAt(), Vector3f.UNIT_Y);
+            background.setLocalTranslation(currentView.CamPosition().x, currentView.CamPosition().y, -10);
         
         } else {
             bgm1.stop();
