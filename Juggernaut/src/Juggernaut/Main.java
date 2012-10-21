@@ -50,7 +50,7 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
     
     private static StartScreen start;
     private Nifty nifty;
-    private static boolean isRunning = false;
+    public static boolean isRunning = false;
     
     
     
@@ -304,7 +304,7 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
         bulletAppState.setEnabled(isRunning);
         
         
-        
+        System.out.print(Main.isRunning +"\n");
         //System.out.print(Juggernaut.getPosition() + "\n");
 
     }
@@ -597,7 +597,7 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
         menuMusic.setName("MenuMusic");
     }
     
-    public void CreateHUD()
+     public void CreateHUD()
     {
            
             start = new StartScreen();
@@ -670,7 +670,7 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
                           height("25%");
                           width("25%");
                           visibleToMouse(true);
-                          interactOnClick("goToScreen(hud)");
+                          interactOnClick("goToScreen(PlayerGuide)");
                           //interactOnClick("startGame()");
 
                         }});
@@ -722,10 +722,10 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
             //////////////////////////////////////////////////////////
             nifty.addScreen("hud", new ScreenBuilder("hud") {{
             controller(new Juggernaut.StartScreen());
-
+            
             layer(new LayerBuilder("background") {{
                 childLayoutCenter();
-                //backgroundColor("#AAAA");
+                //backgroundColor("#0000");
                 // <!-- ... -->
                 image(new ImageBuilder() {{
                     filename("Interface/Hud_Background.png");
@@ -1108,7 +1108,7 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
                                     id("WeaponDamageText");
                                     childLayoutHorizontal();
                                     alignLeft();
-                                    text("Damage: " + (int)pistol.damage);
+                                    text("Damage: " + (float)(Character.weaponSlot1.damage * Character.damageModifier));
                                     font("Interface/Fonts/Default.fnt");
                                     //wrap(true);
                                     height("100%");
@@ -1129,7 +1129,7 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
                                     id("WeaponFireRateText");
                                     childLayoutCenter();
                                     alignLeft();
-                                    text("Fire Rate: " + pistol.fireRate);
+                                    text("Fire Rate: " + (float)pistol.fireRate);
                                     font("Interface/Fonts/Default.fnt");
                                     //wrap(true);
                                     height("100%");
@@ -1179,7 +1179,7 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
                             //backgroundColor("#f004");
                             height("100%");
                             width("80%");
-                            interactOnClick("weapon1Clicked()");
+                            //interactOnClick("weapon1Clicked()");
 
                             image(new ImageBuilder() 
                                 {{
@@ -1209,7 +1209,7 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
                             //backgroundColor("#f004");
                             height("100%");
                             width("80%");
-                            interactOnClick("weapon2Clicked()");
+                            //interactOnClick("weapon2Clicked()");
 
                             image(new ImageBuilder() 
                                 {{
@@ -1238,7 +1238,7 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
                             //backgroundColor("#f004");
                             height("100%");
                             width("80%");
-                            interactOnClick("weapon3Clicked()");
+                            //interactOnClick("weapon3Clicked()");
 
 
                             image(new ImageBuilder() 
@@ -1481,6 +1481,236 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
 
 
             ////////////////////////////////////////////////////////
+            // Player Guide</screen>
+            ////////////////////////////////////////////////////////
+
+            nifty.addScreen("PlayerGuide", new ScreenBuilder("PlayerGuide") {{
+            controller(new Juggernaut.StartScreen());
+
+            layer(new LayerBuilder("background") {{
+                childLayoutCenter();
+                backgroundColor("#000f");
+                // <!-- ... -->
+                image(new ImageBuilder() {{
+                    filename("Interface/guide.png");
+                }});
+            }});
+
+            layer(new LayerBuilder("foreground") {{
+                childLayoutVertical();
+                backgroundColor("#0000");
+
+                 panel(new PanelBuilder("panel_One") {{
+                    childLayoutCenter();
+                    alignCenter();
+                    //backgroundColor("#f008");
+                    height("25%");
+                    width("100%");
+
+                }});
+
+                panel(new PanelBuilder("panel_Two") {{
+                    childLayoutCenter();
+                    alignCenter();
+                    //backgroundColor("#0f08");
+                    height("25%");
+                    width("100%");
+
+                    control(new ButtonBuilder("PlayerGuideButton", "Player Guide") {{
+                          alignCenter();
+                          valignBottom();
+                          height("25%");
+                          width("25%");
+                          visibleToMouse(true);
+                          interactOnClick("goToScreen(InGameGuide)");
+                        }});
+
+                }});
+                panel(new PanelBuilder("panel_Three") {{
+                    childLayoutCenter();
+                    alignCenter();
+                    //backgroundColor("#0f09");
+                    height("25%");
+                    width("100%");
+
+                    control(new ButtonBuilder("ControlsButton", "Controls") {{
+                      alignCenter();
+                      valignCenter();
+                      height("25%");
+                      width("25%");
+                      visibleToMouse(true);
+                      interactOnClick("goToScreen(InGameControls)");
+                        }});
+
+                }});
+
+                panel(new PanelBuilder("panel_Four") {{
+                    childLayoutCenter();
+                    alignCenter();
+                    //backgroundColor("#00f8");
+                    height("25%");
+                    width("100%");
+
+
+                    control(new ButtonBuilder("StartGameButton", "Start Game") {{
+                      alignCenter();
+                      valignTop();
+                      height("25%");
+                      width("25%");
+                      visibleToMouse(true);
+                      interactOnClick("goToScreen(hud)");
+                        }});
+
+                }}); // panel added
+            }});
+            }}.build(nifty));
+            ////////////////////////////////////////////////////////
+            //In Game Player Guide</screen>
+            ////////////////////////////////////////////////////////
+
+            nifty.addScreen("InGameGuide", new ScreenBuilder("InGameGuide") {{
+            controller(new Juggernaut.StartScreen());
+
+            layer(new LayerBuilder("background") {{
+                childLayoutCenter();
+                backgroundColor("#000f");
+                // <!-- ... -->
+//                image(new ImageBuilder() {{
+//                    filename("Interface/guide.png");
+//                }});
+            }});
+
+            layer(new LayerBuilder("foreground") {{
+                childLayoutVertical();
+                backgroundColor("#0000");
+
+                 panel(new PanelBuilder("panel_One") {{
+                    childLayoutCenter();
+                    alignCenter();
+                    //backgroundColor("#f008");
+                    height("95%");
+                    width("100%");
+                    
+                    image(new ImageBuilder() 
+                    {{
+                        filename("Interface/guide_info.png");
+                        valignCenter();
+                        alignCenter();
+                        height("100%");
+                        width("100%");
+                    }});
+
+  
+                }});
+
+              
+
+
+                panel(new PanelBuilder("panel_Two") {{
+                    childLayoutCenter();
+                    alignCenter();
+                    //backgroundColor("#00f8");
+                    height("5%");
+                    width("100%");
+
+
+                    control(new ButtonBuilder("BackButton", "Back") {{
+                      alignCenter();
+                      valignTop();
+                      height("100%");
+                      width("25%");
+                      visibleToMouse(true);
+
+                      interactOnClick("goToScreen(PlayerGuide)");
+                        }});
+
+                }}); // panel added
+            }});
+            }}.build(nifty));
+             ////////////////////////////////////////////////////////
+            //In Game Controls</screen>
+            ////////////////////////////////////////////////////////
+
+            nifty.addScreen("InGameControls", new ScreenBuilder("InGameControls") {{
+            controller(new Juggernaut.StartScreen());
+
+            layer(new LayerBuilder("background") {{
+                childLayoutCenter();
+                backgroundColor("#000f");
+                // <!-- ... -->
+                image(new ImageBuilder() {{
+                    filename("Interface/controls.png");
+                }});
+            }});
+
+            layer(new LayerBuilder("foreground") {{
+                childLayoutVertical();
+                backgroundColor("#0000");
+
+                 panel(new PanelBuilder("panel_One") {{
+                    childLayoutCenter();
+                    alignCenter();
+                    //backgroundColor("#f008");
+                    height("25%");
+                    width("100%");
+
+    //                text(new TextBuilder() {{
+    //                    text("Controls");
+    //                    font("Interface/Fonts/Default.fnt");
+    //                    wrap(true);
+    //                    height("100%");
+    //                    width("100%");
+    //                 }});
+                }});
+
+                panel(new PanelBuilder("panel_Two") {{
+                    childLayoutCenter();
+                    alignCenter();
+                   // backgroundColor("#0f08");
+                    height("50%");
+                    width("100%");
+
+                    text(new TextBuilder() {{
+                        text("W/Up Arrow - Jump \n"+
+                             "A/Left Arrow - Move Left \n"+
+                             "S/Down Arrow - Crouch \n"+
+                             "D/Right Arrow - Move Right \n"+
+                             "Spacebar - Shoot \n"+
+                             "Shift/Control - Active Abilities \n"+
+                             "1/2/3 - Change Weapons \n");
+                        font("Interface/Fonts/Default.fnt");
+                        //wrap(true);
+                        height("100%");
+                        width("100%");
+                    }});
+
+
+                }});
+
+
+                panel(new PanelBuilder("panel_Three") {{
+                    childLayoutCenter();
+                    alignCenter();
+                    //backgroundColor("#00f8");
+                    height("25%");
+                    width("100%");
+
+
+                    control(new ButtonBuilder("BackButton", "Back") {{
+                      alignCenter();
+                      valignTop();
+                      height("25%");
+                      width("25%");
+                      visibleToMouse(true);
+
+                      interactOnClick("goToScreen(PlayerGuide)");
+                        }});
+
+                }}); // panel added
+            }});
+            }}.build(nifty));
+            
+            ////////////////////////////////////////////////////////
             // Options</screen>
             ////////////////////////////////////////////////////////
 
@@ -1622,7 +1852,8 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
                              "S/Down Arrow - Crouch \n"+
                              "D/Right Arrow - Move Right \n"+
                              "Spacebar - Shoot \n"+
-                             "Shift/Control - Active Abilities \n");
+                             "Shift/Control - Active Abilities \n"+
+                             "1/2/3 - Change Weapons \n");
                         font("Interface/Fonts/Default.fnt");
                         //wrap(true);
                         height("100%");
@@ -1653,7 +1884,7 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
 
                 }}); // panel added
             }});
-        }}.build(nifty));
+            }}.build(nifty));
 
             ////////////////////////////////////////////////////////
             //Guide</screen>
@@ -1819,7 +2050,7 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
         }});
         }}.build(nifty));
         ////////////////////////////////////////////////////////
-        //Guide</screen>
+        //Win </screen>
         ////////////////////////////////////////////////////////
 
         nifty.addScreen("WinScreen", new ScreenBuilder("WinScreen") {{
@@ -1901,6 +2132,89 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
         }}.build(nifty));
             
 
+        ////////////////////////////////////////////////////////
+        //Level Up</screen>
+        ////////////////////////////////////////////////////////
+
+        nifty.addScreen("LevelUpScreen", new ScreenBuilder("LevelUpScreen") {{
+        controller(new Juggernaut.StartScreen());
+
+        layer(new LayerBuilder("background") {{
+            childLayoutCenter();
+            backgroundColor("#000f");
+            // <!-- ... -->
+            image(new ImageBuilder() {{
+                filename("Interface/levelup.png");
+            }});
+        }});
+
+        layer(new LayerBuilder("foreground") {{
+            childLayoutVertical();
+            backgroundColor("#0000");
+
+             panel(new PanelBuilder("panel_One") {{
+                childLayoutCenter();
+                alignCenter();
+                //backgroundColor("#f008");
+                height("25%");
+                width("100%");
+
+//                text(new TextBuilder() {{
+//                    text("Guide");
+//                    font("Interface/Fonts/Default.fnt");
+//                    wrap(true);
+//                    height("100%");
+//                    width("100%");
+//                 }});
+            }});
+
+            panel(new PanelBuilder("panel_Two") {{
+                childLayoutCenter();
+                alignCenter();
+                //backgroundColor("#0f08");
+                height("50%");
+                width("100%");
+
+               text(new TextBuilder() 
+                {{
+
+                    alignCenter();
+                    valignCenter();
+                    
+                    text("Congratulations You Achieved a New Level! \n"+
+                         "Visit the Skills Popup to Allocate Attribute Points/Skill Points \n");
+                    font("Interface/Fonts/Default.fnt");
+                    //wrap(true);
+                    height("100%");
+                    width("100%");
+                }});
+
+
+            }});
+
+
+            panel(new PanelBuilder("panel_Three") {{
+                childLayoutCenter();
+                alignCenter();
+                //backgroundColor("#00f8");
+                height("25%");
+                width("100%");
+
+
+                control(new ButtonBuilder("ContinueButton", "Continue") {{
+                  alignCenter();
+                  valignTop();
+                  height("25%");
+                  width("25%");
+                  visibleToMouse(true);
+                  focusable(false);
+                  interactOnClick("goToScreen(hud)");
+                    }});
+
+            }}); // panel added
+        }});
+        }}.build(nifty));
+            
         flyCam.setEnabled(false);
         nifty.gotoScreen("start"); // start the screen
         //nifty.setDebugOptionPanelColors(true);
@@ -2090,7 +2404,7 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
                             height("50%");
                             width("50%");
                             visibleToMouse(true);
-                            
+
                             interactOnClick("BuyHealth()");
                         }});
                    
@@ -2547,13 +2861,14 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
                 {
                     childLayoutCenter();
                     width("100%");
-                    height("25%");
+                    height("37.5%");
                     //backgroundColor("#0f08");
                     alignCenter();
                     valignBottom();
 
                     text(new TextBuilder() 
                     {{
+                        id("AttributePoints");
                         alignCenter();
                         valignBottom();
                         text("Attribute Points: " + (int)Character.attributePoints);
@@ -2642,6 +2957,7 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
                         
                         control(new ButtonBuilder("Increase_Health_Button", "+") 
                         {{
+                            id("Upgrade_Health_Button");
                             alignCenter();
                             valignCenter();
                             
@@ -2649,7 +2965,7 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
                             width("");
                             visibleToMouse(true);
 
-                            //interactOnClick("CloseStoreTabPopup()");
+                            interactOnClick("UpgradeHealth()");
                         }});
                         
                     }
@@ -2702,7 +3018,7 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
                             id("CurrentDamageModifier");
                             alignCenter();
                             valignCenter();
-                            text("Damage: " +  "x" + Character.damageModifier);
+                            text("Damage: x" + (float)Character.damageModifier);
                             font("Interface/Fonts/Default.fnt");
                             //wrap(true);
                             height("100%");
@@ -2746,6 +3062,7 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
                         
                         control(new ButtonBuilder("Increase_Damage_Button", "+") 
                         {{
+                            id("Upgrade_Damage_Button");
                             alignCenter();
                             valignCenter();
                             
@@ -2753,7 +3070,7 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
                             width("");
                             visibleToMouse(true);
 
-                            //interactOnClick("CloseStoreTabPopup()");
+                            interactOnClick("UpgradeDamage()");
                         }});
                         
                     }
@@ -2773,220 +3090,220 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
 
                 }
                 });
-                panel(new PanelBuilder("FireRate_Attributes_Panel") {
-                {
-                    childLayoutHorizontal();
-                    width("100%");
-                    height("12.5%");
-                    //backgroundColor("#f005");
-                    alignCenter();
-                    valignCenter();
-                    
-                    panel(new PanelBuilder("FireRate_Left_Spacer_Panel") {
-                    {
-                        childLayoutCenter();
-                        width("25%");
-                        height("100%");
-                        //backgroundColor("#0f05");
-                        alignCenter();
-                        valignTop();
-                    }
-                    });
-                    panel(new PanelBuilder("Current_FireRate_Panel") {
-                    {
-                        childLayoutCenter();
-                        width("12.5%");
-                        height("100%");
-                        //backgroundColor("#0f05");
-                        alignCenter();
-                        valignCenter();
-                        
-                        text(new TextBuilder() 
-                        {{
-                            id("CurrentFireRateModifier");
-                            alignCenter();
-                            valignCenter();
-                            text("Fire Rate: "+ (int)Juggernaut.WeaponSlot2().fireRate);
-                            font("Interface/Fonts/Default.fnt");
-                            //wrap(true);
-                            height("100%");
-                            width("100%");
-                        }});
-                        
-                    }
-                    });
-                    panel(new PanelBuilder("FireRate_Attribute_Panel") {
-                    {
-                        childLayoutCenter();
-                        width("25%");
-                        height("100%");
-                        //backgroundColor("#0f05");
-                        alignCenter();
-                        valignCenter();
-                        
-                        text(new TextBuilder() 
-                        {{
-                            //color(green);
-                            alignCenter();
-                            valignCenter();
-                            text("Fire Rate" );
-                            
-                            font("Interface/Fonts/Default.fnt");
-                            //wrap(true);
-                            height("100%");
-                            width("100%");
-                        }});
-                        
-                    }
-                    });
-                    panel(new PanelBuilder("FireRate_Attribute_Button_Panel") {
-                    {
-                        childLayoutCenter();
-                        width("12.5%");
-                        height("100%");
-                        //backgroundColor("#0f05");
-                        alignCenter();
-                        valignCenter();
-                        
-                        control(new ButtonBuilder("Increase_FireRate_Button", "+") 
-                        {{
-                            alignCenter();
-                            valignCenter();
-                            
-                            height("25%");
-                            width("");
-                            visibleToMouse(true);
-
-                            //interactOnClick("CloseStoreTabPopup()");
-                        }});
-                        
-                    }
-                    });
-                     panel(new PanelBuilder("FireRate_Right_Spacer_Panel") {
-                    {
-                        childLayoutCenter();
-                        width("25%");
-                        height("100%");
-                        //backgroundColor("#0f05");
-                        alignCenter();
-                        valignTop();
-                    }
-                    });
-
-
-
-                }
-                });
-                panel(new PanelBuilder("Speed_Attributes_Panel") {
-                {
-                    childLayoutHorizontal();
-                    width("100%");
-                    height("12.5%");
-                    //backgroundColor("#f005");
-                    alignCenter();
-                    valignCenter();
-                    
-                    panel(new PanelBuilder("Speed_Left_Spacer_Panel") {
-                    {
-                        childLayoutCenter();
-                        width("25%");
-                        height("100%");
-                        //backgroundColor("#0f05");
-                        alignCenter();
-                        valignTop();
-                    }
-                    });
-                    panel(new PanelBuilder("Current_Speed_Panel") {
-                    {
-                        childLayoutCenter();
-                        width("12.5%");
-                        height("100%");
-                        //backgroundColor("#0f05");
-                        alignCenter();
-                        valignCenter();
-                        
-                        text(new TextBuilder() 
-                        {{
-                            id("CurrentSpeedModifier");
-                            alignCenter();
-                            valignCenter();
-                            text("Speed: " + (int)Character.movementSpeed);
-                            font("Interface/Fonts/Default.fnt");
-                            //wrap(true);
-                            height("100%");
-                            width("100%");
-                        }});
-                        
-                    }
-                    });
-                    panel(new PanelBuilder("Speed_Attribute_Panel") {
-                    {
-                        childLayoutCenter();
-                        width("25%");
-                        height("100%");
-                        //backgroundColor("#0f05");
-                        alignCenter();
-                        valignCenter();
-                        
-                        text(new TextBuilder() 
-                        {{
-                            //color(yellow);
-                            alignCenter();
-                            valignCenter();
-                            text("Speed");
-                            
-                            font("Interface/Fonts/Default.fnt");
-                            //wrap(true);
-                            height("100%");
-                            width("100%");
-                        }});
-                        
-                    }
-                    });
-                    panel(new PanelBuilder("Speed_Attribute_Button_Panel") {
-                    {
-                        childLayoutCenter();
-                        width("12.5%");
-                        height("100%");
-                        //backgroundColor("#0f05");
-                        alignCenter();
-                        valignCenter();
-                        
-                        control(new ButtonBuilder("Increase_Speed_Button", "+") 
-                        {{
-                            alignCenter();
-                            valignCenter();
-                            
-                            height("25%");
-                            width("");
-                            visibleToMouse(true);
-
-                            //interactOnClick("CloseStoreTabPopup()");
-                        }});
-                        
-                    }
-                    });
-                     panel(new PanelBuilder("Speed_Right_Spacer_Panel") {
-                    {
-                        childLayoutCenter();
-                        width("25%");
-                        height("100%");
-                        //backgroundColor("#0f05");
-                        alignCenter();
-                        valignTop();
-                    }
-                    });
-
-                    
-
-
-                }
-                });
+//                panel(new PanelBuilder("FireRate_Attributes_Panel") {
+//                {
+//                    childLayoutHorizontal();
+//                    width("100%");
+//                    height("12.5%");
+//                    //backgroundColor("#f005");
+//                    alignCenter();
+//                    valignCenter();
+//                    
+//                    panel(new PanelBuilder("FireRate_Left_Spacer_Panel") {
+//                    {
+//                        childLayoutCenter();
+//                        width("25%");
+//                        height("100%");
+//                        //backgroundColor("#0f05");
+//                        alignCenter();
+//                        valignTop();
+//                    }
+//                    });
+//                    panel(new PanelBuilder("Current_FireRate_Panel") {
+//                    {
+//                        childLayoutCenter();
+//                        width("12.5%");
+//                        height("100%");
+//                        //backgroundColor("#0f05");
+//                        alignCenter();
+//                        valignCenter();
+//                        
+//                        text(new TextBuilder() 
+//                        {{
+//                            id("CurrentFireRateModifier");
+//                            alignCenter();
+//                            valignCenter();
+//                            text("Fire Rate: "+ (int)Juggernaut.WeaponSlot2().fireRate);
+//                            font("Interface/Fonts/Default.fnt");
+//                            //wrap(true);
+//                            height("100%");
+//                            width("100%");
+//                        }});
+//                        
+//                    }
+//                    });
+//                    panel(new PanelBuilder("FireRate_Attribute_Panel") {
+//                    {
+//                        childLayoutCenter();
+//                        width("25%");
+//                        height("100%");
+//                        //backgroundColor("#0f05");
+//                        alignCenter();
+//                        valignCenter();
+//                        
+//                        text(new TextBuilder() 
+//                        {{
+//                            //color(green);
+//                            alignCenter();
+//                            valignCenter();
+//                            text("Fire Rate" );
+//                            
+//                            font("Interface/Fonts/Default.fnt");
+//                            //wrap(true);
+//                            height("100%");
+//                            width("100%");
+//                        }});
+//                        
+//                    }
+//                    });
+//                    panel(new PanelBuilder("FireRate_Attribute_Button_Panel") {
+//                    {
+//                        childLayoutCenter();
+//                        width("12.5%");
+//                        height("100%");
+//                        //backgroundColor("#0f05");
+//                        alignCenter();
+//                        valignCenter();
+//                        
+//                        control(new ButtonBuilder("Increase_FireRate_Button", "+") 
+//                        {{
+//                            alignCenter();
+//                            valignCenter();
+//                            
+//                            height("25%");
+//                            width("");
+//                            visibleToMouse(true);
+//
+//                            //interactOnClick("CloseStoreTabPopup()");
+//                        }});
+//                        
+//                    }
+//                    });
+//                     panel(new PanelBuilder("FireRate_Right_Spacer_Panel") {
+//                    {
+//                        childLayoutCenter();
+//                        width("25%");
+//                        height("100%");
+//                        //backgroundColor("#0f05");
+//                        alignCenter();
+//                        valignTop();
+//                    }
+//                    });
+//
+//
+//
+//                }
+//                });
+//                panel(new PanelBuilder("Speed_Attributes_Panel") {
+//                {
+//                    childLayoutHorizontal();
+//                    width("100%");
+//                    height("12.5%");
+//                    //backgroundColor("#f005");
+//                    alignCenter();
+//                    valignCenter();
+//                    
+//                    panel(new PanelBuilder("Speed_Left_Spacer_Panel") {
+//                    {
+//                        childLayoutCenter();
+//                        width("25%");
+//                        height("100%");
+//                        //backgroundColor("#0f05");
+//                        alignCenter();
+//                        valignTop();
+//                    }
+//                    });
+//                    panel(new PanelBuilder("Current_Speed_Panel") {
+//                    {
+//                        childLayoutCenter();
+//                        width("12.5%");
+//                        height("100%");
+//                        //backgroundColor("#0f05");
+//                        alignCenter();
+//                        valignCenter();
+//                        
+//                        text(new TextBuilder() 
+//                        {{
+//                            id("CurrentSpeedModifier");
+//                            alignCenter();
+//                            valignCenter();
+//                            text("Speed: " + (int)Character.movementSpeed);
+//                            font("Interface/Fonts/Default.fnt");
+//                            //wrap(true);
+//                            height("100%");
+//                            width("100%");
+//                        }});
+//                        
+//                    }
+//                    });
+//                    panel(new PanelBuilder("Speed_Attribute_Panel") {
+//                    {
+//                        childLayoutCenter();
+//                        width("25%");
+//                        height("100%");
+//                        //backgroundColor("#0f05");
+//                        alignCenter();
+//                        valignCenter();
+//                        
+//                        text(new TextBuilder() 
+//                        {{
+//                            //color(yellow);
+//                            alignCenter();
+//                            valignCenter();
+//                            text("Speed");
+//                            
+//                            font("Interface/Fonts/Default.fnt");
+//                            //wrap(true);
+//                            height("100%");
+//                            width("100%");
+//                        }});
+//                        
+//                    }
+//                    });
+//                    panel(new PanelBuilder("Speed_Attribute_Button_Panel") {
+//                    {
+//                        childLayoutCenter();
+//                        width("12.5%");
+//                        height("100%");
+//                        //backgroundColor("#0f05");
+//                        alignCenter();
+//                        valignCenter();
+//                        
+//                        control(new ButtonBuilder("Increase_Speed_Button", "+") 
+//                        {{
+//                            alignCenter();
+//                            valignCenter();
+//                            
+//                            height("25%");
+//                            width("");
+//                            visibleToMouse(true);
+//
+//                            //interactOnClick("CloseStoreTabPopup()");
+//                        }});
+//                        
+//                    }
+//                    });
+//                     panel(new PanelBuilder("Speed_Right_Spacer_Panel") {
+//                    {
+//                        childLayoutCenter();
+//                        width("25%");
+//                        height("100%");
+//                        //backgroundColor("#0f05");
+//                        alignCenter();
+//                        valignTop();
+//                    }
+//                    });
+//
+//                    
+//
+//
+//                }
+//                });
                 panel(new PanelBuilder("Attributes_Panel_Six") {
                 {
                     childLayoutCenter();
                     width("100%");
-                    height("25%");
+                    height("37.5%");
                     //backgroundColor("#f005");
                     alignCenter();
                     valignCenter();
@@ -3037,13 +3354,14 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
                 {
                     childLayoutCenter();
                     width("100%");
-                    height("25%");
+                    height("37.5%");
                     //backgroundColor("#0f08");
                     alignCenter();
                     valignCenter();
 
                     text(new TextBuilder() 
                     {{
+                        id("AbilityPoints");
                         alignCenter();
                         valignCenter();
                         text("Ability Points: " + (int)Character.abiltyPoints);
@@ -3132,6 +3450,7 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
                         
                         control(new ButtonBuilder("Increase_Sprint_Button", "+") 
                         {{
+                            id("Upgrade_Sprint_Button");
                             alignCenter();
                             valignCenter();
                             
@@ -3139,7 +3458,7 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
                             width("");
                             visibleToMouse(true);
 
-                            //interactOnClick("CloseStoreTabPopup()");
+                            interactOnClick("UpgradeSprint()");
                         }});
                         
                     }
@@ -3159,111 +3478,111 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
 
                 }
                 });
-                panel(new PanelBuilder("Dash_Abilities_Panel") {
-                {
-                    childLayoutHorizontal();
-                    width("100%");
-                    height("12.5%");
-                    //backgroundColor("#f008");
-                    alignCenter();
-                    valignTop();
-                    
-                    panel(new PanelBuilder("Dash_Left_Spacer_Panel") {
-                    {
-                        childLayoutCenter();
-                        width("25%");
-                        height("100%");
-                        //backgroundColor("#0f05");
-                        alignCenter();
-                        valignTop();
-                    }
-                    });
-                    panel(new PanelBuilder("Dash_Skill_Level_Panel") {
-                    {
-                        childLayoutCenter();
-                        width("12.5%");
-                        height("100%");
-                        //backgroundColor("#0f05");
-                        alignCenter();
-                        valignCenter();
-                        
-                        text(new TextBuilder() 
-                        {{
-                            id("DashSkillLevel");
-                            alignCenter();
-                            valignCenter();
-                            text("Current Skill Level: " + Character.dashSkillLevel);
-                            font("Interface/Fonts/Default.fnt");
-                            //wrap(true);
-                            height("100%");
-                            width("100%");
-                        }});
-                        
-                    }
-                    });
-                    panel(new PanelBuilder("Dash_Attribute_Panel") {
-                    {
-                        childLayoutCenter();
-                        width("25%");
-                        height("100%");
-                       //backgroundColor("#0f05");
-                        alignCenter();
-                        valignCenter();
-                        
-                        text(new TextBuilder() 
-                        {{
-                            //color(orange);
-                            alignCenter();
-                            valignCenter();
-                            text("Dash");
-                            
-                            font("Interface/Fonts/Default.fnt");
-                            //wrap(true);
-                            height("100%");
-                            width("100%");
-                        }});
-                        
-                    }
-                    });
-                    panel(new PanelBuilder("Dash_Attribute_Button_Panel") {
-                    {
-                        childLayoutCenter();
-                        width("12.5%");
-                        height("100%");
-                        //backgroundColor("#0f05");
-                        alignCenter();
-                        valignCenter();
-                        
-                        control(new ButtonBuilder("Increase_Dash_Button", "+") 
-                        {{
-                            alignCenter();
-                            valignCenter();
-                            
-                            height("25%");
-                            width("");
-                            visibleToMouse(true);
-
-                            //interactOnClick("CloseStoreTabPopup()");
-                        }});
-                        
-                    }
-                    });
-                     panel(new PanelBuilder("Dash_Right_Spacer_Panel") {
-                    {
-                        childLayoutCenter();
-                        width("25%");
-                        height("100%");
-                        //backgroundColor("#0f05");
-                        alignCenter();
-                        valignTop();
-                    }
-                    });
-
-
-
-                }
-                });
-                panel(new PanelBuilder("SuperJump_Abilities_Panel") {
+//                panel(new PanelBuilder("Dash_Abilities_Panel") {
+//                {
+//                    childLayoutHorizontal();
+//                    width("100%");
+//                    height("12.5%");
+//                    //backgroundColor("#f008");
+//                    alignCenter();
+//                    valignTop();
+//                    
+//                    panel(new PanelBuilder("Dash_Left_Spacer_Panel") {
+//                    {
+//                        childLayoutCenter();
+//                        width("25%");
+//                        height("100%");
+//                        //backgroundColor("#0f05");
+//                        alignCenter();
+//                        valignTop();
+//                    }
+//                    });
+//                    panel(new PanelBuilder("Dash_Skill_Level_Panel") {
+//                    {
+//                        childLayoutCenter();
+//                        width("12.5%");
+//                        height("100%");
+//                        //backgroundColor("#0f05");
+//                        alignCenter();
+//                        valignCenter();
+//                        
+//                        text(new TextBuilder() 
+//                        {{
+//                            id("DashSkillLevel");
+//                            alignCenter();
+//                            valignCenter();
+//                            text("Current Skill Level: " + Character.dashSkillLevel);
+//                            font("Interface/Fonts/Default.fnt");
+//                            //wrap(true);
+//                            height("100%");
+//                            width("100%");
+//                        }});
+//                        
+//                    }
+//                    });
+//                    panel(new PanelBuilder("Dash_Attribute_Panel") {
+//                    {
+//                        childLayoutCenter();
+//                        width("25%");
+//                        height("100%");
+//                       //backgroundColor("#0f05");
+//                        alignCenter();
+//                        valignCenter();
+//                        
+//                        text(new TextBuilder() 
+//                        {{
+//                            //color(orange);
+//                            alignCenter();
+//                            valignCenter();
+//                            text("Dash");
+//                            
+//                            font("Interface/Fonts/Default.fnt");
+//                            //wrap(true);
+//                            height("100%");
+//                            width("100%");
+//                        }});
+//                        
+//                    }
+//                    });
+//                    panel(new PanelBuilder("Dash_Attribute_Button_Panel") {
+//                    {
+//                        childLayoutCenter();
+//                        width("12.5%");
+//                        height("100%");
+//                        //backgroundColor("#0f05");
+//                        alignCenter();
+//                        valignCenter();
+//                        
+//                        control(new ButtonBuilder("Increase_Dash_Button", "+") 
+//                        {{
+//                            alignCenter();
+//                            valignCenter();
+//                            
+//                            height("25%");
+//                            width("");
+//                            visibleToMouse(true);
+//
+//                            //interactOnClick("CloseStoreTabPopup()");
+//                        }});
+//                        
+//                    }
+//                    });
+//                     panel(new PanelBuilder("Dash_Right_Spacer_Panel") {
+//                    {
+//                        childLayoutCenter();
+//                        width("25%");
+//                        height("100%");
+//                        //backgroundColor("#0f05");
+//                        alignCenter();
+//                        valignTop();
+//                    }
+//                    });
+//
+//
+//
+//                }
+//                });
+                panel(new PanelBuilder("Armor_Abilities_Panel") {
                 {
                     childLayoutHorizontal();
                     width("100%");
@@ -3272,7 +3591,7 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
                     alignCenter();
                     valignTop();
 
-                    panel(new PanelBuilder("SuperJump_Left_Spacer_Panel") {
+                    panel(new PanelBuilder("Armor_Left_Spacer_Panel") {
                     {
                         childLayoutCenter();
                         width("25%");
@@ -3282,7 +3601,7 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
                         valignTop();
                     }
                     });
-                    panel(new PanelBuilder("SuperJump_Skill_Level_Panel") {
+                    panel(new PanelBuilder("Armor_Skill_Level_Panel") {
                     {
                         childLayoutCenter();
                         width("12.5%");
@@ -3293,10 +3612,10 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
                         
                         text(new TextBuilder() 
                         {{
-                            id("SuperJumpSkillLevel");
+                            id("ArmorSkillLevel");
                             alignCenter();
                             valignCenter();
-                            text("Current Skill Level: " + Character.superJumpSkillLevel);
+                            text("Current Skill Level: " + Character.armorSkillLevel);
                             font("Interface/Fonts/Default.fnt");
                             //wrap(true);
                             height("100%");
@@ -3305,7 +3624,7 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
                         
                     }
                     });
-                    panel(new PanelBuilder("SuperJump_Attribute_Panel") {
+                    panel(new PanelBuilder("Armor_Attribute_Panel") {
                     {
                         childLayoutCenter();
                         width("25%");
@@ -3319,7 +3638,7 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
                             //color(red);
                             alignCenter();
                             valignCenter();
-                            text("Super Jump");
+                            text("Armor");
                             
                             font("Interface/Fonts/Default.fnt");
                             //wrap(true);
@@ -3329,7 +3648,7 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
                         
                     }
                     });
-                    panel(new PanelBuilder("SuperJump_Attribute_Button_Panel") {
+                    panel(new PanelBuilder("Armor_Attribute_Button_Panel") {
                     {
                         childLayoutCenter();
                         width("12.5%");
@@ -3338,8 +3657,9 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
                         alignCenter();
                         valignCenter();
                         
-                        control(new ButtonBuilder("Increase_SuperJump_Button", "+") 
+                        control(new ButtonBuilder("Increase_Armor_Button", "+") 
                         {{
+                            id("Upgrade_Armor_Button");
                             alignCenter();
                             valignCenter();
                             
@@ -3347,12 +3667,12 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
                             width("");
                             visibleToMouse(true);
 
-                            //interactOnClick("CloseStoreTabPopup()");
+                            interactOnClick("UpgradeArmor()");
                         }});
                         
                     }
                     });
-                     panel(new PanelBuilder("SuperJump_Right_Spacer_Panel") {
+                     panel(new PanelBuilder("Armor_Right_Spacer_Panel") {
                     {
                         childLayoutCenter();
                         width("25%");
@@ -3444,6 +3764,7 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
                         
                         control(new ButtonBuilder("Increase_Hover_Button", "+") 
                         {{
+                            id("Upgrade_Hover_Button");
                             alignCenter();
                             valignCenter();
                             
@@ -3451,7 +3772,7 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
                             width("");
                             visibleToMouse(true);
 
-                            //interactOnClick("CloseStoreTabPopup()");
+                            interactOnClick("UpgradeHover()");
                         }});
                         
                     }
@@ -3499,6 +3820,7 @@ public class Main extends SimpleApplication implements PhysicsCollisionListener 
           }
         }.registerPopup(nifty);
     }
+    
     public StartScreen getHud(){
         return start;
     }

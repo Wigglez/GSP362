@@ -88,6 +88,10 @@ public class StartScreen extends AbstractAppState implements ScreenController {
     if(nextScreen.contentEquals("hud")){
         main.setIsRunningState(true);
     }
+    if(nextScreen.contentEquals("LevelUpScreen"))
+    {
+        main.setIsRunningState(false);
+    }
     // start the game and do some more stuff...
    
   }
@@ -103,7 +107,7 @@ public class StartScreen extends AbstractAppState implements ScreenController {
     niftyElement.setWidth((int)healthPercentage*2);
     
     //System.out.print(Juggernaut.healthPercentage() + "\n");
-    System.out.print(this.healthPercentage + "\n");
+    //System.out.print(this.healthPercentage + "\n");
       
   }
   public void TestArmor()
@@ -118,7 +122,7 @@ public class StartScreen extends AbstractAppState implements ScreenController {
     niftyElement.setWidth((int)armorPercentage*2);
     
     //System.out.print(Juggernaut.healthPercentage() + "\n");
-    System.out.print(this.armorPercentage + "\n");
+    //System.out.print(this.armorPercentage + "\n");
       
   }
   public void TestEnergy()
@@ -133,7 +137,7 @@ public class StartScreen extends AbstractAppState implements ScreenController {
     niftyElement.setWidth((int)energyPercentage*2);
     
     //System.out.print(Juggernaut.healthPercentage() + "\n");
-    System.out.print(this.energyPercentage + "\n");
+    //System.out.print(this.energyPercentage + "\n");
       
   }
   @Override
@@ -227,22 +231,21 @@ public class StartScreen extends AbstractAppState implements ScreenController {
       
       // find old image
       Element niftyImageElement = nifty.getCurrentScreen().findElementByName("CurrentWeapon");
-      if(niftyImageElement != null){
-          // swap old with new image
-          niftyImageElement.getRenderer(ImageRenderer.class).setImage(img);
-
-          Element niftyDamageElement = nifty.getCurrentScreen().findElementByName("WeaponDamageText");
-
-          niftyDamageElement.getRenderer(TextRenderer.class).setText("Damage: " + pistol.damage);
-
-          Element niftyFireRateElement = nifty.getCurrentScreen().findElementByName("WeaponFireRateText");
-
-          niftyFireRateElement.getRenderer(TextRenderer.class).setText("Fire Rate: " + pistol.fireRate);
-
-          Element niftyAmmoElement = nifty.getCurrentScreen().findElementByName("Ammo");
-
-          niftyAmmoElement.getRenderer(TextRenderer.class).setText("Ammo: " + pistol.currentAmmo);
-      }
+      // swap old with new image
+      niftyImageElement.getRenderer(ImageRenderer.class).setImage(img);
+      
+      Element niftyDamageElement = nifty.getCurrentScreen().findElementByName("WeaponDamageText");
+      
+      niftyDamageElement.getRenderer(TextRenderer.class).setText("Damage: " + (float)(Character.weaponSlot1.damage * Character.damageModifier));
+      
+      Element niftyFireRateElement = nifty.getCurrentScreen().findElementByName("WeaponFireRateText");
+      
+      niftyFireRateElement.getRenderer(TextRenderer.class).setText("Fire Rate: " + (float)pistol.fireRate);
+      
+      Element niftyAmmoElement = nifty.getCurrentScreen().findElementByName("Ammo");
+      
+      niftyAmmoElement.getRenderer(TextRenderer.class).setText("Ammo: " + pistol.currentAmmo);
+      
       //System.out.print(screen.getScreenId().toString() + " Scren id \n");
   }
   public void weapon2Clicked()
@@ -251,23 +254,22 @@ public class StartScreen extends AbstractAppState implements ScreenController {
       
       // find old image
       Element niftyElement = nifty.getCurrentScreen().findElementByName("CurrentWeapon");
-      if(niftyElement != null){
-          // swap old with new image
-          niftyElement.getRenderer(ImageRenderer.class).setImage(img);
-
-          Element niftyDamageElement = nifty.getCurrentScreen().findElementByName("WeaponDamageText");
-
-          niftyDamageElement.getRenderer(TextRenderer.class).setText("Damage: " + minigun.damage);
-
-          Element niftyFireRateElement = nifty.getCurrentScreen().findElementByName("WeaponFireRateText");
-
-          niftyFireRateElement.getRenderer(TextRenderer.class).setText("Fire Rate: " + minigun.fireRate);
-
-          Element niftyAmmoElement = nifty.getCurrentScreen().findElementByName("Ammo");
-
-          niftyAmmoElement.getRenderer(TextRenderer.class).setText("Ammo: " + minigun.currentAmmo);
-          //System.out.print(screen.getScreenId().toString() + " Scren id \n");
-      }
+      // swap old with new image
+      niftyElement.getRenderer(ImageRenderer.class).setImage(img);
+      
+      Element niftyDamageElement = nifty.getCurrentScreen().findElementByName("WeaponDamageText");
+      
+      niftyDamageElement.getRenderer(TextRenderer.class).setText("Damage: " + (float)(Character.weaponSlot2.damage * Character.damageModifier));
+      
+      Element niftyFireRateElement = nifty.getCurrentScreen().findElementByName("WeaponFireRateText");
+      
+      niftyFireRateElement.getRenderer(TextRenderer.class).setText("Fire Rate: " + minigun.fireRate);
+      
+      Element niftyAmmoElement = nifty.getCurrentScreen().findElementByName("Ammo");
+      
+      niftyAmmoElement.getRenderer(TextRenderer.class).setText("Ammo: " + minigun.currentAmmo);
+      //System.out.print(screen.getScreenId().toString() + " Scren id \n");
+      
   }
   public void weapon3Clicked()
   {
@@ -275,25 +277,24 @@ public class StartScreen extends AbstractAppState implements ScreenController {
       
       // find old image
       Element niftyElement = nifty.getCurrentScreen().findElementByName("CurrentWeapon");
-      if(niftyElement != null){
-          // swap old with new image
-          niftyElement.getRenderer(ImageRenderer.class).setImage(img);
-
-          Element niftyDamageElement = nifty.getCurrentScreen().findElementByName("WeaponDamageText");
-
-          niftyDamageElement.getRenderer(TextRenderer.class).setText("Damage: " + laserRifle.damage);
-
-          Element niftyFireRateElement = nifty.getCurrentScreen().findElementByName("WeaponFireRateText");
-
-          niftyFireRateElement.getRenderer(TextRenderer.class).setText("Fire Rate: " + laserRifle.fireRate);
-
-          Element niftyAmmoElement = nifty.getCurrentScreen().findElementByName("Ammo");
-
-          niftyAmmoElement.getRenderer(TextRenderer.class).setText("Ammo: " + laserRifle.currentAmmo);
-      }
+      // swap old with new image
+      niftyElement.getRenderer(ImageRenderer.class).setImage(img);
+      
+      Element niftyDamageElement = nifty.getCurrentScreen().findElementByName("WeaponDamageText");
+     
+      niftyDamageElement.getRenderer(TextRenderer.class).setText("Damage: " + (float)(Character.weaponSlot3.damage * Character.damageModifier));
+      
+      Element niftyFireRateElement = nifty.getCurrentScreen().findElementByName("WeaponFireRateText");
+      
+      niftyFireRateElement.getRenderer(TextRenderer.class).setText("Fire Rate: " + laserRifle.fireRate);
+      
+      Element niftyAmmoElement = nifty.getCurrentScreen().findElementByName("Ammo");
+      
+      niftyAmmoElement.getRenderer(TextRenderer.class).setText("Ammo: " + laserRifle.currentAmmo);
       
       //System.out.print(screen.getScreenId().toString() + " Scren id \n");
   }
+  
   ///////////////////////////////////////////////////////////////////////////
   //Create/Show/Close main Store Pop up
   ///////////////////////////////////////////////////////////////////////////
@@ -421,10 +422,13 @@ public class StartScreen extends AbstractAppState implements ScreenController {
   }
   
   
+ //////////////////////////////////////////////////////////////////////////////
+  //Function called by the Buy Health button in the in game store
+  //////////////////////////////////////////////////////////////////////////////
   public void BuyHealth()
   {
       
-      if(Character.currentScore < 10)
+      if(Character.currentScore < 50)
       {
            Element niftyElement = nifty.getCurrentScreen().findElementByName("buyHealthButton");
            niftyElement.disable();
@@ -448,9 +452,12 @@ public class StartScreen extends AbstractAppState implements ScreenController {
       }
       
   }
+  //////////////////////////////////////////////////////////////////////////////
+  //Function called by the Buy Minigun Ammo button in the in game store
+  //////////////////////////////////////////////////////////////////////////////
   public void BuyMiniGunAmmo()
   {
-       if(Character.currentScore < 30)
+       if(Character.currentScore < 50)
       {
            Element niftyElement = nifty.getCurrentScreen().findElementByName("Buy_MiniGun_Ammo_Button");
            niftyElement.disable();
@@ -474,9 +481,12 @@ public class StartScreen extends AbstractAppState implements ScreenController {
       }
       
   }
+  //////////////////////////////////////////////////////////////////////////////
+  //Function called by the Buy Laser Rifle Ammo button in the in game store
+  //////////////////////////////////////////////////////////////////////////////
   public void BuyLaserRifleAmmo()
   {
-      if(Character.currentScore < 50)
+      if(Character.currentScore < 100)
       {
            Element niftyElement = nifty.getCurrentScreen().findElementByName("Buy_LaserGun_Ammo_Button");
            niftyElement.disable();
@@ -496,6 +506,169 @@ public class StartScreen extends AbstractAppState implements ScreenController {
               Element niftyCurrentHealthElement = nifty.getCurrentScreen().findElementByName("LaserGun_Current_Ammo");
 
               niftyCurrentHealthElement.getRenderer(TextRenderer.class).setText((int)Juggernaut.WeaponSlot3().currentAmmo + "");
+          }
+      }
+  }
+  //////////////////////////////////////////////////////////////////////////////
+  //Function called by the '+' button to upgrade the sprint ability
+  //////////////////////////////////////////////////////////////////////////////
+  public void UpgradeSprint()
+  {
+      if(Character.abiltyPoints < 1)
+      {
+           Element niftyElement = nifty.getCurrentScreen().findElementByName("Upgrade_Sprint_Button");
+           niftyElement.disable();
+      }
+      else
+      {
+          if(Character.sprintSkillLevel >= 2)
+          {
+              Element niftyElement = nifty.getCurrentScreen().findElementByName("Upgrade_Sprint_Button");
+              niftyElement.disable();
+
+          }
+          else
+          {
+              Juggernaut.upgradeSprint();
+              
+              Element niftySkillLevelElement = nifty.getCurrentScreen().findElementByName("SprintSkillLevel");
+
+              niftySkillLevelElement.getRenderer(TextRenderer.class).setText("Current Skill Level: " + (int)Character.sprintSkillLevel + "");
+              
+              Element niftyAbilityPointsElement = nifty.getCurrentScreen().findElementByName("AbilityPoints");
+
+              niftyAbilityPointsElement.getRenderer(TextRenderer.class).setText("Ability Points: " +  (int)Character.abiltyPoints);
+          }
+      }
+      
+  }
+  //////////////////////////////////////////////////////////////////////////////
+  //Function called by the '+' button to upgrade the Hover ability
+  //////////////////////////////////////////////////////////////////////////////
+  public void UpgradeHover()
+  {
+      if(Character.abiltyPoints < 1)
+      {
+           Element niftyElement = nifty.getCurrentScreen().findElementByName("Upgrade_Hover_Button");
+           niftyElement.disable();
+      }
+      else
+      {
+          if(Character.hoverSkillLevel >= 2)
+          {
+              Element niftyElement = nifty.getCurrentScreen().findElementByName("Upgrade_Hover_Button");
+              niftyElement.disable();
+
+          }
+          else
+          {
+              Juggernaut.upgradeHover();
+              
+              Element niftySkillLevelElement = nifty.getCurrentScreen().findElementByName("HoverSkillLevel");
+
+              niftySkillLevelElement.getRenderer(TextRenderer.class).setText("Current Skill Level: " + (int)Character.hoverSkillLevel + "");
+              
+              Element niftyAbilityPointsElement = nifty.getCurrentScreen().findElementByName("AbilityPoints");
+
+              niftyAbilityPointsElement.getRenderer(TextRenderer.class).setText("Ability Points: " +  (int)Character.abiltyPoints);
+          }
+      }
+      
+  }
+  //////////////////////////////////////////////////////////////////////////////
+  //Function called by the '+' button to upgrade the Armor ability
+  //////////////////////////////////////////////////////////////////////////////
+  public void UpgradeArmor()
+  {
+      if(Character.abiltyPoints < 1)
+      {
+           Element niftyElement = nifty.getCurrentScreen().findElementByName("Upgrade_Armor_Button");
+           niftyElement.disable();
+      }
+      else
+      {
+          if(Character.armorSkillLevel >= 2)
+          {
+              Element niftyElement = nifty.getCurrentScreen().findElementByName("Upgrade_Armor_Button");
+              niftyElement.disable();
+
+          }
+          else
+          {
+              Juggernaut.upgradeArmor();
+              
+              Element niftySkillLevelElement = nifty.getCurrentScreen().findElementByName("ArmorSkillLevel");
+
+              niftySkillLevelElement.getRenderer(TextRenderer.class).setText("Current Skill Level: " + (int)Character.armorSkillLevel);
+              
+              Element niftyAbilityPointsElement = nifty.getCurrentScreen().findElementByName("AbilityPoints");
+
+              niftyAbilityPointsElement.getRenderer(TextRenderer.class).setText("Ability Points: " +  (int)Character.abiltyPoints);
+          }
+      }
+  }
+  //////////////////////////////////////////////////////////////////////////////
+  //Function called by the '+' button to upgrade base Health in the Attributes 
+  //////////////////////////////////////////////////////////////////////////////
+  public void UpgradeHealth()
+  {
+       if(Character.attributePoints< 1)
+      {
+           Element niftyElement = nifty.getCurrentScreen().findElementByName("Upgrade_Health_Button");
+           niftyElement.disable();
+      }
+      else
+      {
+          if(Character.healthSkillLevel >= 5)
+          {
+              Element niftyElement = nifty.getCurrentScreen().findElementByName("Upgrade_Health_Button");
+              niftyElement.disable();
+
+          }
+          else
+          {
+              Juggernaut.upgradeHealth();
+
+              Element niftySkillLevelElement = nifty.getCurrentScreen().findElementByName("CurrentMaxHealth");
+
+              niftySkillLevelElement.getRenderer(TextRenderer.class).setText("Max Health: " + (int)Character.maxHealth);
+
+              Element niftyAbilityPointsElement = nifty.getCurrentScreen().findElementByName("AttributePoints");
+
+              niftyAbilityPointsElement.getRenderer(TextRenderer.class).setText("Attribute Points: " + (int)Character.attributePoints);
+          }
+      }
+      
+  }
+  //////////////////////////////////////////////////////////////////////////////
+  //Function called by the '+' button to upgrade base Damage in the Attributes 
+  //////////////////////////////////////////////////////////////////////////////
+  public void UpgradeDamage()
+  {
+      if(Character.attributePoints< 1)
+      {
+           Element niftyElement = nifty.getCurrentScreen().findElementByName("Upgrade_Damage_Button");
+           niftyElement.disable();
+      }
+      else
+      {
+          if(Character.damageSkillLevel >= 4)
+          {
+              Element niftyElement = nifty.getCurrentScreen().findElementByName("Upgrade_Damage_Button");
+              niftyElement.disable();
+
+          }
+          else
+          {
+              Juggernaut.upgradeDamageModifier();
+
+              Element niftySkillLevelElement = nifty.getCurrentScreen().findElementByName("CurrentDamageModifier");
+
+              niftySkillLevelElement.getRenderer(TextRenderer.class).setText("Damage: x" + (float)Character.damageModifier);
+
+              Element niftyAbilityPointsElement = nifty.getCurrentScreen().findElementByName("AttributePoints");
+
+              niftyAbilityPointsElement.getRenderer(TextRenderer.class).setText("Attribute Points: " + (int)Character.attributePoints);
           }
       }
   }

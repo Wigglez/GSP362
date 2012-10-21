@@ -17,14 +17,14 @@ public class laserRifle extends Weapon{
     {
         damage = 6;
         fireRate = 1.5f;
-        maxAmmo = 20;
-        currentAmmo = 0;
+        maxAmmo = 10;
+        currentAmmo = 10;
     }
     laserRifle(SimpleApplication gameRef){
         damage = 6;
         fireRate = 1.5f;
-        maxAmmo = 20;
-        currentAmmo = 20;
+        maxAmmo = 10;
+        currentAmmo = 10;
         
         bulletMaterial = new Material(gameRef.getAssetManager(), "Common/MatDefs/Misc/Unshaded.j3md");
         bulletMaterial.setColor("Color", ColorRGBA.Red);

@@ -31,7 +31,7 @@ public class Character  implements ActionListener, PhysicsCollisionListener{
     private static float Pickup = 20;
     private static float currentLevel = 1;
     private static float currentExperience = 0;
-    private static float maxExperience = 100;
+    private static float maxExperience = 30;
     public static float currentScore = 0;
     public static float abiltyPoints =0;
     public static float attributePoints =0; 
@@ -59,6 +59,9 @@ public class Character  implements ActionListener, PhysicsCollisionListener{
     public static int dashSkillLevel = 1;
     public static int superJumpSkillLevel = 1;
     public static int hoverSkillLevel = 1;
+    public static int armorSkillLevel = 1;
+    public static int healthSkillLevel = 1;
+    public static int damageSkillLevel = 1;
     
     
     // Movement
@@ -75,10 +78,10 @@ public class Character  implements ActionListener, PhysicsCollisionListener{
     private static boolean isDead = false;
     
     private Weapon currentWeapon;
-    private static Weapon weaponSlot1;
-    private static Weapon weaponSlot2;
-    private static Weapon weaponSlot3;
-    public static float damageModifier = 1.0f;
+    public static Weapon weaponSlot1;
+    public static Weapon weaponSlot2;
+    public static Weapon weaponSlot3;
+    public static double damageModifier = 1.0f;
     private float fireDelay =0;
     private Vector<Bullet> bullets= new Vector<Bullet>();
     
@@ -251,7 +254,7 @@ public class Character  implements ActionListener, PhysicsCollisionListener{
             Lose();
         }
         
-//        System.out.print(currentHealth +"\n");
+        
         game.getHud().bind(game.getNifty(), game.getHud().screen);
         game.getHud().updateHUD(healthPercentage(), armorPercentage(), energyPercentage(), currentWeapon.getCurrentAmmo(), expPercentage(), getScore() );
     }
@@ -364,7 +367,7 @@ public class Character  implements ActionListener, PhysicsCollisionListener{
     
     public void fireWeapon(){
         if(currentWeapon == weaponSlot1 || currentWeapon.getCurrentAmmo() > 0){
-            bullets.add(currentWeapon.Fire(damageModifier, player.getPhysicsLocation(), player.getViewDirection().normalize().negate(), game, bulletAppState));
+            bullets.add(currentWeapon.Fire((float)damageModifier, player.getPhysicsLocation(), player.getViewDirection().normalize().negate(), game, bulletAppState));
         
             if(currentWeapon == weaponSlot1) {
                 game.pistolSound.play();
@@ -378,12 +381,14 @@ public class Character  implements ActionListener, PhysicsCollisionListener{
     public void upgradeDamageModifier(){
         damageModifier += .1f;
         attributePoints -= 1;
+        damageSkillLevel += 1;
     }
     
     public void upgradeHealth(){
         maxHealth += 25;
         currentHealth = maxHealth;
         attributePoints -= 1;
+        healthSkillLevel += 1;
     }
     
     public void upgradeArmor(){
@@ -392,24 +397,27 @@ public class Character  implements ActionListener, PhysicsCollisionListener{
         armorRechargeRate += 3.0f;
         currentArmor = maxArmor;
         attributePoints -=1;
+        armorSkillLevel += 1;
     }
     
     public void upgradeHover(){
         hoverEnergyCost -= 3.0f;
         abiltyPoints -= 1;
+        hoverSkillLevel += 1;
     }
     
     public void upgradeSprint(){
         sprintSpeed += 0.1f;
         sprintEnergyCost -= 2.0f;
         abiltyPoints -= 1;        
+        sprintSkillLevel += 1;
     }
     
     public void checkXP(){
         if(currentExperience >= maxExperience){
             LevelUp();
             currentExperience = maxExperience - currentExperience;
-            maxExperience = currentLevel * 10;
+            maxExperience = currentLevel * 30;
         }
     }
 
@@ -425,6 +433,7 @@ public class Character  implements ActionListener, PhysicsCollisionListener{
         currentArmor = maxArmor;
         currentEnergy = maxEnergy;
         
+        game.getHud().goToScreen("LevelUpScreen");
     }
     
     private void switchWeapon(int weaponSlot){
@@ -468,7 +477,7 @@ public class Character  implements ActionListener, PhysicsCollisionListener{
     
     
     public float DamageOutput(){
-        return currentWeapon.getDamage() * damageModifier;
+        return currentWeapon.getDamage() * (float)damageModifier;
     }
     public void healthPickup(float pickup){
         currentHealth += pickup;
@@ -487,28 +496,28 @@ public class Character  implements ActionListener, PhysicsCollisionListener{
             currentHealth = maxHealth;
         }
         
-        currentScore  -= 10;
+        currentScore  -= 50;
         
     }
     
     public void buyMiniGunAmmo(){
-        weaponSlot2.setCurrentAmmo(weaponSlot2.getCurrentAmmo() + 100);
+        weaponSlot2.setCurrentAmmo(weaponSlot2.getCurrentAmmo() + 50);
         if(weaponSlot2.currentAmmo > weaponSlot2.maxAmmo)
         {
             weaponSlot2.currentAmmo = weaponSlot2.maxAmmo;
         
         }
-        currentScore -= 30;
+        currentScore -= 50;
     }
     
     public void buyLaserRifleAmmo(){
-        weaponSlot3.setCurrentAmmo(weaponSlot3.getCurrentAmmo() + 10);
+        weaponSlot3.setCurrentAmmo(weaponSlot3.getCurrentAmmo() + 5);
          if(weaponSlot3.currentAmmo > weaponSlot3.maxAmmo)
         {
             weaponSlot3.currentAmmo = weaponSlot3.maxAmmo;
         
         }
-        currentScore -= 50;
+        currentScore -= 100;
     }
     
     public float getPickup(){

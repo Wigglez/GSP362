@@ -18,7 +18,7 @@ public class miniGun extends Weapon{
     {
      damage = 0.5f;
      fireRate = .125f;
-     maxAmmo = 100;
+     maxAmmo = 300;
      currentAmmo = 300;
     }
     miniGun(SimpleApplication gameRef)
